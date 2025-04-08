@@ -1,0 +1,10 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project.jooq,
+            project.jooqMeta,
+            project.jooqCodegen,
+            project.postgresDriver
+}

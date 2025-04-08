@@ -39,3 +39,9 @@ nb-configuration.xml
 /.quarkus/cli/plugins/
 # TLS Certificates
 .certs/
+
+/jooq-generator/run.properties
+/jooq-generator/build/
+
+/main-app/src/main/resources/application.properties
+/main-app/build/

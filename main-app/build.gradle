@@ -1,0 +1,21 @@
+plugins {
+    id("io.quarkus") version "3.21.1"
+}
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation 'io.quarkus:quarkus-flyway'
+    implementation 'org.flywaydb:flyway-database-postgresql'
+    implementation 'io.quarkus:quarkus-smallrye-openapi'
+    implementation 'io.quarkus:quarkus-arc'
+    implementation 'io.quarkus:quarkus-resteasy'
+    implementation 'io.quarkus:quarkus-jdbc-postgresql'
+    testImplementation 'io.quarkus:quarkus-junit5'
+    implementation 'io.quarkus:quarkus-resteasy-jackson'
+    implementation 'org.mindrot:jbcrypt:0.4'
+
+    implementation project.jooq,
+            project.jooqMeta,
+            project.jooqCodegen,
+            project.postgresDriver
+}

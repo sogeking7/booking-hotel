@@ -1,38 +1,46 @@
-plugins {
-    id 'java'
-    id 'io.quarkus'
+ext {
+//    commonsIo = "commons-io:commons-io:2.16.1"
+//    commonsCollections = "org.apache.commons:commons-collections4:4.4"
+//    commonsCodec = "commons-codec:commons-codec:1.17.0"
+//    commonsLang = "org.apache.commons:commons-lang3:3.14.0"
+//    commonsMath = "org.apache.commons:commons-math3:3.6.1"
+    postgresDriver = "org.postgresql:postgresql:42.7.3"
+//
+//    s3client = 'software.amazon.awssdk:s3:2.20.132'
+//    kafkaAvroSerde = 'io.confluent:kafka-streams-avro-serde:7.6.1'
+//    kafkaAvroSerializer = 'io.confluent:kafka-avro-serializer:7.6.1'
+
+    jooq = "org.jooq:jooq:${jooqVersion}"
+    jooqMeta = "org.jooq:jooq-meta:${jooqVersion}"
+    jooqCodegen = "org.jooq:jooq-codegen:${jooqVersion}"
+    db = [postgresDriver]
 }
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
+subprojects {
+    apply plugin: 'java'
 
-dependencies {
-    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
-    implementation 'io.quarkus:quarkus-flyway'
-    implementation 'io.quarkiverse.jooq:quarkus-jooq:2.0.1'
-    implementation 'io.quarkus:quarkus-smallrye-openapi'
-    implementation 'io.quarkus:quarkus-arc'
-    testImplementation 'io.quarkus:quarkus-junit5'
-}
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
 
-group 'org.todo'
-version '1.0.0-SNAPSHOT'
+    group 'org.todo'
+    version '1.0.0-SNAPSHOT'
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
-}
+    java {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
 
-test {
-    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
-}
-compileJava {
-    options.encoding = 'UTF-8'
-    options.compilerArgs << '-parameters'
-}
+    test {
+        systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+    }
+    compileJava {
+        options.encoding = 'UTF-8'
+        options.compilerArgs << '-parameters'
+    }
 
-compileTestJava {
-    options.encoding = 'UTF-8'
+    compileTestJava {
+        options.encoding = 'UTF-8'
+    }
 }
