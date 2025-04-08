@@ -45,3 +45,5 @@ nb-configuration.xml
 
 /main-app/src/main/resources/application.properties
 /main-app/build/
+
+logs/
