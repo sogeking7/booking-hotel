@@ -4,9 +4,9 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.todo.dao.UserDao;
 import org.todo.dto.ErrorResponse;
 import org.todo.dto.UserDto;
-import org.todo.dao.UserDao;
 
 import java.util.List;
 
@@ -19,9 +19,9 @@ public class UserResources {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{email}")
     public Response getAllUsers(@PathParam("email") String email) {
-        UserDto userDto =  userRepository.getUserByEmail(email);
+        UserDto userDto = userRepository.getUserByEmail(email);
         if (null == userDto) {
-            return  Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse("User not found with email: " + email,404)).build();
+            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse("User not found with email: " + email, 404)).build();
         }
         return Response.ok(userDto).build();
     }
@@ -41,7 +41,7 @@ public class UserResources {
 
         UserDto createdUser = userRepository.createUser(userDto, password);
         if (null == createdUser) {
-            return  Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse("Failed to create new user: " + userDto, 500)).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse("Failed to create new user: " + userDto, 500)).build();
         }
         return Response.ok(createdUser).build();
     }

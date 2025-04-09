@@ -21,7 +21,8 @@ public class UserDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public String createdAt;
 
-    public UserDto() {}
+    public UserDto() {
+    }
 
     public UserDto(Long id, String firstName, String lastName, String email, String createdAt, String password) {
         this.id = id;

@@ -2,10 +2,11 @@ package org.todo.config;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Singleton;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
+
 import javax.sql.DataSource;
-import jakarta.inject.Singleton;
 
 @Singleton
 public class JooqProducer {
@@ -16,3 +17,4 @@ public class JooqProducer {
         return DSL.using(dataSource, org.jooq.SQLDialect.POSTGRES);
     }
 }
+

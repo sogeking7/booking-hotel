@@ -31,7 +31,7 @@ public class UserDao {
     }
 
     public UserDto getUserByEmail(String email) {
-        Result <UserRecord> result = dsl.selectFrom(Users.USERS).where(Users.USERS.EMAIL.eq(email)).fetch();
+        Result<UserRecord> result = dsl.selectFrom(Users.USERS).where(Users.USERS.EMAIL.eq(email)).fetch();
 
         if (!result.isEmpty()) {
             UserRecord userRecord = result.getFirst();
@@ -56,7 +56,7 @@ public class UserDao {
                 .values(userDto.firstName, userDto.lastName, userDto.email, hashedPassword)  // Provide hashed password here
                 .returning(Users.USERS.ID)
                 .fetchOne();
-
+        
         if (userRecord != null) {
             return new UserDto(
                     userRecord.getId().longValue(),
