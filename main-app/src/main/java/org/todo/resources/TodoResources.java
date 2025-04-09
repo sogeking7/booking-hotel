@@ -1,4 +1,4 @@
-package org.todo.resoureces;
+package org.todo.resources;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;

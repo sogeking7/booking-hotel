@@ -1,4 +1,4 @@
-package org.todo.util;
+package org.todo.utils;
 
 import org.mindrot.jbcrypt.BCrypt;
 

@@ -7,7 +7,7 @@ import org.jooq.Result;
 import org.todo.dto.UserDto;
 import org.todo.jooq.model.tables.Users;
 import org.todo.jooq.model.tables.records.UserRecord;
-import org.todo.util.PasswordUtil;
+import org.todo.utils.PasswordUtil;
 
 import java.util.List;
 
