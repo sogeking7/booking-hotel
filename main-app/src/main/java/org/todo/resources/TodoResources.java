@@ -16,12 +16,12 @@ import java.util.List;
 public class TodoResources {
 
     @Inject
-    TodoDao todoRespository;
+    TodoDao todoDao;
 
     @GET()
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllTodos() {
-        List<TodoDto> todoDtoList = todoRespository.getTodosDto();
+        List<TodoDto> todoDtoList = todoDao.getTodosDto();
         if (todoDtoList.isEmpty()) {
             return Response.status(Response.Status.NO_CONTENT).entity(new ErrorResponse("No todos found", 204)).build();
         }
@@ -32,7 +32,7 @@ public class TodoResources {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createTodo(TodoDto todoDto) {
-        TodoDto createdTodo = todoRespository.createTodo(todoDto, todoDto.userId);
+        TodoDto createdTodo = todoDao.createTodo(todoDto, todoDto.userId);
         if (null == createdTodo) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse("Failed to create new todo: " + todoDto, 500)).build();
         }

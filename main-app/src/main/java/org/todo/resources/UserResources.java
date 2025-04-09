@@ -15,16 +15,16 @@ import java.util.List;
 @Tag(name = "User", description = "Operations related to User items")
 public class UserResources {
     @Inject
-    UserDao userRepository;
+    UserDao userDao;
 
     @GET()
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
     public Response getUserById(@PathParam("id") int id) {
-        UserDto userDto = userRepository.getUserById(id);
-        if (null == userDto) {
-            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse("User not found with id: " + id, 404)).build();
-        }
+        UserDto userDto = userDao.getUserById(id);
+//        if (null == userDto) {
+//            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse("User not found with id: " + id, 404)).build();
+//        }
         return Response.ok(userDto).build();
     }
 
@@ -34,14 +34,14 @@ public class UserResources {
     public Response createUser(UserDto userDto) {
         String password = userDto.password;
 
-        boolean isUserEmailExists = userRepository.getUserByEmail(userDto.email) != null;
+        boolean isUserEmailExists = userDao.getUserByEmail(userDto.email) != null;
         if (isUserEmailExists) {
             return Response.status(Response.Status.CONFLICT)
                     .entity(new ErrorResponse("User with email " + userDto.email + " already exists.", 409))
                     .build();
         }
 
-        UserDto createdUser = userRepository.createUser(userDto, password);
+        UserDto createdUser = userDao.createUser(userDto, password);
         if (null == createdUser) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorResponse("Failed to create new user: " + userDto, 500)).build();
         }
@@ -51,7 +51,7 @@ public class UserResources {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllUsers() {
-        List<UserDto> userDtoList = userRepository.getUsersDto();
+        List<UserDto> userDtoList = userDao.getUsersDto();
         if (userDtoList.isEmpty()) {
             return Response.status(Response.Status.NO_CONTENT).entity(new ErrorResponse("No users found", 204)).build();
         }
