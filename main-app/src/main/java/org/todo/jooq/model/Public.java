@@ -12,6 +12,7 @@ import org.jooq.Table;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SchemaImpl;
 import org.todo.jooq.model.tables.FlywaySchemaHistory;
+import org.todo.jooq.model.tables.Todos;
 import org.todo.jooq.model.tables.Users;
 
 
@@ -32,6 +33,11 @@ public class Public extends SchemaImpl {
      * The table <code>public.flyway_schema_history</code>.
      */
     public final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
+
+    /**
+     * The table <code>public.todos</code>.
+     */
+    public final Todos TODOS = Todos.TODOS;
 
     /**
      * The table <code>public.users</code>.
@@ -55,6 +61,7 @@ public class Public extends SchemaImpl {
     public final List<Table<?>> getTables() {
         return Arrays.asList(
             FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
+            Todos.TODOS,
             Users.USERS
         );
     }

@@ -2,6 +2,10 @@ plugins {
     id 'application'
 }
 
+application {
+    mainClassName = 'org.todo.jooq.codegen.Main' // Replace with your actual main class
+}
+
 dependencies {
     implementation project.jooq,
             project.jooqMeta,

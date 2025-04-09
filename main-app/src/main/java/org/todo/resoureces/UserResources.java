@@ -4,6 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.todo.dao.UserDao;
 import org.todo.dto.ErrorResponse;
 import org.todo.dto.UserDto;
@@ -11,17 +12,18 @@ import org.todo.dto.UserDto;
 import java.util.List;
 
 @Path("/users")
+@Tag(name = "User", description = "Operations related to User items")
 public class UserResources {
     @Inject
     UserDao userRepository;
 
     @GET()
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{email}")
-    public Response getAllUsers(@PathParam("email") String email) {
-        UserDto userDto = userRepository.getUserByEmail(email);
+    @Path("/{id}")
+    public Response getUserById(@PathParam("id") int id) {
+        UserDto userDto = userRepository.getUserById(id);
         if (null == userDto) {
-            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse("User not found with email: " + email, 404)).build();
+            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorResponse("User not found with id: " + id, 404)).build();
         }
         return Response.ok(userDto).build();
     }

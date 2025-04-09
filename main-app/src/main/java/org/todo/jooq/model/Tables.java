@@ -5,6 +5,7 @@ package org.todo.jooq.model;
 
 
 import org.todo.jooq.model.tables.FlywaySchemaHistory;
+import org.todo.jooq.model.tables.Todos;
 import org.todo.jooq.model.tables.Users;
 
 
@@ -18,6 +19,11 @@ public class Tables {
      * The table <code>public.flyway_schema_history</code>.
      */
     public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
+
+    /**
+     * The table <code>public.todos</code>.
+     */
+    public static final Todos TODOS = Todos.TODOS;
 
     /**
      * The table <code>public.users</code>.

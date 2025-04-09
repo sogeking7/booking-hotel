@@ -30,6 +30,22 @@ public class UserDao {
                 .toList();
     }
 
+    public UserDto getUserById(int id) {
+        Result<UserRecord> result = dsl.selectFrom(Users.USERS).where(Users.USERS.ID.eq(id)).fetch();
+
+        if (!result.isEmpty()) {
+            UserRecord userRecord = result.getFirst();
+            return new UserDto(
+                    userRecord.getId().longValue(),
+                    userRecord.getFirstName(),
+                    userRecord.getLastName(),
+                    userRecord.getEmail(),
+                    userRecord.getCreatedAt().toString()
+            );
+        }
+        return null;
+    }
+
     public UserDto getUserByEmail(String email) {
         Result<UserRecord> result = dsl.selectFrom(Users.USERS).where(Users.USERS.EMAIL.eq(email)).fetch();
 
@@ -54,9 +70,9 @@ public class UserDao {
                         Users.USERS.EMAIL,
                         Users.USERS.PASSWORD_HASH)
                 .values(userDto.firstName, userDto.lastName, userDto.email, hashedPassword)  // Provide hashed password here
-                .returning(Users.USERS.ID)
+                .returning()
                 .fetchOne();
-        
+
         if (userRecord != null) {
             return new UserDto(
                     userRecord.getId().longValue(),
