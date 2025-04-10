@@ -3,6 +3,8 @@ package org.todo.users;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.core.Response;
+import org.todo.exception.BusinessException;
 import org.todo.users.dto.UserDto;
 import org.todo.users.model.UserSaveRequest;
 import org.todo.users.model.UserSaveResponse;
@@ -22,16 +24,22 @@ public class UserService {
         return userDao.getAll();
     }
 
-    public UserDto getUserById(Integer id) {
-        return userDao.getById(id);
+    public UserDto getUserById(Integer id) throws BusinessException {
+        return userDao.getById(id)
+                .orElseThrow(() -> new BusinessException(
+                        Response.Status.NOT_FOUND.getStatusCode(),
+                        "User with id " + id + " not found"
+                ));
     }
 
-    public UserSaveResponse createUser(UserSaveRequest req) {
-
-        Boolean isUserEmailExist = userDao.getByEmail(req.email()).isPresent();
+    public UserSaveResponse createUser(UserSaveRequest req) throws BusinessException {
+        boolean isUserEmailExist = userDao.getByEmail(req.email()).isPresent();
 
         if (isUserEmailExist) {
-            // throw exception
+            throw new BusinessException(
+                    Response.Status.BAD_REQUEST.getStatusCode(),
+                    "User with email " + req.email() + " already exists"
+            );
         }
 
         String hashedPassword = PasswordUtil.hashPassword(req.password());

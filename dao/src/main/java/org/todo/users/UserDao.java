@@ -11,7 +11,7 @@ public interface UserDao {
 
     List<UserDto> getAll();
 
-    UserDto getById(int id);
+    Optional<UserDto> getById(int id);
 
     Optional<UserDto> getByEmail(String email);
 

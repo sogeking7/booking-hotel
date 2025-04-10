@@ -1,33 +1,55 @@
 package org.todo.todos.dto;
 
-public class TodoDto {
-    public Long id;
-    public String title;
-    public String description;
-    public String createdAt;
-    public int userId;
+import org.todo.jooq.model.tables.records.TodoRecord;
 
-    public TodoDto() {
+public record TodoDto(
+        int id,
+        String title,
+        String description,
+        String createdAt,
+        int userId
+) {
 
-    }
-
-    public TodoDto(Long id, String title, String description, String createdAt, int userId) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.createdAt = createdAt;
-        this.userId = userId;
-    }
-
-    public TodoDto(Long id, String title, String description, String createdAt) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.createdAt = createdAt;
+    public TodoDto(int id, String title, String description, String createdAt) {
+        this(id, title, description, createdAt, 0);
     }
 
     public TodoDto(String title, String description) {
-        this.title = title;
-        this.description = description;
+        this(0, title, description, null, 0);
+    }
+
+    public static TodoDto of(TodoRecord record) {
+        return new TodoDto(
+                record.getId(),
+                record.getTitle(),
+                record.getDescription(),
+                record.getCreatedAt().toString(),
+                record.getUserId()
+        );
+    }
+
+    @Override
+    public int id() {
+        return id;
+    }
+
+    @Override
+    public String title() {
+        return title;
+    }
+
+    @Override
+    public String description() {
+        return description;
+    }
+
+    @Override
+    public String createdAt() {
+        return createdAt;
+    }
+
+    @Override
+    public int userId() {
+        return userId;
     }
 }

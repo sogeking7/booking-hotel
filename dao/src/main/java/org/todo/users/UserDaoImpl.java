@@ -18,17 +18,24 @@ public class UserDaoImpl implements UserDao {
     DSLContext dsl;
 
     public List<UserDto> getAll() {
-        return dsl.selectFrom(Users.USERS).fetch().stream().map(UserDto::of).toList();
+        return dsl.selectFrom(Users.USERS)
+                .fetch().stream().map(UserDto::of).toList();
     }
 
-    public UserDto getById(int id) {
-        return dsl.selectFrom(Users.USERS).where(Users.USERS.ID.eq(id)).fetchSingle(UserDto::of);
+    public Optional<UserDto> getById(int id) {
+        return Optional.ofNullable(
+                dsl.selectFrom(Users.USERS)
+                        .where(Users.USERS.ID.eq(id))
+                        .fetchOne(UserDto::of)
+        );
     }
 
     public Optional<UserDto> getByEmail(String email) {
-        return dsl.selectFrom(Users.USERS)
-                .where(Users.USERS.EMAIL.eq(email))
-                .fetchOptional(UserDto::of);
+        return Optional.ofNullable(
+                dsl.selectFrom(Users.USERS)
+                        .where(Users.USERS.EMAIL.eq(email))
+                        .fetchOne(UserDto::of)
+        );
     }
 
     // Consumer, Supplier, Function, BiConsumer, BiFunction

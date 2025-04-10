@@ -6,6 +6,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+import org.todo.exception.BusinessException;
 import org.todo.users.dto.UserDto;
 import org.todo.users.model.UserModel;
 import org.todo.users.model.UserSaveRequest;
@@ -21,13 +22,13 @@ public class UserResource {
 
     @GET
     @Path("/{id}")
-    public UserModel getUserById(@PathParam("id") int id) {
+    public UserModel getUserById(@PathParam("id") int id) throws BusinessException {
         UserDto user = userService.getUserById(id);
         return new UserModel(user.id(), user.firstName(), user.lastName(), user.email());
     }
 
     @POST
-    public UserSaveResponse createUser(UserSaveRequest req) {
+    public UserSaveResponse createUser(UserSaveRequest req) throws BusinessException {
         return userService.createUser(req);
     }
 

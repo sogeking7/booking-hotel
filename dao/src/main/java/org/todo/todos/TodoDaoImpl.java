@@ -3,51 +3,40 @@ package org.todo.todos;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import org.jooq.DSLContext;
-import org.jooq.Result;
 import org.todo.jooq.model.tables.Todos;
 import org.todo.jooq.model.tables.records.TodoRecord;
 import org.todo.todos.dto.TodoDto;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 @Dependent
-public class TodoDaoImpl {
+public class TodoDaoImpl implements TodoDao {
 
     @Inject
     DSLContext dsl;
 
-    public List<TodoDto> getTodosDto() {
-        Result<TodoRecord> result = dsl.selectFrom(Todos.TODOS).fetch();
-
-        return result.stream().map(r -> new TodoDto(
-                r.getId().longValue(),
-                r.getTitle(),
-                r.getDescription(),
-                r.getCreatedAt().toString(),
-                r.getUserId()
-        )).toList();
+    @Override
+    public List<TodoDto> getAll() {
+        return dsl.selectFrom(Todos.TODOS).fetch()
+                .stream().map(TodoDto::of).toList();
     }
 
-    public TodoDto createTodo(TodoDto todoDto, int userId) {
-        TodoRecord todoRecord = dsl.insertInto(Todos.TODOS,
-                        Todos.TODOS.TITLE,
-                        Todos.TODOS.DESCRIPTION,
-                        Todos.TODOS.USER_ID
-                )
-                .values(todoDto.title, todoDto.description, userId)
+    @Override
+    public TodoDto insert(Consumer<TodoRecord> fn) {
+        var record = new TodoRecord();
+        fn.accept(record);
+        return dsl.insertInto(Todos.TODOS)
+                .set(record)
                 .returning()
-                .fetchOne();
+                .fetchSingle(TodoDto::of);
+    }
 
-        if (todoRecord != null) {
-            return new TodoDto(
-                    todoRecord.getId().longValue(),
-                    todoRecord.getTitle(),
-                    todoRecord.getDescription(),
-                    todoRecord.getCreatedAt().toString(),
-                    todoRecord.getUserId()
-            );
-        }
-
-        return null;
+    @Override
+    public Optional<TodoDto> getById(Integer id) {
+        return Optional.ofNullable(
+                dsl.selectFrom(Todos.TODOS).where(Todos.TODOS.ID.eq(id)).fetchOne(TodoDto::of)
+        );
     }
 }

@@ -1,12 +1,16 @@
 package org.todo.dto;
 
-public class ErrorResponse {
+public class ErrorMessage {
     private String message;
-    private int statusCode;
+    private int status;
 
-    public ErrorResponse(String message, int statusCode) {
+    public ErrorMessage() {
+
+    }
+
+    public ErrorMessage(int status, String message) {
         this.message = message;
-        this.statusCode = statusCode;
+        this.status = status;
     }
 
     public String getMessage() {
@@ -18,11 +22,11 @@ public class ErrorResponse {
     }
 
     public int getStatusCode() {
-        return statusCode;
+        return status;
     }
 
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
+    public void setStatusCode(int status) {
+        this.status = status;
     }
 }
 
