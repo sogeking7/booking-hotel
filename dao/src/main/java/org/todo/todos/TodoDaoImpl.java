@@ -1,17 +1,17 @@
-package org.todo.dao;
+package org.todo.todos;
 
+import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
 import org.jooq.DSLContext;
 import org.jooq.Result;
-import org.todo.dto.TodoDto;
 import org.todo.jooq.model.tables.Todos;
 import org.todo.jooq.model.tables.records.TodoRecord;
+import org.todo.todos.dto.TodoDto;
 
 import java.util.List;
 
-@Singleton
-public class TodoDao {
+@Dependent
+public class TodoDaoImpl {
 
     @Inject
     DSLContext dsl;

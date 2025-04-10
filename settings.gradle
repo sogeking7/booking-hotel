@@ -1,4 +1,6 @@
-rootProject.name='quarkus-todo'
+rootProject.name = 'quarkus-todo'
 
 include ':main-app',
-        ':jooq-generator'
+        ':jooq-generator',
+        ':dao'
+

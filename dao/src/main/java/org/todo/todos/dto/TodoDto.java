@@ -1,21 +1,10 @@
-package org.todo.dto;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+package org.todo.todos.dto;
 
 public class TodoDto {
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public Long id;
-
-    @JsonProperty("title")
     public String title;
-
-    @JsonProperty("description")
     public String description;
-
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public String createdAt;
-
-    @JsonProperty(defaultValue = "user_id")
     public int userId;
 
     public TodoDto() {

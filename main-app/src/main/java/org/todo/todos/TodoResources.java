@@ -1,13 +1,12 @@
-package org.todo.resources;
+package org.todo.todos;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
-import org.todo.dao.TodoDao;
 import org.todo.dto.ErrorResponse;
-import org.todo.dto.TodoDto;
+import org.todo.todos.dto.TodoDto;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ import java.util.List;
 public class TodoResources {
 
     @Inject
-    TodoDao todoDao;
+    TodoDaoImpl todoDao;
 
     @GET()
     @Produces(MediaType.APPLICATION_JSON)
