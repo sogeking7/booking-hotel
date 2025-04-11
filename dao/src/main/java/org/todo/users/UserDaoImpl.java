@@ -8,34 +8,35 @@ import org.todo.jooq.model.tables.records.UserRecord;
 import org.todo.users.dto.UserDto;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 @Dependent
 public class UserDaoImpl implements UserDao {
 
+    private final Users u = Users.USERS.as("u");
+
     @Inject
     DSLContext dsl;
 
     public List<UserDto> getAll() {
-        return dsl.selectFrom(Users.USERS)
+        return dsl.selectFrom(u)
                 .fetch().stream().map(UserDto::of).toList();
     }
 
-    public Optional<UserDto> getById(int id) {
-        return Optional.ofNullable(
-                dsl.selectFrom(Users.USERS)
-                        .where(Users.USERS.ID.eq(id))
-                        .fetchOne(UserDto::of)
-        );
+    public UserDto getById(int id) {
+        return dsl.selectFrom(u)
+                .where(u.ID.eq(id))
+                .fetchSingle(UserDto::of);
+
     }
 
-    public Optional<UserDto> getByEmail(String email) {
-        return Optional.ofNullable(
-                dsl.selectFrom(Users.USERS)
-                        .where(Users.USERS.EMAIL.eq(email))
-                        .fetchOne(UserDto::of)
-        );
+    @Override
+    public boolean existsById(int id) {
+        return dsl.fetchExists(u, u.ID.eq(id));
+    }
+
+    public boolean existsByEmail(String email) {
+        return dsl.fetchExists(u, u.EMAIL.eq(email));
     }
 
     // Consumer, Supplier, Function, BiConsumer, BiFunction
@@ -43,7 +44,7 @@ public class UserDaoImpl implements UserDao {
     public UserDto insert(Consumer<UserRecord> fn) {
         var record = new UserRecord();
         fn.accept(record);
-        return dsl.insertInto(Users.USERS)
+        return dsl.insertInto(u)
                 .set(record)
                 .returning()
                 .fetchSingle(UserDto::of);
@@ -53,11 +54,10 @@ public class UserDaoImpl implements UserDao {
     public UserDto updateById(Consumer<UserRecord> fn, Integer id) {
         var record = new UserRecord();
         fn.accept(record);
-        return dsl.update(Users.USERS)
+        return dsl.update(u)
                 .set(record)
-                .where(Users.USERS.ID.eq(id))
+                .where(u.ID.eq(id))
                 .returning()
                 .fetchSingle(UserDto::of);
     }
-
 }

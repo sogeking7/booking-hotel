@@ -8,18 +8,19 @@ import org.todo.jooq.model.tables.records.TodoRecord;
 import org.todo.todos.dto.TodoDto;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 @Dependent
 public class TodoDaoImpl implements TodoDao {
+
+    private final Todos td = Todos.TODOS.as("td");
 
     @Inject
     DSLContext dsl;
 
     @Override
     public List<TodoDto> getAll() {
-        return dsl.selectFrom(Todos.TODOS).fetch()
+        return dsl.selectFrom(td).fetch()
                 .stream().map(TodoDto::of).toList();
     }
 
@@ -27,16 +28,34 @@ public class TodoDaoImpl implements TodoDao {
     public TodoDto insert(Consumer<TodoRecord> fn) {
         var record = new TodoRecord();
         fn.accept(record);
-        return dsl.insertInto(Todos.TODOS)
+        return dsl.insertInto(td)
                 .set(record)
                 .returning()
                 .fetchSingle(TodoDto::of);
     }
 
     @Override
-    public Optional<TodoDto> getById(Integer id) {
-        return Optional.ofNullable(
-                dsl.selectFrom(Todos.TODOS).where(Todos.TODOS.ID.eq(id)).fetchOne(TodoDto::of)
-        );
+    public TodoDto getById(Integer id) {
+        return dsl.selectFrom(td)
+                .where(td.ID.eq(id))
+                .fetchSingle(TodoDto::of);
+    }
+
+    @Override
+    public TodoDto updateById(Consumer<TodoRecord> fn, Integer id) {
+        var record = new TodoRecord();
+        fn.accept(record);
+        return dsl.update(td)
+                .set(record)
+                .where(td.ID.eq(id))
+                .returning()
+                .fetchSingle(TodoDto::of);
+    }
+
+    @Override
+    public Integer delete(Integer id) {
+        return dsl.deleteFrom(td)
+                .where(td.ID.eq(id))
+                .execute();
     }
 }

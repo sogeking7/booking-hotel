@@ -6,11 +6,11 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
-import org.todo.exception.BusinessException;
 import org.todo.todos.dto.TodoDto;
 import org.todo.todos.model.TodoModel;
 import org.todo.todos.model.TodoSaveRequest;
 import org.todo.todos.model.TodoSaveResponse;
+import org.todo.utils.BusinessException;
 
 import java.util.List;
 
@@ -27,13 +27,13 @@ public class TodoResource {
     }
 
     @POST
-    public TodoSaveResponse createTodo(TodoSaveRequest req) throws BusinessException {
-        return todoService.createTodo(req);
+    public TodoSaveResponse saveTodo(TodoSaveRequest req) throws BusinessException {
+        return todoService.saveTodo(req);
     }
 
     @GET()
     @Path("/{id}")
-    public TodoModel getTodoById(@PathParam("id") Integer id) throws BusinessException {
+    public TodoModel getTodoById(@PathParam("id") Integer id) {
         TodoDto todoDto = todoService.getTodoById(id);
         return new TodoModel(
                 todoDto.id(),

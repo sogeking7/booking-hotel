@@ -1,8 +1,11 @@
 package org.todo.todos.model;
 
+import jakarta.validation.constraints.NotNull;
+
 public record TodoSaveRequest(
-        String title,
-        String description,
-        Integer userId
+        Integer id,
+        @NotNull String title,
+        @NotNull String description,
+        @NotNull Integer userId
 ) {
 }
