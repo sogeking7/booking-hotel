@@ -1,0 +1,8 @@
+{
+  "name": "angular-starter",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "9e08c9ce"
+}

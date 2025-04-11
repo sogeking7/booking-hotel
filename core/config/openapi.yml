@@ -1,0 +1,232 @@
+---
+openapi: 3.1.0
+tags:
+- name: Todo
+  description: Operations related to Todo items
+- name: User
+  description: Operations related to User items
+components:
+  schemas:
+    TodoDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        title:
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+        userId:
+          type: integer
+          format: int32
+    TodoModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        title:
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+    TodoSaveRequest:
+      type: object
+      required:
+      - title
+      - description
+      - userId
+      properties:
+        id:
+          type: integer
+          format: int32
+        title:
+          type: string
+        description:
+          type: string
+        userId:
+          type: integer
+          format: int32
+    TodoSaveResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+    UserModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+    UserSaveRequest:
+      type: object
+      required:
+      - firstName
+      - lastName
+      - email
+      - password
+      properties:
+        id:
+          type: integer
+          format: int32
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    UserSaveResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+paths:
+  /api/todos:
+    post:
+      tags:
+      - Todo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TodoSaveRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TodoSaveResponse"
+        "400":
+          description: Bad Request
+      summary: Save Todo
+    get:
+      tags:
+      - Todo
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TodoDto"
+      summary: Get All Todos
+  /api/todos/{id}:
+    get:
+      tags:
+      - Todo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TodoModel"
+      summary: Get Todo By Id
+    delete:
+      tags:
+      - Todo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "204":
+          description: No Content
+      summary: Delete Todo By Id
+  /api/users:
+    post:
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserSaveRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserSaveResponse"
+        "400":
+          description: Bad Request
+      summary: Save User
+    get:
+      tags:
+      - User
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserModel"
+      summary: Get All Users
+  /api/users/{id}:
+    get:
+      tags:
+      - User
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserModel"
+      summary: Get User By Id
+    delete:
+      tags:
+      - User
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "204":
+          description: No Content
+      summary: Delete User By Id
+info:
+  title: main-app API
+  version: 1.0.0-SNAPSHOT
