@@ -1,10 +1,7 @@
 package org.todo.todos;
 
 import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.*;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.todo.todos.dto.TodoDto;
 import org.todo.todos.model.TodoModel;
@@ -21,7 +18,7 @@ public class TodoResource {
     @Inject
     TodoService todoService;
 
-    @GET()
+    @GET
     public List<TodoDto> getAllTodos() {
         return todoService.getAllTodos();
     }
@@ -31,7 +28,7 @@ public class TodoResource {
         return todoService.saveTodo(req);
     }
 
-    @GET()
+    @GET
     @Path("/{id}")
     public TodoModel getTodoById(@PathParam("id") Integer id) {
         TodoDto todoDto = todoService.getTodoById(id);
@@ -41,5 +38,11 @@ public class TodoResource {
                 todoDto.description(),
                 todoDto.createdAt()
         );
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public void deleteTodoById(@PathParam("id") Integer id) {
+        todoService.deleteTodoById(id);
     }
 }

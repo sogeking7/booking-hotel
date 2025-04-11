@@ -19,4 +19,6 @@ public interface UserDao {
     UserDto insert(Consumer<UserRecord> fn);
 
     UserDto updateById(Consumer<UserRecord> fn, Integer id);
+
+    Integer deleteById(Integer id);
 }

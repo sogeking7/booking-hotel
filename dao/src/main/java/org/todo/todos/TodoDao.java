@@ -17,5 +17,5 @@ public interface TodoDao {
 
     TodoDto updateById(Consumer<TodoRecord> fn, @NotNull Integer id);
 
-    Integer delete(Integer id);
+    Integer deleteById(Integer id);
 }

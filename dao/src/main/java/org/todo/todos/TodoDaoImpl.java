@@ -53,7 +53,7 @@ public class TodoDaoImpl implements TodoDao {
     }
 
     @Override
-    public Integer delete(Integer id) {
+    public Integer deleteById(Integer id) {
         return dsl.deleteFrom(td)
                 .where(td.ID.eq(id))
                 .execute();

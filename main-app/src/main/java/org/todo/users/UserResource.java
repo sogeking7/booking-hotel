@@ -2,10 +2,7 @@ package org.todo.users;
 
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.*;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.todo.users.dto.UserDto;
 import org.todo.users.model.UserModel;
@@ -38,4 +35,9 @@ public class UserResource {
         return userService.getAllUsers().stream().map(UserModel::of).toList();
     }
 
+    @DELETE
+    @Path("/{id}")
+    public void deleteUserById(@PathParam("id") Integer id) {
+        userService.deleteUserById(id);
+    }
 }

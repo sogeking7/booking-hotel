@@ -53,4 +53,8 @@ public class TodoService {
     public TodoDto getTodoById(Integer id) {
         return todoDao.getById(id);
     }
+
+    public void deleteTodoById(Integer id) {
+        todoDao.deleteById(id);
+    }
 }

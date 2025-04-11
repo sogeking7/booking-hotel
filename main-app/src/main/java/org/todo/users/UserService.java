@@ -54,4 +54,8 @@ public class UserService {
 
         return new UserSaveResponse(createdUser.id());
     }
+
+    public void deleteUserById(Integer id) {
+        userDao.deleteById(id);
+    }
 }

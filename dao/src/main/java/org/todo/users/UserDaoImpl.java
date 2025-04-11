@@ -60,4 +60,11 @@ public class UserDaoImpl implements UserDao {
                 .returning()
                 .fetchSingle(UserDto::of);
     }
+
+    @Override
+    public Integer deleteById(Integer id) {
+        return dsl.deleteFrom(u)
+                .where(u.ID.eq(id))
+                .execute();
+    }
 }
