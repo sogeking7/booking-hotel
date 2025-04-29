@@ -3,7 +3,7 @@ plugins {
 }
 
 application {
-    mainClassName = 'org.todo.jooq.codegen.Main' // Replace with your actual main class
+    mainClassName = 'org.booking_hotel.jooq.codegen.Main' // Replace with your actual main class
 }
 
 dependencies {
