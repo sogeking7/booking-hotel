@@ -1,4 +1,6 @@
 package org.booking_hotel.users.model;
 
-public record UserSaveResponse(Long id) {
+import jakarta.validation.constraints.NotNull;
+
+public record UserSaveResponse(@NotNull Long id) {
 }

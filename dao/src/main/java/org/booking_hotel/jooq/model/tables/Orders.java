@@ -69,7 +69,7 @@ public class Orders extends TableImpl<OrderRecord> {
     /**
      * The column <code>public.orders.removed_</code>.
      */
-    public final TableField<OrderRecord, Boolean> REMOVED = createField(DSL.name("removed_"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
+    public final TableField<OrderRecord, Boolean> REMOVED = createField(DSL.name("removed_"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>public.orders.from_date_</code>.

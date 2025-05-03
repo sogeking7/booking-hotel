@@ -58,17 +58,17 @@ public class Files extends TableImpl<FileRecord> {
     /**
      * The column <code>public.files.created_at_</code>.
      */
-    public final TableField<FileRecord, OffsetDateTime> CREATED_AT = createField(DSL.name("created_at_"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).defaultValue(DSL.field(DSL.raw("now()"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
+    public final TableField<FileRecord, OffsetDateTime> CREATED_AT = createField(DSL.name("created_at_"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).nullable(false).defaultValue(DSL.field(DSL.raw("now()"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
 
     /**
      * The column <code>public.files.updated_at_</code>.
      */
-    public final TableField<FileRecord, OffsetDateTime> UPDATED_AT = createField(DSL.name("updated_at_"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).defaultValue(DSL.field(DSL.raw("now()"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
+    public final TableField<FileRecord, OffsetDateTime> UPDATED_AT = createField(DSL.name("updated_at_"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).nullable(false).defaultValue(DSL.field(DSL.raw("now()"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
 
     /**
      * The column <code>public.files.removed_</code>.
      */
-    public final TableField<FileRecord, Boolean> REMOVED = createField(DSL.name("removed_"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
+    public final TableField<FileRecord, Boolean> REMOVED = createField(DSL.name("removed_"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>public.files.name_</code>.

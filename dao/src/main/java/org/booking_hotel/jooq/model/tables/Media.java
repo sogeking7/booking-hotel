@@ -58,12 +58,12 @@ public class Media extends TableImpl<MediaRecord> {
     /**
      * The column <code>public.media.created_at_</code>.
      */
-    public final TableField<MediaRecord, OffsetDateTime> CREATED_AT = createField(DSL.name("created_at_"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).defaultValue(DSL.field(DSL.raw("now()"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
+    public final TableField<MediaRecord, OffsetDateTime> CREATED_AT = createField(DSL.name("created_at_"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).nullable(false).defaultValue(DSL.field(DSL.raw("now()"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
 
     /**
      * The column <code>public.media.updated_at_</code>.
      */
-    public final TableField<MediaRecord, OffsetDateTime> UPDATED_AT = createField(DSL.name("updated_at_"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).defaultValue(DSL.field(DSL.raw("now()"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
+    public final TableField<MediaRecord, OffsetDateTime> UPDATED_AT = createField(DSL.name("updated_at_"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).nullable(false).defaultValue(DSL.field(DSL.raw("now()"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
 
     /**
      * The column <code>public.media.removed_</code>.

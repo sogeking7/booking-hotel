@@ -12,7 +12,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import java.util.List;
 
-@Path("/users")
+@Path("/core/users")
 @Tag(name = "User", description = "Operations related to User items")
 public class UserResource {
     @Inject
@@ -22,7 +22,7 @@ public class UserResource {
     @Path("/{id}")
     public UserModel getUserById(@PathParam("id") Long id) {
         UserDto user = userService.getUserById(id);
-        return new UserModel(user.id(), user.firstName(), user.lastName(), user.email());
+        return UserModel.of(user);
     }
 
     @POST

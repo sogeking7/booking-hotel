@@ -68,7 +68,7 @@ public class Hotels extends TableImpl<HotelRecord> {
     /**
      * The column <code>public.hotels.removed_</code>.
      */
-    public final TableField<HotelRecord, Boolean> REMOVED = createField(DSL.name("removed_"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
+    public final TableField<HotelRecord, Boolean> REMOVED = createField(DSL.name("removed_"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>public.hotels.name_</code>.

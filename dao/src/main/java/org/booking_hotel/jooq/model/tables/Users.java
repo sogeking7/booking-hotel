@@ -71,7 +71,7 @@ public class Users extends TableImpl<UserRecord> {
     /**
      * The column <code>public.users.removed_</code>.
      */
-    public final TableField<UserRecord, Boolean> REMOVED = createField(DSL.name("removed_"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
+    public final TableField<UserRecord, Boolean> REMOVED = createField(DSL.name("removed_"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>public.users.first_name_</code>.

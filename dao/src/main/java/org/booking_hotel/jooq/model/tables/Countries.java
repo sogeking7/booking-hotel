@@ -68,7 +68,7 @@ public class Countries extends TableImpl<CountrieRecord> {
     /**
      * The column <code>public.countries.removed_</code>.
      */
-    public final TableField<CountrieRecord, Boolean> REMOVED = createField(DSL.name("removed_"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
+    public final TableField<CountrieRecord, Boolean> REMOVED = createField(DSL.name("removed_"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>public.countries.name_</code>.

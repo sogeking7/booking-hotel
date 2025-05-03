@@ -12,9 +12,9 @@ public interface UserDao {
 
     UserDto getById(Long id);
 
-    boolean existsById(Long id);
+    Boolean existsById(Long id);
 
-    boolean existsByEmail(String email);
+    Boolean existsByEmail(String email);
 
     UserDto insert(Consumer<UserRecord> fn);
 

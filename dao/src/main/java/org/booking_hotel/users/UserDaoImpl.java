@@ -20,22 +20,21 @@ public class UserDaoImpl implements UserDao {
 
     public List<UserDto> getAll() {
         return dsl.selectFrom(u)
-                .fetch().stream().map(UserDto::of).toList();
+                .fetch(UserDto::of);
     }
 
     public UserDto getById(Long id) {
         return dsl.selectFrom(u)
                 .where(u.ID.eq(id))
                 .fetchSingle(UserDto::of);
-
     }
 
     @Override
-    public boolean existsById(Long id) {
+    public Boolean existsById(Long id) {
         return dsl.fetchExists(u, u.ID.eq(id));
     }
 
-    public boolean existsByEmail(String email) {
+    public Boolean existsByEmail(String email) {
         return dsl.fetchExists(u, u.EMAIL.eq(email));
     }
 

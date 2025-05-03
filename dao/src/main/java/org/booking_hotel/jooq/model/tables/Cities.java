@@ -68,7 +68,7 @@ public class Cities extends TableImpl<CitieRecord> {
     /**
      * The column <code>public.cities.removed_</code>.
      */
-    public final TableField<CitieRecord, Boolean> REMOVED = createField(DSL.name("removed_"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
+    public final TableField<CitieRecord, Boolean> REMOVED = createField(DSL.name("removed_"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>public.cities.name_</code>.
