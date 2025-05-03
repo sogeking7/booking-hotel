@@ -38,7 +38,6 @@ public class CountryDaoImpl implements CountryDao {
     public CountryDto insert(Consumer<CountrieRecord> fn) {
         var record = new CountrieRecord();
         fn.accept(record);
-        System.out.println(record);
         return dsl.insertInto(c)
                 .set(record)
                 .returning()
