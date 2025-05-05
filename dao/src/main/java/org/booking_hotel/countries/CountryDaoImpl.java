@@ -19,19 +19,20 @@ public class CountryDaoImpl implements CountryDao {
 
     public List<CountryDto> getAll() {
         return dsl.selectFrom(c)
+                .where(c.REMOVED.isFalse())
                 .fetch().stream().map(CountryDto::of).toList();
     }
 
     public CountryDto getById(Long id) {
         return dsl.selectFrom(c)
-                .where(c.ID.eq(id))
+                .where(c.REMOVED.isFalse(), c.ID.eq(id))
                 .fetchSingle(CountryDto::of);
 
     }
 
     @Override
     public Boolean existsById(Long id) {
-        return dsl.fetchExists(c, c.ID.eq(id));
+        return dsl.fetchExists(c, c.ID.eq(id), c.REMOVED.isFalse());
     }
 
     @Override
@@ -50,15 +51,16 @@ public class CountryDaoImpl implements CountryDao {
         fn.accept(record);
         return dsl.update(c)
                 .set(record)
-                .where(c.ID.eq(id))
+                .where(c.REMOVED.isFalse(), c.ID.eq(id))
                 .returning()
                 .fetchSingle(CountryDto::of);
     }
 
     @Override
     public Integer deleteById(Long id) {
-        return dsl.deleteFrom(c)
-                .where(c.ID.eq(id))
+        return dsl.update(c)
+                .set(c.REMOVED, true)
+                .where(c.REMOVED.isFalse(), c.ID.eq(id))
                 .execute();
     }
 }

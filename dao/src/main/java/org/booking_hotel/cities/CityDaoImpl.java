@@ -20,12 +20,13 @@ public class CityDaoImpl implements CityDao {
 
     public List<CityDto> getAll() {
         return dsl.selectFrom(c)
+                .where(c.REMOVED.isFalse())
                 .fetch().stream().map(CityDto::of).toList();
     }
 
     public CityDto getById(Long id) {
         return dsl.selectFrom(c)
-                .where(c.ID.eq(id))
+                .where(c.REMOVED.isFalse(), c.ID.eq(id))
                 .fetchSingle(CityDto::of);
 
     }
@@ -46,15 +47,16 @@ public class CityDaoImpl implements CityDao {
         fn.accept(record);
         return dsl.update(c)
                 .set(record)
-                .where(c.ID.eq(id))
+                .where(c.REMOVED.isFalse(), c.ID.eq(id))
                 .returning()
                 .fetchSingle(CityDto::of);
     }
 
     @Override
     public Integer deleteById(Long id) {
-        return dsl.deleteFrom(c)
-                .where(c.ID.eq(id))
+        return dsl.update(c)
+                .set(c.REMOVED, true)
+                .where(c.REMOVED.isFalse(), c.ID.eq(id))
                 .execute();
     }
 }

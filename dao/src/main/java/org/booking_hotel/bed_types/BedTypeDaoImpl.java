@@ -20,12 +20,13 @@ public class BedTypeDaoImpl implements BedTypeDao {
 
     public List<BedTypeDto> getAll() {
         return dsl.selectFrom(bt)
+                .where(bt.REMOVED.isFalse())
                 .fetch().stream().map(BedTypeDto::of).toList();
     }
 
     public BedTypeDto getById(Long id) {
         return dsl.selectFrom(bt)
-                .where(bt.ID.eq(id))
+                .where(bt.REMOVED.isFalse(), bt.ID.eq(id))
                 .fetchSingle(BedTypeDto::of);
     }
 
@@ -45,15 +46,16 @@ public class BedTypeDaoImpl implements BedTypeDao {
         fn.accept(record);
         return dsl.update(bt)
                 .set(record)
-                .where(bt.ID.eq(id))
+                .where(bt.REMOVED.isFalse(), bt.ID.eq(id))
                 .returning()
                 .fetchSingle(BedTypeDto::of);
     }
 
     @Override
     public Integer deleteById(Long id) {
-        return dsl.deleteFrom(bt)
-                .where(bt.ID.eq(id))
+        return dsl.update(bt)
+                .set(bt.REMOVED, true)
+                .where(bt.REMOVED.isFalse(), bt.ID.eq(id))
                 .execute();
     }
 }

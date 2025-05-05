@@ -20,22 +20,23 @@ public class UserDaoImpl implements UserDao {
 
     public List<UserDto> getAll() {
         return dsl.selectFrom(u)
+                .where(u.REMOVED.isFalse())
                 .fetch(UserDto::of);
     }
 
     public UserDto getById(Long id) {
         return dsl.selectFrom(u)
-                .where(u.ID.eq(id))
+                .where(u.REMOVED.isFalse(), u.ID.eq(id))
                 .fetchSingle(UserDto::of);
     }
 
     @Override
     public Boolean existsById(Long id) {
-        return dsl.fetchExists(u, u.ID.eq(id));
+        return dsl.fetchExists(u, u.ID.eq(id), u.REMOVED.isFalse());
     }
 
     public Boolean existsByEmail(String email) {
-        return dsl.fetchExists(u, u.EMAIL.eq(email));
+        return dsl.fetchExists(u, u.EMAIL.eq(email), u.REMOVED.isFalse());
     }
 
     // Consumer, Supplier, Function, BiConsumer, BiFunction
@@ -55,15 +56,16 @@ public class UserDaoImpl implements UserDao {
         fn.accept(record);
         return dsl.update(u)
                 .set(record)
-                .where(u.ID.eq(id))
+                .where(u.REMOVED.isFalse(), u.ID.eq(id))
                 .returning()
                 .fetchSingle(UserDto::of);
     }
 
     @Override
     public Integer deleteById(Long id) {
-        return dsl.deleteFrom(u)
-                .where(u.ID.eq(id))
+        return dsl.update(u)
+                .set(u.REMOVED, true)
+                .where(u.REMOVED.isFalse(), u.ID.eq(id))
                 .execute();
     }
 }
