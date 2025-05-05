@@ -4,13 +4,17 @@
 package org.booking_hotel.jooq.model;
 
 
+import org.booking_hotel.jooq.model.tables.BedTypes;
 import org.booking_hotel.jooq.model.tables.Cities;
 import org.booking_hotel.jooq.model.tables.Countries;
+import org.booking_hotel.jooq.model.tables.Facilities;
 import org.booking_hotel.jooq.model.tables.Files;
 import org.booking_hotel.jooq.model.tables.FlywaySchemaHistory;
 import org.booking_hotel.jooq.model.tables.Hotels;
 import org.booking_hotel.jooq.model.tables.Media;
 import org.booking_hotel.jooq.model.tables.Orders;
+import org.booking_hotel.jooq.model.tables.RoomTypeFacilities;
+import org.booking_hotel.jooq.model.tables.RoomTypes;
 import org.booking_hotel.jooq.model.tables.Users;
 
 
@@ -21,6 +25,11 @@ import org.booking_hotel.jooq.model.tables.Users;
 public class Tables {
 
     /**
+     * The table <code>public.bed_types</code>.
+     */
+    public static final BedTypes BED_TYPES = BedTypes.BED_TYPES;
+
+    /**
      * The table <code>public.cities</code>.
      */
     public static final Cities CITIES = Cities.CITIES;
@@ -29,6 +38,11 @@ public class Tables {
      * The table <code>public.countries</code>.
      */
     public static final Countries COUNTRIES = Countries.COUNTRIES;
+
+    /**
+     * The table <code>public.facilities</code>.
+     */
+    public static final Facilities FACILITIES = Facilities.FACILITIES;
 
     /**
      * The table <code>public.files</code>.
@@ -54,6 +68,16 @@ public class Tables {
      * The table <code>public.orders</code>.
      */
     public static final Orders ORDERS = Orders.ORDERS;
+
+    /**
+     * The table <code>public.room_type_facilities</code>.
+     */
+    public static final RoomTypeFacilities ROOM_TYPE_FACILITIES = RoomTypeFacilities.ROOM_TYPE_FACILITIES;
+
+    /**
+     * The table <code>public.room_types</code>.
+     */
+    public static final RoomTypes ROOM_TYPES = RoomTypes.ROOM_TYPES;
 
     /**
      * The table <code>public.users</code>.

@@ -4,7 +4,7 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import org.booking_hotel.cities.dto.CityDto;
 import org.booking_hotel.jooq.model.tables.Cities;
-import org.booking_hotel.jooq.model.tables.records.CitieRecord;
+import org.booking_hotel.jooq.model.tables.records.CityRecord;
 import org.jooq.DSLContext;
 
 import java.util.List;
@@ -31,8 +31,8 @@ public class CityDaoImpl implements CityDao {
     }
 
     @Override
-    public CityDto insert(Consumer<CitieRecord> fn) {
-        var record = new CitieRecord();
+    public CityDto insert(Consumer<CityRecord> fn) {
+        var record = new CityRecord();
         fn.accept(record);
         return dsl.insertInto(c)
                 .set(record)
@@ -41,8 +41,8 @@ public class CityDaoImpl implements CityDao {
     }
 
     @Override
-    public CityDto updateById(Consumer<CitieRecord> fn, Long id) {
-        var record = new CitieRecord();
+    public CityDto updateById(Consumer<CityRecord> fn, Long id) {
+        var record = new CityRecord();
         fn.accept(record);
         return dsl.update(c)
                 .set(record)

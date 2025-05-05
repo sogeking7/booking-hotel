@@ -17,7 +17,10 @@ public class CustomGeneratorStrategy extends DefaultGeneratorStrategy {
 //		singularMapping.put("bm_dictionary_entries", "BmDictionaryEntry");
 //		singularMapping.put("bm_dictionaries", "BmDictionary");
 //
-//		singularMapping.put("bm_cities", "BmCity");
+        singularMapping.put("cities", "City");
+        singularMapping.put("countries", "Country");
+        singularMapping.put("facilities", "Facility");
+        singularMapping.put("room_type_facilities", "RoomTypeFacility");
 //		singularMapping.put("bm_countries", "BmCountry");
 //
 //		singularMapping.put("cf_workflow_categories", "CfWorkflowCategory");

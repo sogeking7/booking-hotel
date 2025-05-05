@@ -8,7 +8,7 @@ import org.booking_hotel.cities.dto.CityDto;
 import org.booking_hotel.cities.model.CitySaveRequest;
 import org.booking_hotel.cities.model.CitySaveResponse;
 import org.booking_hotel.countries.CountryDao;
-import org.booking_hotel.jooq.model.tables.records.CitieRecord;
+import org.booking_hotel.jooq.model.tables.records.CityRecord;
 import org.booking_hotel.utils.BusinessException;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public class CityService {
             );
         }
 
-        Consumer<CitieRecord> fn = record -> {
+        Consumer<CityRecord> fn = record -> {
             record.setName(req.name());
             record.setCountryId(req.countryId());
         };

@@ -1,7 +1,7 @@
 package org.booking_hotel.countries.dto;
 
 import jakarta.validation.constraints.NotNull;
-import org.booking_hotel.jooq.model.tables.records.CountrieRecord;
+import org.booking_hotel.jooq.model.tables.records.CountryRecord;
 
 import java.time.OffsetDateTime;
 
@@ -16,7 +16,7 @@ public record CountryDto(
         @NotNull String currency
 ) {
 
-    public static CountryDto of(CountrieRecord record) {
+    public static CountryDto of(CountryRecord record) {
         return new CountryDto(
                 record.getId(),
                 record.getCreatedAt(),

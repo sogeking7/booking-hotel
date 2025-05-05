@@ -6,7 +6,7 @@ import jakarta.transaction.Transactional;
 import org.booking_hotel.countries.dto.CountryDto;
 import org.booking_hotel.countries.model.CountrySaveRequest;
 import org.booking_hotel.countries.model.CountrySaveResponse;
-import org.booking_hotel.jooq.model.tables.records.CountrieRecord;
+import org.booking_hotel.jooq.model.tables.records.CountryRecord;
 import org.booking_hotel.utils.BusinessException;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class CountryService {
     }
 
     public CountrySaveResponse saveCountry(CountrySaveRequest req) throws BusinessException {
-        Consumer<CountrieRecord> fn = record -> {
+        Consumer<CountryRecord> fn = record -> {
             record.setCode(req.code());
             record.setCurrency(req.currency());
             record.setName(req.name());

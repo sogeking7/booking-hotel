@@ -4,7 +4,7 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import org.booking_hotel.countries.dto.CountryDto;
 import org.booking_hotel.jooq.model.tables.Countries;
-import org.booking_hotel.jooq.model.tables.records.CountrieRecord;
+import org.booking_hotel.jooq.model.tables.records.CountryRecord;
 import org.jooq.DSLContext;
 
 import java.util.List;
@@ -35,8 +35,8 @@ public class CountryDaoImpl implements CountryDao {
     }
 
     @Override
-    public CountryDto insert(Consumer<CountrieRecord> fn) {
-        var record = new CountrieRecord();
+    public CountryDto insert(Consumer<CountryRecord> fn) {
+        var record = new CountryRecord();
         fn.accept(record);
         return dsl.insertInto(c)
                 .set(record)
@@ -45,8 +45,8 @@ public class CountryDaoImpl implements CountryDao {
     }
 
     @Override
-    public CountryDto updateById(Consumer<CountrieRecord> fn, Long id) {
-        var record = new CountrieRecord();
+    public CountryDto updateById(Consumer<CountryRecord> fn, Long id) {
+        var record = new CountryRecord();
         fn.accept(record);
         return dsl.update(c)
                 .set(record)

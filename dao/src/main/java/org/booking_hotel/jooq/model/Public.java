@@ -7,13 +7,17 @@ package org.booking_hotel.jooq.model;
 import java.util.Arrays;
 import java.util.List;
 
+import org.booking_hotel.jooq.model.tables.BedTypes;
 import org.booking_hotel.jooq.model.tables.Cities;
 import org.booking_hotel.jooq.model.tables.Countries;
+import org.booking_hotel.jooq.model.tables.Facilities;
 import org.booking_hotel.jooq.model.tables.Files;
 import org.booking_hotel.jooq.model.tables.FlywaySchemaHistory;
 import org.booking_hotel.jooq.model.tables.Hotels;
 import org.booking_hotel.jooq.model.tables.Media;
 import org.booking_hotel.jooq.model.tables.Orders;
+import org.booking_hotel.jooq.model.tables.RoomTypeFacilities;
+import org.booking_hotel.jooq.model.tables.RoomTypes;
 import org.booking_hotel.jooq.model.tables.Users;
 import org.jooq.Catalog;
 import org.jooq.Table;
@@ -35,6 +39,11 @@ public class Public extends SchemaImpl {
     public static final Public PUBLIC = new Public();
 
     /**
+     * The table <code>public.bed_types</code>.
+     */
+    public final BedTypes BED_TYPES = BedTypes.BED_TYPES;
+
+    /**
      * The table <code>public.cities</code>.
      */
     public final Cities CITIES = Cities.CITIES;
@@ -43,6 +52,11 @@ public class Public extends SchemaImpl {
      * The table <code>public.countries</code>.
      */
     public final Countries COUNTRIES = Countries.COUNTRIES;
+
+    /**
+     * The table <code>public.facilities</code>.
+     */
+    public final Facilities FACILITIES = Facilities.FACILITIES;
 
     /**
      * The table <code>public.files</code>.
@@ -70,6 +84,16 @@ public class Public extends SchemaImpl {
     public final Orders ORDERS = Orders.ORDERS;
 
     /**
+     * The table <code>public.room_type_facilities</code>.
+     */
+    public final RoomTypeFacilities ROOM_TYPE_FACILITIES = RoomTypeFacilities.ROOM_TYPE_FACILITIES;
+
+    /**
+     * The table <code>public.room_types</code>.
+     */
+    public final RoomTypes ROOM_TYPES = RoomTypes.ROOM_TYPES;
+
+    /**
      * The table <code>public.users</code>.
      */
     public final Users USERS = Users.USERS;
@@ -90,13 +114,17 @@ public class Public extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
+            BedTypes.BED_TYPES,
             Cities.CITIES,
             Countries.COUNTRIES,
+            Facilities.FACILITIES,
             Files.FILES,
             FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
             Hotels.HOTELS,
             Media.MEDIA,
             Orders.ORDERS,
+            RoomTypeFacilities.ROOM_TYPE_FACILITIES,
+            RoomTypes.ROOM_TYPES,
             Users.USERS
         );
     }
