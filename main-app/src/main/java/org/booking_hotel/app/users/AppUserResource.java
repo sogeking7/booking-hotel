@@ -6,7 +6,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import org.booking_hotel.app.users.model.AppUserModel;
 import org.booking_hotel.users.UserService;
-import org.booking_hotel.users.dto.UserDto;
+import org.booking_hotel.daos.users.dto.UserDto;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 @Path("/core/app/users")

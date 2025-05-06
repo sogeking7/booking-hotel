@@ -3,7 +3,7 @@ package org.booking_hotel.countries;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
-import org.booking_hotel.countries.dto.CountryDto;
+import org.booking_hotel.daos.countries.dto.CountryDto;
 import org.booking_hotel.countries.model.CountryModel;
 import org.booking_hotel.countries.model.CountrySaveRequest;
 import org.booking_hotel.countries.model.CountrySaveResponse;

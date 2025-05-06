@@ -3,7 +3,7 @@ package org.booking_hotel.room_types;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
-import org.booking_hotel.room_types.dto.RoomTypeDto;
+import org.booking_hotel.daos.room_types.dto.RoomTypeDto;
 import org.booking_hotel.room_types.model.RoomTypeModel;
 import org.booking_hotel.room_types.model.RoomTypeSaveRequest;
 import org.booking_hotel.room_types.model.RoomTypeSaveResponse;
@@ -37,6 +37,6 @@ public class RoomTypeResource {
     @DELETE
     @Path("/{id}")
     public void deleteRoomTypeById(@PathParam("id") Long id) {
-        roomTypeService.deleteRoomTypeById(id);
+        roomTypeService.roomTypeDao.deleteRoomTypeById(id);
     }
 }

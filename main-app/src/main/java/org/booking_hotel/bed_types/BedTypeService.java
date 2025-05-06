@@ -3,9 +3,10 @@ package org.booking_hotel.bed_types;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import org.booking_hotel.bed_types.dto.BedTypeDto;
 import org.booking_hotel.bed_types.model.BedTypeSaveRequest;
 import org.booking_hotel.bed_types.model.BedTypeSaveResponse;
+import org.booking_hotel.daos.bed_types.BedTypeDao;
+import org.booking_hotel.daos.bed_types.dto.BedTypeDto;
 import org.booking_hotel.jooq.model.tables.records.BedTypeRecord;
 
 import java.util.List;
@@ -37,6 +38,6 @@ public class BedTypeService {
     }
 
     public void deleteBedTypeById(Long id) {
-        bedTypeDao.deleteById(id);
+        bedTypeDao.removeById(id);
     }
 }

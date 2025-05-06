@@ -1,7 +1,7 @@
 package org.booking_hotel.room_type_facilities.model;
 
 import jakarta.validation.constraints.NotNull;
-import org.booking_hotel.room_type_facilities.dto.RoomTypeFacilityDto;
+import org.booking_hotel.daos.room_type_facilities.dto.RoomTypeFacilityDto;
 
 import java.time.OffsetDateTime;
 

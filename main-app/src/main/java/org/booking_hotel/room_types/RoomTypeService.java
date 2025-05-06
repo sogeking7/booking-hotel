@@ -3,8 +3,9 @@ package org.booking_hotel.room_types;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import org.booking_hotel.daos.room_types.RoomTypeDao;
+import org.booking_hotel.daos.room_types.dto.RoomTypeDto;
 import org.booking_hotel.jooq.model.tables.records.RoomTypeRecord;
-import org.booking_hotel.room_types.dto.RoomTypeDto;
 import org.booking_hotel.room_types.model.RoomTypeSaveRequest;
 import org.booking_hotel.room_types.model.RoomTypeSaveResponse;
 
@@ -38,7 +39,4 @@ public class RoomTypeService {
         return new RoomTypeSaveResponse(createdRoomType.id());
     }
 
-    public void deleteRoomTypeById(Long id) {
-        roomTypeDao.deleteById(id);
-    }
 }

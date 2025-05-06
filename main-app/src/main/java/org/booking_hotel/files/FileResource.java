@@ -3,7 +3,7 @@ package org.booking_hotel.files;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
-import org.booking_hotel.files.dto.FileDto;
+import org.booking_hotel.daos.files.dto.FileDto;
 import org.booking_hotel.files.model.FileModel;
 import org.booking_hotel.files.model.FileSaveRequest;
 import org.booking_hotel.files.model.FileSaveResponse;

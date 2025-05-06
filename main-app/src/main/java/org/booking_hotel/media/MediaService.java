@@ -4,11 +4,12 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
-import org.booking_hotel.files.FileDao;
-import org.booking_hotel.media.dto.MediaDto;
+import org.booking_hotel.daos.files.FileDao;
+import org.booking_hotel.daos.media.MediaDao;
+import org.booking_hotel.daos.media.dto.MediaDto;
+import org.booking_hotel.jooq.model.tables.records.MediaRecord;
 import org.booking_hotel.media.model.MediaSaveRequest;
 import org.booking_hotel.media.model.MediaSaveResponse;
-import org.booking_hotel.jooq.model.tables.records.MediaRecord;
 import org.booking_hotel.utils.BusinessException;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.function.Consumer;
 public class MediaService {
     @Inject
     MediaDao mediaDao;
-    
+
     @Inject
     FileDao fileDao;
 
@@ -30,7 +31,7 @@ public class MediaService {
     public MediaDto getMediaById(Long id) {
         return mediaDao.getById(id);
     }
-    
+
     public List<MediaDto> getMediaByRefIdAndRefType(Long refId, String refType) {
         return mediaDao.getByRefIdAndRefType(refId, refType);
     }
@@ -64,6 +65,6 @@ public class MediaService {
     }
 
     public void deleteMediaById(Long id) {
-        mediaDao.deleteById(id);
+        mediaDao.removeById(id);
     }
 }

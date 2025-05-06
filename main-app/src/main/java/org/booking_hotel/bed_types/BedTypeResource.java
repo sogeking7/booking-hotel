@@ -3,7 +3,7 @@ package org.booking_hotel.bed_types;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
-import org.booking_hotel.bed_types.dto.BedTypeDto;
+import org.booking_hotel.daos.bed_types.dto.BedTypeDto;
 import org.booking_hotel.bed_types.model.BedTypeModel;
 import org.booking_hotel.bed_types.model.BedTypeSaveRequest;
 import org.booking_hotel.bed_types.model.BedTypeSaveResponse;

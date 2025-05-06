@@ -3,7 +3,7 @@ package org.booking_hotel.media;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
-import org.booking_hotel.media.dto.MediaDto;
+import org.booking_hotel.daos.media.dto.MediaDto;
 import org.booking_hotel.media.model.MediaModel;
 import org.booking_hotel.media.model.MediaSaveRequest;
 import org.booking_hotel.media.model.MediaSaveResponse;
@@ -34,7 +34,7 @@ public class MediaResource {
     public List<MediaModel> getAllMedia() {
         return mediaService.getAllMedia().stream().map(MediaModel::of).toList();
     }
-    
+
     @GET
     @Path("/ref/{refId}/{refType}")
     public List<MediaModel> getMediaByRefIdAndRefType(

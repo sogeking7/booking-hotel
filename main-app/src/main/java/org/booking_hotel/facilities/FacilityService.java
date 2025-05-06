@@ -3,7 +3,8 @@ package org.booking_hotel.facilities;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import org.booking_hotel.facilities.dto.FacilityDto;
+import org.booking_hotel.daos.facilities.FacilityDao;
+import org.booking_hotel.daos.facilities.dto.FacilityDto;
 import org.booking_hotel.facilities.model.FacilitySaveRequest;
 import org.booking_hotel.facilities.model.FacilitySaveResponse;
 import org.booking_hotel.jooq.model.tables.records.FacilityRecord;
@@ -43,6 +44,6 @@ public class FacilityService {
     }
 
     public void deleteFacilityById(Long id) {
-        facilityDao.deleteById(id);
+        facilityDao.removeById(id);
     }
 }

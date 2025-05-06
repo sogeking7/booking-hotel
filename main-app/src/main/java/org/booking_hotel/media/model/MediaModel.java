@@ -1,7 +1,7 @@
 package org.booking_hotel.media.model;
 
 import jakarta.validation.constraints.NotNull;
-import org.booking_hotel.media.dto.MediaDto;
+import org.booking_hotel.daos.media.dto.MediaDto;
 
 import java.time.OffsetDateTime;
 

@@ -3,7 +3,8 @@ package org.booking_hotel.files;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import org.booking_hotel.files.dto.FileDto;
+import org.booking_hotel.daos.files.FileDao;
+import org.booking_hotel.daos.files.dto.FileDto;
 import org.booking_hotel.files.model.FileSaveRequest;
 import org.booking_hotel.files.model.FileSaveResponse;
 import org.booking_hotel.jooq.model.tables.records.FileRecord;
@@ -45,6 +46,6 @@ public class FileService {
     }
 
     public void deleteFileById(Long id) {
-        fileDao.deleteById(id);
+        fileDao.removeById(id);
     }
 }

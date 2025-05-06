@@ -4,8 +4,9 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
-import org.booking_hotel.cities.CityDao;
-import org.booking_hotel.hotels.dto.HotelDto;
+import org.booking_hotel.daos.cities.CityDao;
+import org.booking_hotel.daos.hotels.HotelDao;
+import org.booking_hotel.daos.hotels.dto.HotelDto;
 import org.booking_hotel.hotels.model.HotelSaveRequest;
 import org.booking_hotel.hotels.model.HotelSaveResponse;
 import org.booking_hotel.jooq.model.tables.records.HotelRecord;
@@ -63,6 +64,6 @@ public class HotelService {
     }
 
     public void deleteHotelById(Long id) {
-        hotelDao.deleteById(id);
+        hotelDao.removeById(id);
     }
 }

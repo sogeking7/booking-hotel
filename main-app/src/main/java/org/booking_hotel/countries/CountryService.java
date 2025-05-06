@@ -3,9 +3,10 @@ package org.booking_hotel.countries;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import org.booking_hotel.countries.dto.CountryDto;
 import org.booking_hotel.countries.model.CountrySaveRequest;
 import org.booking_hotel.countries.model.CountrySaveResponse;
+import org.booking_hotel.daos.countries.CountryDao;
+import org.booking_hotel.daos.countries.dto.CountryDto;
 import org.booking_hotel.jooq.model.tables.records.CountryRecord;
 import org.booking_hotel.utils.BusinessException;
 
@@ -39,6 +40,6 @@ public class CountryService {
     }
 
     public void deleteCountryById(Long id) {
-        countryDao.deleteById(id);
+        countryDao.removeById(id);
     }
 }

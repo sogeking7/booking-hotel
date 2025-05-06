@@ -4,8 +4,9 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
+import org.booking_hotel.daos.users.UserDao;
+import org.booking_hotel.daos.users.dto.UserDto;
 import org.booking_hotel.jooq.model.tables.records.UserRecord;
-import org.booking_hotel.users.dto.UserDto;
 import org.booking_hotel.users.model.UserSaveRequest;
 import org.booking_hotel.users.model.UserSaveResponse;
 import org.booking_hotel.utils.BusinessException;
@@ -51,11 +52,10 @@ public class UserService {
         };
 
         UserDto createdUser = req.id() == null ? userDao.insert(fn) : userDao.updateById(fn, req.id());
-
         return new UserSaveResponse(createdUser.id());
     }
 
     public void deleteUserById(Long id) {
-        userDao.deleteById(id);
+        userDao.removeById(id);
     }
 }

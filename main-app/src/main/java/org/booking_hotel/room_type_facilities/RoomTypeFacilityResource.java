@@ -3,7 +3,7 @@ package org.booking_hotel.room_type_facilities;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
-import org.booking_hotel.room_type_facilities.dto.RoomTypeFacilityDto;
+import org.booking_hotel.daos.room_type_facilities.dto.RoomTypeFacilityDto;
 import org.booking_hotel.room_type_facilities.model.RoomTypeFacilityModel;
 import org.booking_hotel.room_type_facilities.model.RoomTypeFacilitySaveRequest;
 import org.booking_hotel.room_type_facilities.model.RoomTypeFacilitySaveResponse;
@@ -34,14 +34,14 @@ public class RoomTypeFacilityResource {
     public List<RoomTypeFacilityModel> getAllRoomTypeFacilities() {
         return roomTypeFacilityService.getAllRoomTypeFacilities().stream().map(RoomTypeFacilityModel::of).toList();
     }
-    
+
     @GET
     @Path("/room-type/{roomTypeId}")
     public List<RoomTypeFacilityModel> getRoomTypeFacilitiesByRoomTypeId(@PathParam("roomTypeId") Long roomTypeId) {
         return roomTypeFacilityService.getRoomTypeFacilitiesByRoomTypeId(roomTypeId)
                 .stream().map(RoomTypeFacilityModel::of).toList();
     }
-    
+
     @GET
     @Path("/facility/{facilityId}")
     public List<RoomTypeFacilityModel> getRoomTypeFacilitiesByFacilityId(@PathParam("facilityId") Long facilityId) {

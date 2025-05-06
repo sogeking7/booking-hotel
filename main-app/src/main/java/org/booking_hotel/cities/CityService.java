@@ -4,10 +4,11 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
-import org.booking_hotel.cities.dto.CityDto;
 import org.booking_hotel.cities.model.CitySaveRequest;
 import org.booking_hotel.cities.model.CitySaveResponse;
-import org.booking_hotel.countries.CountryDao;
+import org.booking_hotel.daos.cities.CityDao;
+import org.booking_hotel.daos.cities.dto.CityDto;
+import org.booking_hotel.daos.countries.CountryDao;
 import org.booking_hotel.jooq.model.tables.records.CityRecord;
 import org.booking_hotel.utils.BusinessException;
 
@@ -53,6 +54,6 @@ public class CityService {
     }
 
     public void deleteCityById(Long id) {
-        cityDao.deleteById(id);
+        cityDao.removeById(id);
     }
 }

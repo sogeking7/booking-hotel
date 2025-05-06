@@ -1,7 +1,7 @@
 package org.booking_hotel.countries.model;
 
 import jakarta.validation.constraints.NotNull;
-import org.booking_hotel.countries.dto.CountryDto;
+import org.booking_hotel.daos.countries.dto.CountryDto;
 
 import java.time.OffsetDateTime;
 
