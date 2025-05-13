@@ -1,74 +1,703 @@
 ---
 openapi: 3.1.0
 tags:
-- name: Todo
-  description: Operations related to Todo items
+- name: Auth
+- name: BedType
+  description: Operations related to Bed Type items
+- name: City
+  description: Operations related to City items
+- name: Country
+  description: Operations related to Country items
+- name: Facility
+  description: Operations related to Facility items
+- name: File
+  description: Operations related to File items
+- name: Hotel
+  description: Operations related to Hotel items
+- name: Media
+  description: Operations related to Media items
+- name: Order
+  description: Operations related to Order items
+- name: RoomType
+  description: Operations related to Room Type items
+- name: RoomTypeFacility
+  description: Operations related to Room Type Facility items
 - name: User
   description: Operations related to User items
 components:
   schemas:
-    TodoDto:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        title:
-          type: string
-        description:
-          type: string
-        createdAt:
-          type: string
-        userId:
-          type: integer
-          format: int32
-    TodoModel:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        title:
-          type: string
-        description:
-          type: string
-        createdAt:
-          type: string
-    TodoSaveRequest:
+    AppUserModel:
       type: object
       required:
-      - title
-      - description
-      - userId
+      - id
+      - firstName
+      - lastName
+      - email
       properties:
         id:
           type: integer
-          format: int32
-        title:
-          type: string
-        description:
-          type: string
-        userId:
-          type: integer
-          format: int32
-    TodoSaveResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-    UserModel:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
+          format: int64
         firstName:
           type: string
         lastName:
           type: string
         email:
           type: string
+    BedTypeModel:
+      type: object
+      required:
+      - id
+      - name
+      - iconRef
+      - createdAt
+      - updatedAt
+      - removed
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        iconRef:
+          type: string
+        createdAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        updatedAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        removed:
+          type: boolean
+    BedTypeSaveRequest:
+      type: object
+      required:
+      - name
+      - iconRef
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        iconRef:
+          type: string
+    BedTypeSaveResponse:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: integer
+          format: int64
+    CityModel:
+      type: object
+      required:
+      - id
+      - name
+      - createdAt
+      - updatedAt
+      - removed
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        countryId:
+          type: integer
+          format: int64
+        createdAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        updatedAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        removed:
+          type: boolean
+    CitySaveRequest:
+      type: object
+      required:
+      - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        countryId:
+          type: integer
+          format: int64
+    CitySaveResponse:
+      type: object
+      required:
+      - id
+      - countryId
+      properties:
+        id:
+          type: integer
+          format: int64
+        countryId:
+          type: integer
+          format: int64
+    CountryModel:
+      type: object
+      required:
+      - id
+      - name
+      - currency
+      - code
+      - createdAt
+      - updatedAt
+      - removed
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        currency:
+          type: string
+        code:
+          type: string
+        createdAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        updatedAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        removed:
+          type: boolean
+    CountrySaveRequest:
+      type: object
+      required:
+      - name
+      - code
+      - currency
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        code:
+          type: string
+        currency:
+          type: string
+    CountrySaveResponse:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: integer
+          format: int64
+    FacilityModel:
+      type: object
+      required:
+      - id
+      - name
+      - iconRef
+      - createdAt
+      - updatedAt
+      - removed
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        iconRef:
+          type: string
+        type:
+          $ref: "#/components/schemas/FacilityTypes"
+        createdAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        updatedAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        removed:
+          type: boolean
+    FacilitySaveRequest:
+      type: object
+      required:
+      - name
+      - iconRef
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        iconRef:
+          type: string
+        type:
+          $ref: "#/components/schemas/FacilityTypes"
+    FacilitySaveResponse:
+      type: object
+      required:
+      - id
+      - name
+      - iconRef
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        iconRef:
+          type: string
+        type:
+          $ref: "#/components/schemas/FacilityTypes"
+    FacilityTypes:
+      type: string
+      enum:
+      - main
+      - specific
+    FileModel:
+      type: object
+      required:
+      - id
+      - name
+      - urlPath
+      - type
+      - size
+      - createdAt
+      - updatedAt
+      - removed
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        urlPath:
+          type: string
+        type:
+          type: string
+        size:
+          type: integer
+          format: int64
+        createdAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        updatedAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        removed:
+          type: boolean
+    FileSaveRequest:
+      type: object
+      required:
+      - name
+      - urlPath
+      - type
+      - size
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        urlPath:
+          type: string
+        type:
+          type: string
+        size:
+          type: integer
+          format: int64
+    FileSaveResponse:
+      type: object
+      required:
+      - id
+      - name
+      - urlPath
+      - type
+      - size
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        urlPath:
+          type: string
+        type:
+          type: string
+        size:
+          type: integer
+          format: int64
+    HotelModel:
+      type: object
+      required:
+      - id
+      - name
+      - address
+      - phone
+      - createdAt
+      - updatedAt
+      - removed
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+        cityId:
+          type: integer
+          format: int64
+        createdAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        updatedAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        removed:
+          type: boolean
+    HotelSaveRequest:
+      type: object
+      required:
+      - name
+      - address
+      - phone
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+        cityId:
+          type: integer
+          format: int64
+    HotelSaveResponse:
+      type: object
+      required:
+      - id
+      - name
+      - address
+      - phone
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+        cityId:
+          type: integer
+          format: int64
+    JwtModel:
+      type: object
+      required:
+      - accessToken
+      properties:
+        accessToken:
+          type: string
+    LocalDate:
+      type: string
+      format: date
+      examples:
+      - 2022-03-10
+    MediaModel:
+      type: object
+      required:
+      - id
+      - refId
+      - refType
+      - fileId
+      - createdAt
+      - updatedAt
+      - removed
+      properties:
+        id:
+          type: integer
+          format: int64
+        refId:
+          type: integer
+          format: int64
+        refType:
+          type: string
+        fileId:
+          type: integer
+          format: int64
+        createdAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        updatedAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        removed:
+          type: boolean
+    MediaSaveRequest:
+      type: object
+      required:
+      - refId
+      - refType
+      - fileId
+      properties:
+        id:
+          type: integer
+          format: int64
+        refId:
+          type: integer
+          format: int64
+        refType:
+          type: string
+        fileId:
+          type: integer
+          format: int64
+    MediaSaveResponse:
+      type: object
+      required:
+      - id
+      - refId
+      - refType
+      - fileId
+      properties:
+        id:
+          type: integer
+          format: int64
+        refId:
+          type: integer
+          format: int64
+        refType:
+          type: string
+        fileId:
+          type: integer
+          format: int64
+    OffsetDateTime:
+      type: string
+      format: date-time
+      examples:
+      - 2022-03-10T12:15:50-04:00
+    OrderModel:
+      type: object
+      required:
+      - id
+      - fromDate
+      - toData
+      - hotelId
+      - userId
+      - createdAt
+      - updatedAt
+      - removed
+      properties:
+        id:
+          type: integer
+          format: int64
+        fromDate:
+          $ref: "#/components/schemas/LocalDate"
+        toData:
+          $ref: "#/components/schemas/LocalDate"
+        hotelId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        createdAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        updatedAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        removed:
+          type: boolean
+    OrderSaveRequest:
+      type: object
+      required:
+      - fromDate
+      - toData
+      - hotelId
+      - userId
+      properties:
+        id:
+          type: integer
+          format: int64
+        fromDate:
+          $ref: "#/components/schemas/LocalDate"
+        toData:
+          $ref: "#/components/schemas/LocalDate"
+        hotelId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+    OrderSaveResponse:
+      type: object
+      required:
+      - id
+      - fromDate
+      - toData
+      - hotelId
+      - userId
+      properties:
+        id:
+          type: integer
+          format: int64
+        fromDate:
+          $ref: "#/components/schemas/LocalDate"
+        toData:
+          $ref: "#/components/schemas/LocalDate"
+        hotelId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+    RoomTypeFacilityModel:
+      type: object
+      required:
+      - id
+      - roomTypeId
+      - facilityId
+      - createdAt
+      - updatedAt
+      - removed
+      properties:
+        id:
+          type: integer
+          format: int64
+        roomTypeId:
+          type: integer
+          format: int64
+        facilityId:
+          type: integer
+          format: int64
+        createdAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        updatedAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        removed:
+          type: boolean
+    RoomTypeFacilitySaveRequest:
+      type: object
+      required:
+      - roomTypeId
+      - facilityId
+      properties:
+        id:
+          type: integer
+          format: int64
+        roomTypeId:
+          type: integer
+          format: int64
+        facilityId:
+          type: integer
+          format: int64
+    RoomTypeFacilitySaveResponse:
+      type: object
+      required:
+      - id
+      - roomTypeId
+      - facilityId
+      properties:
+        id:
+          type: integer
+          format: int64
+        roomTypeId:
+          type: integer
+          format: int64
+        facilityId:
+          type: integer
+          format: int64
+    RoomTypeModel:
+      type: object
+      required:
+      - id
+      - name
+      - hotelId
+      - bedTypeId
+      - count
+      - createdAt
+      - updatedAt
+      - removed
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        hotelId:
+          type: integer
+          format: int64
+        bedTypeId:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        createdAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        updatedAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        removed:
+          type: boolean
+    RoomTypeSaveRequest:
+      type: object
+      required:
+      - name
+      - hotelId
+      - bedTypeId
+      - count
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        hotelId:
+          type: integer
+          format: int64
+        bedTypeId:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+    RoomTypeSaveResponse:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: integer
+          format: int64
+    SignInRequest:
+      type: object
+      required:
+      - email
+      - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    UserModel:
+      type: object
+      required:
+      - id
+      - firstName
+      - lastName
+      - email
+      - role
+      - createdAt
+      - updatedAt
+      - removed
+      properties:
+        id:
+          type: integer
+          format: int64
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        createdAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        updatedAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        removed:
+          type: boolean
     UserSaveRequest:
       type: object
       required:
@@ -76,34 +705,51 @@ components:
       - lastName
       - email
       - password
+      - role
       properties:
         id:
           type: integer
-          format: int32
+          format: int64
         firstName:
           type: string
+          pattern: \S
         lastName:
           type: string
+          pattern: \S
         email:
           type: string
         password:
           type: string
+          pattern: \S
+          default: qwerty
+        role:
+          type: string
+          pattern: \S
+          default: user
     UserSaveResponse:
       type: object
+      required:
+      - id
       properties:
         id:
           type: integer
-          format: int32
+          format: int64
+  securitySchemes:
+    SecurityScheme:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Authentication
 paths:
-  /api/todos:
+  /api/auth/sign-in:
     post:
       tags:
-      - Todo
+      - Auth
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/TodoSaveRequest"
+              $ref: "#/components/schemas/SignInRequest"
         required: true
       responses:
         "200":
@@ -111,13 +757,66 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TodoSaveResponse"
+                $ref: "#/components/schemas/JwtModel"
         "400":
           description: Bad Request
-      summary: Save Todo
+      summary: Sign In
+  /api/core/app/users/{id}:
     get:
       tags:
-      - Todo
+      - User
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppUserModel"
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      summary: Get User By Id
+      security:
+      - SecurityScheme:
+        - user
+  /api/core/bed-types:
+    post:
+      tags:
+      - BedType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BedTypeSaveRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BedTypeSaveResponse"
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+        "400":
+          description: Bad Request
+      summary: Save Bed Type
+      security:
+      - SecurityScheme:
+        - admin
+    get:
+      tags:
+      - BedType
       responses:
         "200":
           description: OK
@@ -126,42 +825,865 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/TodoDto"
-      summary: Get All Todos
-  /api/todos/{id}:
+                  $ref: "#/components/schemas/BedTypeModel"
+      summary: Get All Bed Types
+  /api/core/bed-types/{id}:
     get:
       tags:
-      - Todo
+      - BedType
       parameters:
       - name: id
         in: path
         required: true
         schema:
           type: integer
-          format: int32
+          format: int64
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TodoModel"
-      summary: Get Todo By Id
+                $ref: "#/components/schemas/BedTypeModel"
+      summary: Get Bed Type By Id
     delete:
       tags:
-      - Todo
+      - BedType
       parameters:
       - name: id
         in: path
         required: true
         schema:
           type: integer
-          format: int32
+          format: int64
       responses:
         "204":
           description: No Content
-      summary: Delete Todo By Id
-  /api/users:
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      summary: Delete Bed Type By Id
+      security:
+      - SecurityScheme:
+        - admin
+  /api/core/cities:
+    post:
+      tags:
+      - City
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CitySaveRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CitySaveResponse"
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+        "400":
+          description: Bad Request
+      summary: Save City
+      security:
+      - SecurityScheme:
+        - admin
+    get:
+      tags:
+      - City
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CityModel"
+      summary: Get All Cities
+  /api/core/cities/{id}:
+    get:
+      tags:
+      - City
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CityModel"
+      summary: Get City By Id
+    delete:
+      tags:
+      - City
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      summary: Delete City By Id
+      security:
+      - SecurityScheme:
+        - admin
+  /api/core/countries:
+    post:
+      tags:
+      - Country
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CountrySaveRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CountrySaveResponse"
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+        "400":
+          description: Bad Request
+      summary: Save Country
+      security:
+      - SecurityScheme:
+        - admin
+    get:
+      tags:
+      - Country
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CountryModel"
+      summary: Get All Countries
+  /api/core/countries/{id}:
+    get:
+      tags:
+      - Country
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CountryModel"
+      summary: Get Country By Id
+    delete:
+      tags:
+      - Country
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      summary: Delete Country By Id
+      security:
+      - SecurityScheme:
+        - admin
+  /api/core/facilities:
+    post:
+      tags:
+      - Facility
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FacilitySaveRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FacilitySaveResponse"
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+        "400":
+          description: Bad Request
+      summary: Save Facility
+      security:
+      - SecurityScheme:
+        - admin
+    get:
+      tags:
+      - Facility
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FacilityModel"
+      summary: Get All Facilities
+  /api/core/facilities/{id}:
+    get:
+      tags:
+      - Facility
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FacilityModel"
+      summary: Get Facility By Id
+    delete:
+      tags:
+      - Facility
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      summary: Delete Facility By Id
+      security:
+      - SecurityScheme:
+        - admin
+  /api/core/files:
+    post:
+      tags:
+      - File
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FileSaveRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FileSaveResponse"
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+        "400":
+          description: Bad Request
+      summary: Save File
+      security:
+      - SecurityScheme:
+        - admin
+    get:
+      tags:
+      - File
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FileModel"
+      summary: Get All Files
+  /api/core/files/{id}:
+    get:
+      tags:
+      - File
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FileModel"
+      summary: Get File By Id
+    delete:
+      tags:
+      - File
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      summary: Delete File By Id
+      security:
+      - SecurityScheme:
+        - admin
+  /api/core/hotels:
+    post:
+      tags:
+      - Hotel
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HotelSaveRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HotelSaveResponse"
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+        "400":
+          description: Bad Request
+      summary: Save Hotel
+      security:
+      - SecurityScheme:
+        - admin
+    get:
+      tags:
+      - Hotel
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HotelModel"
+      summary: Get All Hotels
+  /api/core/hotels/{id}:
+    get:
+      tags:
+      - Hotel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HotelModel"
+      summary: Get Hotel By Id
+    delete:
+      tags:
+      - Hotel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      summary: Delete Hotel By Id
+      security:
+      - SecurityScheme:
+        - admin
+  /api/core/media:
+    post:
+      tags:
+      - Media
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MediaSaveRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MediaSaveResponse"
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+        "400":
+          description: Bad Request
+      summary: Save Media
+      security:
+      - SecurityScheme:
+        - admin
+    get:
+      tags:
+      - Media
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MediaModel"
+      summary: Get All Media
+  /api/core/media/ref/{refId}/{refType}:
+    get:
+      tags:
+      - Media
+      parameters:
+      - name: refId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: refType
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MediaModel"
+      summary: Get Media By Ref Id And Ref Type
+  /api/core/media/{id}:
+    get:
+      tags:
+      - Media
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MediaModel"
+      summary: Get Media By Id
+    delete:
+      tags:
+      - Media
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      summary: Delete Media By Id
+      security:
+      - SecurityScheme:
+        - admin
+  /api/core/orders:
+    post:
+      tags:
+      - Order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderSaveRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderSaveResponse"
+        "400":
+          description: Bad Request
+      summary: Save Order
+    get:
+      tags:
+      - Order
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderModel"
+      summary: Get All Orders
+  /api/core/orders/hotel/{hotelId}:
+    get:
+      tags:
+      - Order
+      parameters:
+      - name: hotelId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderModel"
+      summary: Get Orders By Hotel Id
+  /api/core/orders/user/{userId}:
+    get:
+      tags:
+      - Order
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderModel"
+      summary: Get Orders By User Id
+  /api/core/orders/{id}:
+    get:
+      tags:
+      - Order
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderModel"
+      summary: Get Order By Id
+    delete:
+      tags:
+      - Order
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: No Content
+      summary: Delete Order By Id
+  /api/core/room-type-facilities:
+    post:
+      tags:
+      - RoomTypeFacility
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoomTypeFacilitySaveRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoomTypeFacilitySaveResponse"
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+        "400":
+          description: Bad Request
+      summary: Save Room Type Facility
+      security:
+      - SecurityScheme:
+        - admin
+    get:
+      tags:
+      - RoomTypeFacility
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RoomTypeFacilityModel"
+      summary: Get All Room Type Facilities
+  /api/core/room-type-facilities/facility/{facilityId}:
+    get:
+      tags:
+      - RoomTypeFacility
+      parameters:
+      - name: facilityId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RoomTypeFacilityModel"
+      summary: Get Room Type Facilities By Facility Id
+  /api/core/room-type-facilities/room-type/{roomTypeId}:
+    get:
+      tags:
+      - RoomTypeFacility
+      parameters:
+      - name: roomTypeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RoomTypeFacilityModel"
+      summary: Get Room Type Facilities By Room Type Id
+  /api/core/room-type-facilities/{id}:
+    get:
+      tags:
+      - RoomTypeFacility
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoomTypeFacilityModel"
+      summary: Get Room Type Facility By Id
+    delete:
+      tags:
+      - RoomTypeFacility
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      summary: Delete Room Type Facility By Id
+      security:
+      - SecurityScheme:
+        - admin
+  /api/core/room-types:
+    post:
+      tags:
+      - RoomType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoomTypeSaveRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoomTypeSaveResponse"
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+        "400":
+          description: Bad Request
+      summary: Save Room Type
+      security:
+      - SecurityScheme:
+        - admin
+    get:
+      tags:
+      - RoomType
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RoomTypeModel"
+      summary: Get All Room Types
+  /api/core/room-types/{id}:
+    get:
+      tags:
+      - RoomType
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoomTypeModel"
+      summary: Get Room Type By Id
+    delete:
+      tags:
+      - RoomType
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      summary: Delete Room Type By Id
+      security:
+      - SecurityScheme:
+        - admin
+  /api/core/users:
     post:
       tags:
       - User
@@ -178,9 +1700,16 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UserSaveResponse"
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
         "400":
           description: Bad Request
       summary: Save User
+      security:
+      - SecurityScheme:
+        - admin
     get:
       tags:
       - User
@@ -193,8 +1722,15 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/UserModel"
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
       summary: Get All Users
-  /api/users/{id}:
+      security:
+      - SecurityScheme:
+        - admin
+  /api/core/users/{id}:
     get:
       tags:
       - User
@@ -204,7 +1740,7 @@ paths:
         required: true
         schema:
           type: integer
-          format: int32
+          format: int64
       responses:
         "200":
           description: OK
@@ -212,7 +1748,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UserModel"
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
       summary: Get User By Id
+      security:
+      - SecurityScheme:
+        - admin
     delete:
       tags:
       - User
@@ -222,11 +1765,18 @@ paths:
         required: true
         schema:
           type: integer
-          format: int32
+          format: int64
       responses:
         "204":
           description: No Content
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
       summary: Delete User By Id
+      security:
+      - SecurityScheme:
+        - admin
 info:
   title: main-app API
   version: 1.0.0-SNAPSHOT
