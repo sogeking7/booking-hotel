@@ -1,0 +1,25 @@
+<nz-table
+  #userTable
+  [nzData]="users"
+  [nzLoading]="isLoading"
+  nzBordered
+>
+  <thead>
+  <tr>
+    <th nzWidth="10%">ID</th>
+    <th nzWidth="30%">Name</th>
+    <th nzWidth="40%">Email</th>
+    <th nzWidth="20%">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let u of userTable.data">
+    <td>{{ u.id }}</td>
+    <td>{{ u.name }}</td>
+    <td>{{ u.email }}</td>
+    <td>
+      <button nz-button nzType="link">View</button>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
