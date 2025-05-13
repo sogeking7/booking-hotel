@@ -14,7 +14,8 @@ public record UserDto(
         @NotNull String firstName,
         @NotNull String lastName,
         @NotNull String email,
-        @NotNull String passwordHash
+        @NotNull String passwordHash,
+        @NotNull String role
 ) {
 
     public static UserDto of(UserRecord record) {
@@ -27,7 +28,8 @@ public record UserDto(
                 record.getFirstName(),
                 record.getLastName(),
                 record.getEmail(),
-                record.getPasswordHash()
+                record.getPasswordHash(),
+                record.getRole().getLiteral()
         );
     }
 }

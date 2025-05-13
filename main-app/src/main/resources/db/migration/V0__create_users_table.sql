@@ -14,4 +14,4 @@ create table users
 create type user_role as enum ('admin', 'user');
 
 alter table users
-    add column role_ user_role;
+    add column role_ user_role default ('user') not null;

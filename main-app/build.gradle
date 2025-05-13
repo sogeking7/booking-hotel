@@ -14,6 +14,8 @@ dependencies {
     implementation 'org.mindrot:jbcrypt:0.4'
     implementation 'io.quarkiverse.jooq:quarkus-jooq:2.0.1'
     implementation 'io.quarkus:quarkus-swagger-ui'
+    implementation 'io.quarkus:quarkus-smallrye-jwt'
+    implementation 'io.quarkus:quarkus-smallrye-jwt-build'
 
     implementation project(':dao')
 }

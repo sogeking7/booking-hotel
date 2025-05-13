@@ -1,5 +1,6 @@
 package org.booking_hotel.users;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -12,6 +13,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import java.util.List;
 
+@RolesAllowed("admin")
 @Path("/core/users")
 @Tag(name = "User", description = "Operations related to User items")
 public class UserResource {

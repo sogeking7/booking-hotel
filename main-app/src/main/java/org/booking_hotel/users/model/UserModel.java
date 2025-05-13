@@ -10,6 +10,7 @@ public record UserModel(
         @NotNull String firstName,
         @NotNull String lastName,
         @NotNull String email,
+        @NotNull String role,
 
         @NotNull OffsetDateTime createdAt,
         @NotNull OffsetDateTime updatedAt,
@@ -22,6 +23,7 @@ public record UserModel(
                 userDto.firstName(),
                 userDto.lastName(),
                 userDto.email(),
+                userDto.role(),
                 userDto.createdAt(),
                 userDto.updatedAt(),
                 userDto.removed()

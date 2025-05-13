@@ -47,3 +47,5 @@ nb-configuration.xml
 /main-app/build/
 
 logs/
+
+main-app/src/main/resources/jwt/*.pem

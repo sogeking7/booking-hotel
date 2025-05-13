@@ -11,4 +11,7 @@ public interface UserDao extends BaseDao<UserDto, UserRecord, Long> {
 
     @NotNull
     Boolean existsByEmail(@NotNull String email);
+
+    @NotNull
+    UserDto getByEmail(@NotNull String email);
 }

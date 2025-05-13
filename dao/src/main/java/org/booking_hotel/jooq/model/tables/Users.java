@@ -96,7 +96,7 @@ public class Users extends TableImpl<UserRecord> {
     /**
      * The column <code>public.users.role_</code>.
      */
-    public final TableField<UserRecord, UserRole> ROLE = createField(DSL.name("role_"), SQLDataType.VARCHAR.asEnumDataType(UserRole.class), this, "");
+    public final TableField<UserRecord, UserRole> ROLE = createField(DSL.name("role_"), SQLDataType.VARCHAR.nullable(false).defaultValue(DSL.field(DSL.raw("'user'::user_role"), SQLDataType.VARCHAR)).asEnumDataType(UserRole.class), this, "");
 
     private Users(Name alias, Table<UserRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);

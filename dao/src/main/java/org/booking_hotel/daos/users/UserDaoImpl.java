@@ -18,12 +18,14 @@ public class UserDaoImpl implements UserDao {
     @Inject
     DSLContext dsl;
 
+    @Override
     public List<UserDto> getAll() {
         return dsl.selectFrom(u)
                 .where(u.REMOVED.isFalse())
                 .fetch(UserDto::of);
     }
 
+    @Override
     public UserDto getById(Long id) {
         return dsl.selectFrom(u)
                 .where(u.REMOVED.isFalse(), u.ID.eq(id))
@@ -35,6 +37,7 @@ public class UserDaoImpl implements UserDao {
         return dsl.fetchExists(u, u.ID.eq(id), u.REMOVED.isFalse());
     }
 
+    @Override
     public Boolean existsByEmail(String email) {
         return dsl.fetchExists(u, u.EMAIL.eq(email), u.REMOVED.isFalse());
     }
@@ -67,5 +70,13 @@ public class UserDaoImpl implements UserDao {
                 .set(u.REMOVED, true)
                 .where(u.REMOVED.isFalse(), u.ID.eq(id))
                 .execute();
+    }
+
+    @Override
+    public UserDto getByEmail(String email) {
+        String normalizedEmail = email.trim().toLowerCase();
+        return dsl.selectFrom(u)
+                .where(u.REMOVED.isFalse(), u.EMAIL.eq(normalizedEmail))
+                .fetchSingle(UserDto::of);
     }
 }
