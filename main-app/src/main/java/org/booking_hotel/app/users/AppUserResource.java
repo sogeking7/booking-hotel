@@ -1,12 +1,13 @@
 package org.booking_hotel.app.users;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import org.booking_hotel.app.users.model.AppUserModel;
-import org.booking_hotel.users.UserService;
 import org.booking_hotel.daos.users.dto.UserDto;
+import org.booking_hotel.users.UserService;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 @Path("/core/app/users")
@@ -15,6 +16,7 @@ public class AppUserResource {
     @Inject
     UserService userService;
 
+    @RolesAllowed("user")
     @GET
     @Path("/{id}")
     public AppUserModel getUserById(@PathParam("id") Long id) {
