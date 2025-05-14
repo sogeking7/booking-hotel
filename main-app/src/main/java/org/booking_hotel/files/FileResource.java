@@ -1,6 +1,5 @@
 package org.booking_hotel.files;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -25,7 +24,7 @@ public class FileResource {
         return FileModel.of(file);
     }
 
-    @RolesAllowed("admin")
+
     @POST
     public FileSaveResponse saveFile(@Valid FileSaveRequest req) {
         return fileService.saveFile(req);
@@ -36,7 +35,7 @@ public class FileResource {
         return fileService.getAllFiles().stream().map(FileModel::of).toList();
     }
 
-    @RolesAllowed("admin")
+
     @DELETE
     @Path("/{id}")
     public void deleteFileById(@PathParam("id") Long id) {

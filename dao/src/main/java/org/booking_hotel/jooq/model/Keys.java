@@ -15,6 +15,7 @@ import org.booking_hotel.jooq.model.tables.Media;
 import org.booking_hotel.jooq.model.tables.Orders;
 import org.booking_hotel.jooq.model.tables.RoomTypeFacilities;
 import org.booking_hotel.jooq.model.tables.RoomTypes;
+import org.booking_hotel.jooq.model.tables.Sessions;
 import org.booking_hotel.jooq.model.tables.Users;
 import org.booking_hotel.jooq.model.tables.records.BedTypeRecord;
 import org.booking_hotel.jooq.model.tables.records.CityRecord;
@@ -27,6 +28,7 @@ import org.booking_hotel.jooq.model.tables.records.MediaRecord;
 import org.booking_hotel.jooq.model.tables.records.OrderRecord;
 import org.booking_hotel.jooq.model.tables.records.RoomTypeFacilityRecord;
 import org.booking_hotel.jooq.model.tables.records.RoomTypeRecord;
+import org.booking_hotel.jooq.model.tables.records.SessionRecord;
 import org.booking_hotel.jooq.model.tables.records.UserRecord;
 import org.jooq.TableField;
 import org.jooq.UniqueKey;
@@ -56,6 +58,7 @@ public class Keys {
     public static final UniqueKey<OrderRecord> ORDERS_PKEY = Internal.createUniqueKey(Orders.ORDERS, DSL.name("orders_pkey"), new TableField[] { Orders.ORDERS.ID }, true);
     public static final UniqueKey<RoomTypeFacilityRecord> ROOM_TYPE_FACILITIES_PKEY = Internal.createUniqueKey(RoomTypeFacilities.ROOM_TYPE_FACILITIES, DSL.name("room_type_facilities_pkey"), new TableField[] { RoomTypeFacilities.ROOM_TYPE_FACILITIES.ID }, true);
     public static final UniqueKey<RoomTypeRecord> ROOM_TYPES_PKEY = Internal.createUniqueKey(RoomTypes.ROOM_TYPES, DSL.name("room_types_pkey"), new TableField[] { RoomTypes.ROOM_TYPES.ID }, true);
+    public static final UniqueKey<SessionRecord> SESSIONS_PKEY = Internal.createUniqueKey(Sessions.SESSIONS, DSL.name("sessions_pkey"), new TableField[] { Sessions.SESSIONS.TOKEN }, true);
     public static final UniqueKey<UserRecord> USERS_EMAIL__KEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_email__key"), new TableField[] { Users.USERS.EMAIL }, true);
     public static final UniqueKey<UserRecord> USERS_PKEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_pkey"), new TableField[] { Users.USERS.ID }, true);
 }

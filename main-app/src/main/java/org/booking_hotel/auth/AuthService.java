@@ -6,17 +6,16 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
 import org.booking_hotel.auth.model.sign_in.SignInRequest;
 import org.booking_hotel.auth.model.sign_up.SignUpRequest;
+import org.booking_hotel.daos.sessions.SessionDao;
+import org.booking_hotel.daos.sessions.dto.SessionDto;
 import org.booking_hotel.daos.users.UserDao;
 import org.booking_hotel.daos.users.dto.UserDto;
 import org.booking_hotel.jooq.model.enums.UserRole;
 import org.booking_hotel.jooq.model.tables.records.UserRecord;
-import org.booking_hotel.jwt.JwtService;
-import org.booking_hotel.jwt.model.JwtModel;
 import org.booking_hotel.utils.BusinessException;
 import org.booking_hotel.utils.PasswordUtil;
 import org.jooq.exception.NoDataFoundException;
 
-import java.util.Set;
 import java.util.function.Consumer;
 
 @RequestScoped
@@ -27,9 +26,9 @@ public class AuthService {
     UserDao userDao;
 
     @Inject
-    JwtService jwtService;
+    SessionDao sessionDao;
 
-    public JwtModel signIn(SignInRequest req) throws BusinessException {
+    public SessionDto signIn(SignInRequest req) throws BusinessException {
         String email = req.email();
         String password = req.password();
 
@@ -53,11 +52,10 @@ public class AuthService {
             );
         }
 
-        String jwt = jwtService.generateJwt(user.email(), Set.of(user.role()));
-        return new JwtModel(jwt);
+        return sessionDao.createSession(user.id());
     }
 
-    public JwtModel signUp(SignUpRequest req) throws BusinessException {
+    public SessionDto signUp(SignUpRequest req) throws BusinessException {
         Boolean isExistsByEmail = userDao.existsByEmail(req.email());
 
         if (isExistsByEmail) {
@@ -77,8 +75,6 @@ public class AuthService {
         };
 
         UserDto createdUser = userDao.insert(fn);
-
-        String jwt = jwtService.generateJwt(createdUser.email(), Set.of(createdUser.role()));
-        return new JwtModel(jwt);
+        return sessionDao.createSession(createdUser.id());
     }
 }

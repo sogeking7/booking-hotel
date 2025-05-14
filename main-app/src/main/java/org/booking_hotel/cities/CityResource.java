@@ -1,6 +1,5 @@
 package org.booking_hotel.cities;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -26,7 +25,7 @@ public class CityResource {
         return CityModel.of(country);
     }
 
-    @RolesAllowed("admin")
+
     @POST
     public CitySaveResponse saveCity(@Valid CitySaveRequest req) throws BusinessException {
         return cityService.saveCity(req);
@@ -37,7 +36,7 @@ public class CityResource {
         return cityService.getAllCities().stream().map(CityModel::of).toList();
     }
 
-    @RolesAllowed("admin")
+
     @DELETE
     @Path("/{id}")
     public void deleteCityById(@PathParam("id") Long id) {

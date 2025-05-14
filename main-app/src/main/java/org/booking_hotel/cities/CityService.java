@@ -1,6 +1,5 @@
 package org.booking_hotel.cities;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -33,7 +32,7 @@ public class CityService {
         return cityDao.getById(id);
     }
 
-    @RolesAllowed("admin")
+
     public CitySaveResponse saveCity(CitySaveRequest req) throws BusinessException {
         Boolean isCountryExists = countryDao.existsById(req.countryId());
 
@@ -55,7 +54,7 @@ public class CityService {
         return new CitySaveResponse(createdCity.id(), createdCity.countryId());
     }
 
-    @RolesAllowed("admin")
+
     public void deleteCityById(Long id) {
         cityDao.removeById(id);
     }

@@ -1,6 +1,5 @@
 package org.booking_hotel.app.users;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -16,7 +15,6 @@ public class AppUserResource {
     @Inject
     UserService userService;
 
-    @RolesAllowed("user")
     @GET
     @Path("/{id}")
     public AppUserModel getUserById(@PathParam("id") Long id) {

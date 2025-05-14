@@ -1,6 +1,5 @@
 package org.booking_hotel.room_type_facilities;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -26,7 +25,7 @@ public class RoomTypeFacilityResource {
         return RoomTypeFacilityModel.of(roomTypeFacility);
     }
 
-    @RolesAllowed("admin")
+
     @POST
     public RoomTypeFacilitySaveResponse saveRoomTypeFacility(@Valid RoomTypeFacilitySaveRequest req) throws BusinessException {
         return roomTypeFacilityService.saveRoomTypeFacility(req);
@@ -51,7 +50,7 @@ public class RoomTypeFacilityResource {
                 .stream().map(RoomTypeFacilityModel::of).toList();
     }
 
-    @RolesAllowed("admin")
+
     @DELETE
     @Path("/{id}")
     public void deleteRoomTypeFacilityById(@PathParam("id") Long id) {

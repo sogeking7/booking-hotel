@@ -13,9 +13,15 @@ import org.booking_hotel.jooq.model.tables.FlywaySchemaHistory;
 import org.booking_hotel.jooq.model.tables.Hotels;
 import org.booking_hotel.jooq.model.tables.Media;
 import org.booking_hotel.jooq.model.tables.Orders;
+import org.booking_hotel.jooq.model.tables.PgpArmorHeaders;
 import org.booking_hotel.jooq.model.tables.RoomTypeFacilities;
 import org.booking_hotel.jooq.model.tables.RoomTypes;
+import org.booking_hotel.jooq.model.tables.Sessions;
 import org.booking_hotel.jooq.model.tables.Users;
+import org.booking_hotel.jooq.model.tables.records.PgpArmorHeaderRecord;
+import org.jooq.Configuration;
+import org.jooq.Field;
+import org.jooq.Result;
 
 
 /**
@@ -70,6 +76,45 @@ public class Tables {
     public static final Orders ORDERS = Orders.ORDERS;
 
     /**
+     * The table <code>public.pgp_armor_headers</code>.
+     */
+    public static final PgpArmorHeaders PGP_ARMOR_HEADERS = PgpArmorHeaders.PGP_ARMOR_HEADERS;
+
+    /**
+     * Call <code>public.pgp_armor_headers</code>.
+     */
+    public static Result<PgpArmorHeaderRecord> PGP_ARMOR_HEADERS(
+          Configuration configuration
+        , String __1
+    ) {
+        return configuration.dsl().selectFrom(org.booking_hotel.jooq.model.tables.PgpArmorHeaders.PGP_ARMOR_HEADERS.call(
+              __1
+        )).fetch();
+    }
+
+    /**
+     * Get <code>public.pgp_armor_headers</code> as a table.
+     */
+    public static PgpArmorHeaders PGP_ARMOR_HEADERS(
+          String __1
+    ) {
+        return org.booking_hotel.jooq.model.tables.PgpArmorHeaders.PGP_ARMOR_HEADERS.call(
+            __1
+        );
+    }
+
+    /**
+     * Get <code>public.pgp_armor_headers</code> as a table.
+     */
+    public static PgpArmorHeaders PGP_ARMOR_HEADERS(
+          Field<String> __1
+    ) {
+        return org.booking_hotel.jooq.model.tables.PgpArmorHeaders.PGP_ARMOR_HEADERS.call(
+            __1
+        );
+    }
+
+    /**
      * The table <code>public.room_type_facilities</code>.
      */
     public static final RoomTypeFacilities ROOM_TYPE_FACILITIES = RoomTypeFacilities.ROOM_TYPE_FACILITIES;
@@ -78,6 +123,11 @@ public class Tables {
      * The table <code>public.room_types</code>.
      */
     public static final RoomTypes ROOM_TYPES = RoomTypes.ROOM_TYPES;
+
+    /**
+     * The table <code>public.sessions</code>.
+     */
+    public static final Sessions SESSIONS = Sessions.SESSIONS;
 
     /**
      * The table <code>public.users</code>.

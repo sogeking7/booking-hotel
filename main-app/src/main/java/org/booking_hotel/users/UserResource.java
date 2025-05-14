@@ -1,9 +1,11 @@
 package org.booking_hotel.users;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.SecurityContext;
+import org.booking_hotel.auth.filter.Authenticated;
 import org.booking_hotel.daos.users.dto.UserDto;
 import org.booking_hotel.users.model.UserModel;
 import org.booking_hotel.users.model.UserSaveRequest;
@@ -13,12 +15,18 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import java.util.List;
 
-@RolesAllowed("admin")
 @Path("/core/users")
 @Tag(name = "User", description = "Operations related to User items")
 public class UserResource {
     @Inject
     UserService userService;
+
+    @Authenticated
+    @GET
+    @Path("/me")
+    public String getMe(@Context SecurityContext securityContext) {
+        return securityContext.getUserPrincipal().getName();
+    }
 
     @GET
     @Path("/{id}")

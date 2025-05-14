@@ -1,6 +1,5 @@
 package org.booking_hotel.facilities;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -25,7 +24,7 @@ public class FacilityResource {
         return FacilityModel.of(facility);
     }
 
-    @RolesAllowed("admin")
+
     @POST
     public FacilitySaveResponse saveFacility(@Valid FacilitySaveRequest req) {
         return facilityService.saveFacility(req);
@@ -36,7 +35,7 @@ public class FacilityResource {
         return facilityService.getAllFacilities().stream().map(FacilityModel::of).toList();
     }
 
-    @RolesAllowed("admin")
+
     @DELETE
     @Path("/{id}")
     public void deleteFacilityById(@PathParam("id") Long id) {
