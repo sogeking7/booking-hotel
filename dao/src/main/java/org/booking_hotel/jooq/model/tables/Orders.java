@@ -91,6 +91,11 @@ public class Orders extends TableImpl<OrderRecord> {
      */
     public final TableField<OrderRecord, Long> USER_ID = createField(DSL.name("user_id_"), SQLDataType.BIGINT.nullable(false), this, "");
 
+    /**
+     * The column <code>public.orders.room_type_id_</code>.
+     */
+    public final TableField<OrderRecord, Long> ROOM_TYPE_ID = createField(DSL.name("room_type_id_"), SQLDataType.BIGINT.nullable(false), this, "");
+
     private Orders(Name alias, Table<OrderRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
     }

@@ -132,6 +132,20 @@ public class OrderRecord extends UpdatableRecordImpl<OrderRecord> {
         return (Long) get(7);
     }
 
+    /**
+     * Setter for <code>public.orders.room_type_id_</code>.
+     */
+    public void setRoomTypeId(Long value) {
+        set(8, value);
+    }
+
+    /**
+     * Getter for <code>public.orders.room_type_id_</code>.
+     */
+    public Long getRoomTypeId() {
+        return (Long) get(8);
+    }
+
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -155,7 +169,7 @@ public class OrderRecord extends UpdatableRecordImpl<OrderRecord> {
     /**
      * Create a detached, initialised OrderRecord
      */
-    public OrderRecord(Long id_, OffsetDateTime createdAt_, OffsetDateTime updatedAt_, Boolean removed_, LocalDate fromDate_, LocalDate toData_, Long hotelId_, Long userId_) {
+    public OrderRecord(Long id_, OffsetDateTime createdAt_, OffsetDateTime updatedAt_, Boolean removed_, LocalDate fromDate_, LocalDate toData_, Long hotelId_, Long userId_, Long roomTypeId_) {
         super(Orders.ORDERS);
 
         setId(id_);
@@ -166,6 +180,7 @@ public class OrderRecord extends UpdatableRecordImpl<OrderRecord> {
         setToData(toData_);
         setHotelId(hotelId_);
         setUserId(userId_);
+        setRoomTypeId(roomTypeId_);
         resetTouchedOnNotNull();
     }
 }

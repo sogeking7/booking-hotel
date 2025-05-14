@@ -44,6 +44,10 @@ public class OrderService {
         return orderDao.getByUserId(userId);
     }
 
+    public List<OrderDto> getOrdersByRoomTypeId(Long roomTypeId) {
+        return orderDao.getByRoomTypeUserId(roomTypeId);
+    }
+
     public OrderSaveResponse saveOrder(OrderSaveRequest req) throws BusinessException {
         // Verify that the hotel exists
         if (!hotelDao.existsById(req.hotelId())) {
@@ -63,6 +67,7 @@ public class OrderService {
             record.setToData(req.toData());
             record.setHotelId(req.hotelId());
             record.setUserId(req.userId());
+            record.setRoomTypeId(req.roomTypeId());
         };
 
         OrderDto createdOrder = req.id() == null ? orderDao.insert(fn) : orderDao.updateById(fn, req.id());
@@ -72,7 +77,8 @@ public class OrderService {
                 createdOrder.fromDate(),
                 createdOrder.toData(),
                 createdOrder.hotelId(),
-                createdOrder.userId()
+                createdOrder.userId(),
+                createdOrder.roomTypeId()
         );
     }
 

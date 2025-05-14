@@ -9,6 +9,7 @@ public record OrderSaveResponse(
         @NotNull LocalDate fromDate,
         @NotNull LocalDate toData,
         @NotNull Long hotelId,
-        @NotNull Long userId
+        @NotNull Long userId,
+        @NotNull Long roomTypeId
 ) {
 }

@@ -47,6 +47,12 @@ public class OrderResource {
         return orderService.getOrdersByUserId(userId).stream().map(OrderModel::of).toList();
     }
 
+    @GET
+    @Path("/roomType/{roomTypeId}")
+    public List<OrderModel> getOrdersByRoomTypeId(@PathParam("roomTypeId") Long roomTypeId) {
+        return orderService.getOrdersByRoomTypeId(roomTypeId).stream().map(OrderModel::of).toList();
+    }
+
     @DELETE
     @Path("/{id}")
     public void deleteOrderById(@PathParam("id") Long id) {

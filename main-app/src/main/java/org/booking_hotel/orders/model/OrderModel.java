@@ -12,6 +12,7 @@ public record OrderModel(
         @NotNull LocalDate toData,
         @NotNull Long hotelId,
         @NotNull Long userId,
+        @NotNull Long roomTypeId,
 
         @NotNull OffsetDateTime createdAt,
         @NotNull OffsetDateTime updatedAt,
@@ -26,6 +27,7 @@ public record OrderModel(
                 orderDto.toData(),
                 orderDto.hotelId(),
                 orderDto.userId(),
+                orderDto.roomTypeId(),
 
                 orderDto.createdAt(),
                 orderDto.updatedAt(),

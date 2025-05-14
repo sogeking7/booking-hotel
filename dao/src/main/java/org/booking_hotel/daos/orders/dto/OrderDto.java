@@ -15,7 +15,9 @@ public record OrderDto(
         @NotNull LocalDate fromDate,
         @NotNull LocalDate toData,
         @NotNull Long hotelId,
-        @NotNull Long userId
+        @NotNull Long userId,
+        @NotNull Long roomTypeId
+
 ) {
     public static OrderDto of(OrderRecord record) {
         return new OrderDto(
@@ -24,10 +26,12 @@ public record OrderDto(
                 record.getUpdatedAt(),
                 record.getRemoved(),
 
+
                 record.getFromDate(),
                 record.getToData(),
                 record.getHotelId(),
-                record.getUserId()
+                record.getUserId(),
+                record.getRoomTypeId()
         );
     }
 }

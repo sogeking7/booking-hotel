@@ -72,4 +72,11 @@ public class OrderDaoImpl implements OrderDao {
                 .where(o.REMOVED.isFalse(), o.USER_ID.eq(userId))
                 .fetch().stream().map(OrderDto::of).toList();
     }
+
+    @Override
+    public List<OrderDto> getByRoomTypeUserId(Long roomTypeUserId) {
+        return dsl.selectFrom(o)
+                .where(o.REMOVED.isFalse(), o.ROOM_TYPE_ID.eq(roomTypeUserId))
+                .fetch().stream().map(OrderDto::of).toList();
+    }
 }
