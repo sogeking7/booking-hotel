@@ -7,7 +7,8 @@
   <thead>
   <tr>
     <th nzWidth="10%">ID</th>
-    <th nzWidth="30%">Name</th>
+    <th nzWidth="30%">First name</th>
+    <th nzWidth="30%">Last name</th>
     <th nzWidth="40%">Email</th>
     <th nzWidth="20%">Actions</th>
   </tr>
@@ -15,7 +16,8 @@
   <tbody>
   <tr *ngFor="let u of userTable.data">
     <td>{{ u.id }}</td>
-    <td>{{ u.name }}</td>
+    <td>{{ u.firstName }}</td>
+    <td>{{ u.lastName }}</td>
     <td>{{ u.email }}</td>
     <td>
       <button nz-button nzType="link">View</button>

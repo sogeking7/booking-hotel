@@ -33,14 +33,8 @@
             ],
             "styles": [
               "src/theme.less",
-              "src/styles.css"
-            ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+              "src/styles.css",
+            ]
           },
           "configurations": {
             "production": {
