@@ -1,12 +1,12 @@
 package org.booking_hotel.users;
 
 import io.quarkus.security.Authenticated;
+import io.quarkus.security.identity.SecurityIdentity;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.SecurityContext;
+import org.booking_hotel.auth.model.UserSession;
 import org.booking_hotel.daos.users.dto.UserDto;
 import org.booking_hotel.users.model.UserModel;
 import org.booking_hotel.users.model.UserSaveRequest;
@@ -16,17 +16,22 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import java.util.List;
 
+import static org.booking_hotel.auth.AuthResource.SESSION_COOKIE_NAME;
+
 @Path("/core/users")
 @Tag(name = "User", description = "Operations related to User items")
 public class UserResource {
     @Inject
     UserService userService;
 
+    @Inject
+    SecurityIdentity securityIdentity;
+
     @Authenticated
     @GET
     @Path("/me")
-    public String getMe(@Context SecurityContext securityContext) {
-        return securityContext.getUserPrincipal().getName();
+    public UserSession getMe() {
+        return securityIdentity.getAttribute(SESSION_COOKIE_NAME);
     }
 
     @RolesAllowed("admin")

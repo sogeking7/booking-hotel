@@ -760,6 +760,35 @@ components:
         id:
           type: integer
           format: int64
+    UserSession:
+      type: object
+      required:
+      - token
+      - created
+      - expires
+      - id
+      - firstName
+      - lastName
+      - email
+      - role
+      properties:
+        token:
+          type: string
+        created:
+          $ref: "#/components/schemas/OffsetDateTime"
+        expires:
+          $ref: "#/components/schemas/OffsetDateTime"
+        id:
+          type: integer
+          format: int64
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        role:
+          $ref: "#/components/schemas/UserRole"
   securitySchemes:
     SecurityScheme:
       type: http
@@ -1861,9 +1890,9 @@ paths:
         "200":
           description: OK
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
+                $ref: "#/components/schemas/UserSession"
         "401":
           description: Not Authorized
         "403":

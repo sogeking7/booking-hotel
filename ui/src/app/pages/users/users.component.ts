@@ -29,7 +29,7 @@ export class UsersComponent implements OnInit {
   private loadUsers(): void {
     this.isLoading = true;
     this.usersService
-      .apiCoreUsersGet()
+      .getAllUsers()
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe((list) => (this.users = list));
   }

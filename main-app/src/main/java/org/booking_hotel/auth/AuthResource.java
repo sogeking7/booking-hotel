@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.*;
+import org.booking_hotel.auth.model.SuccessResponse;
 import org.booking_hotel.auth.model.sign_in.SignInRequest;
 import org.booking_hotel.auth.model.sign_up.SignUpRequest;
 import org.booking_hotel.daos.sessions.SessionDao;
@@ -42,7 +43,7 @@ public class AuthResource {
                 .maxAge((int) maxAgeSeconds)
                 .secure(false)
                 .httpOnly(true)
-                .sameSite(NewCookie.SameSite.STRICT)
+                .sameSite(NewCookie.SameSite.LAX)
                 .build();
     }
 
@@ -52,7 +53,7 @@ public class AuthResource {
         SessionDto session = authService.signIn(req);
         NewCookie sessionCookie = createSessionCookie(session);
 
-        return Response.ok("Signed in successfully").cookie(sessionCookie).build();
+        return Response.ok(new SuccessResponse(true)).cookie(sessionCookie).build();
     }
 
     @POST
@@ -61,7 +62,7 @@ public class AuthResource {
         SessionDto session = authService.signUp(req);
         NewCookie sessionCookie = createSessionCookie(session);
 
-        return Response.ok("Signed up successfully").cookie(sessionCookie).build();
+        return Response.ok(new SuccessResponse(true)).cookie(sessionCookie).build();
     }
 
     @POST
@@ -86,6 +87,6 @@ public class AuthResource {
                 .httpOnly(true)
                 .build();
 
-        return Response.ok("Logged out successfully").cookie(deleteCookie).build();
+        return Response.ok(new SuccessResponse(true)).cookie(deleteCookie).build();
     }
 }

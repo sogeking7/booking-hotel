@@ -41,14 +41,13 @@ public class AppIdentityProvider implements IdentityProvider<AppAuthRequest> {
     public Uni<SecurityIdentity> authenticate(AppAuthRequest request, AuthenticationRequestContext context) {
         return context.runBlocking(() -> {
             QuarkusSecurityIdentity.Builder builder = QuarkusSecurityIdentity.builder();
-            builder.addAttribute(SESSION_COOKIE_NAME, request.getSessionId());
 
             getActiveUserSessionByToken(request.getSessionId()).ifPresentOrElse(session -> {
                 UserRole userRole = session.role();
                 builder.addRoles(Set.of(userRole.name()));
                 builder.addAttribute(SESSION_COOKIE_NAME, session);
                 builder.setPrincipal(new QuarkusPrincipal(session.email()));
-                
+
             }, () -> {
                 builder.setAnonymous(true);
             });

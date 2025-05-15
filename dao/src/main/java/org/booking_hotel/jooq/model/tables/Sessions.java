@@ -71,7 +71,7 @@ public class Sessions extends TableImpl<SessionRecord> {
     /**
      * The column <code>public.sessions.expires</code>.
      */
-    public final TableField<SessionRecord, OffsetDateTime> EXPIRES = createField(DSL.name("expires"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).nullable(false).defaultValue(DSL.field(DSL.raw("(clock_timestamp() + '00:15:00'::interval)"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
+    public final TableField<SessionRecord, OffsetDateTime> EXPIRES = createField(DSL.name("expires"), SQLDataType.TIMESTAMPWITHTIMEZONE(6).nullable(false).defaultValue(DSL.field(DSL.raw("(clock_timestamp() + '3 days'::interval)"), SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
 
     private Sessions(Name alias, Table<SessionRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
