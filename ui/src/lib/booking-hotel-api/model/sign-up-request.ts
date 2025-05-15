@@ -7,20 +7,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { UserRole } from './user-role';
 
 
-export interface UserModel { 
-    id: number;
+export interface SignUpRequest { 
     firstName: string;
     lastName: string;
     email: string;
-    role: UserRole;
-    createdAt: string;
-    updatedAt: string;
-    removed: boolean;
+    password: string;
 }
-export namespace UserModel {
-}
-
 

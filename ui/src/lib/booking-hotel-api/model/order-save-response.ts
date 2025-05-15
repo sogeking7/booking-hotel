@@ -15,5 +15,6 @@ export interface OrderSaveResponse {
     toData: string;
     hotelId: number;
     userId: number;
+    roomTypeId: number;
 }
 

@@ -385,13 +385,6 @@ components:
         cityId:
           type: integer
           format: int64
-    JwtModel:
-      type: object
-      required:
-      - accessToken
-      properties:
-        accessToken:
-          type: string
     LocalDate:
       type: string
       format: date
@@ -475,6 +468,7 @@ components:
       - toData
       - hotelId
       - userId
+      - roomTypeId
       - createdAt
       - updatedAt
       - removed
@@ -492,6 +486,9 @@ components:
         userId:
           type: integer
           format: int64
+        roomTypeId:
+          type: integer
+          format: int64
         createdAt:
           $ref: "#/components/schemas/OffsetDateTime"
         updatedAt:
@@ -505,6 +502,7 @@ components:
       - toData
       - hotelId
       - userId
+      - roomTypeId
       properties:
         id:
           type: integer
@@ -517,6 +515,9 @@ components:
           type: integer
           format: int64
         userId:
+          type: integer
+          format: int64
+        roomTypeId:
           type: integer
           format: int64
     OrderSaveResponse:
@@ -527,6 +528,7 @@ components:
       - toData
       - hotelId
       - userId
+      - roomTypeId
       properties:
         id:
           type: integer
@@ -539,6 +541,9 @@ components:
           type: integer
           format: int64
         userId:
+          type: integer
+          format: int64
+        roomTypeId:
           type: integer
           format: int64
     RoomTypeFacilityModel:
@@ -669,6 +674,22 @@ components:
           type: string
         password:
           type: string
+    SignUpRequest:
+      type: object
+      required:
+      - firstName
+      - lastName
+      - email
+      - password
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
     UserModel:
       type: object
       required:
@@ -691,13 +712,18 @@ components:
         email:
           type: string
         role:
-          type: string
+          $ref: "#/components/schemas/UserRole"
         createdAt:
           $ref: "#/components/schemas/OffsetDateTime"
         updatedAt:
           $ref: "#/components/schemas/OffsetDateTime"
         removed:
           type: boolean
+    UserRole:
+      type: string
+      enum:
+      - admin
+      - user
     UserSaveRequest:
       type: object
       required:
@@ -741,8 +767,18 @@ components:
       bearerFormat: JWT
       description: Authentication
 paths:
+  /api/auth/logout:
+    post:
+      operationId: logout
+      tags:
+      - Auth
+      responses:
+        "200":
+          description: OK
+      summary: Logout
   /api/auth/sign-in:
     post:
+      operationId: signIn
       tags:
       - Auth
       requestBody:
@@ -754,15 +790,29 @@ paths:
       responses:
         "200":
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/JwtModel"
         "400":
           description: Bad Request
       summary: Sign In
+  /api/auth/sign-up:
+    post:
+      operationId: signUp
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignUpRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+      summary: Sign Up
   /api/core/app/users/{id}:
     get:
+      operationId: getUserById
       tags:
       - User
       parameters:
@@ -779,16 +829,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppUserModel"
-        "401":
-          description: Not Authorized
-        "403":
-          description: Not Allowed
       summary: Get User By Id
-      security:
-      - SecurityScheme:
-        - user
   /api/core/bed-types:
     post:
+      operationId: saveBedType
       tags:
       - BedType
       requestBody:
@@ -815,6 +859,7 @@ paths:
       - SecurityScheme:
         - admin
     get:
+      operationId: getAllBedTypes
       tags:
       - BedType
       responses:
@@ -829,6 +874,7 @@ paths:
       summary: Get All Bed Types
   /api/core/bed-types/{id}:
     get:
+      operationId: getBedTypeById
       tags:
       - BedType
       parameters:
@@ -847,6 +893,7 @@ paths:
                 $ref: "#/components/schemas/BedTypeModel"
       summary: Get Bed Type By Id
     delete:
+      operationId: deleteBedTypeById
       tags:
       - BedType
       parameters:
@@ -869,6 +916,7 @@ paths:
         - admin
   /api/core/cities:
     post:
+      operationId: saveCity
       tags:
       - City
       requestBody:
@@ -895,6 +943,7 @@ paths:
       - SecurityScheme:
         - admin
     get:
+      operationId: getAllCities
       tags:
       - City
       responses:
@@ -909,6 +958,7 @@ paths:
       summary: Get All Cities
   /api/core/cities/{id}:
     get:
+      operationId: getCityById
       tags:
       - City
       parameters:
@@ -927,6 +977,7 @@ paths:
                 $ref: "#/components/schemas/CityModel"
       summary: Get City By Id
     delete:
+      operationId: deleteCityById
       tags:
       - City
       parameters:
@@ -949,6 +1000,7 @@ paths:
         - admin
   /api/core/countries:
     post:
+      operationId: saveCountry
       tags:
       - Country
       requestBody:
@@ -975,6 +1027,7 @@ paths:
       - SecurityScheme:
         - admin
     get:
+      operationId: getAllCountries
       tags:
       - Country
       responses:
@@ -989,6 +1042,7 @@ paths:
       summary: Get All Countries
   /api/core/countries/{id}:
     get:
+      operationId: getCountryById
       tags:
       - Country
       parameters:
@@ -1007,6 +1061,7 @@ paths:
                 $ref: "#/components/schemas/CountryModel"
       summary: Get Country By Id
     delete:
+      operationId: deleteCountryById
       tags:
       - Country
       parameters:
@@ -1029,6 +1084,7 @@ paths:
         - admin
   /api/core/facilities:
     post:
+      operationId: saveFacility
       tags:
       - Facility
       requestBody:
@@ -1055,6 +1111,7 @@ paths:
       - SecurityScheme:
         - admin
     get:
+      operationId: getAllFacilities
       tags:
       - Facility
       responses:
@@ -1069,6 +1126,7 @@ paths:
       summary: Get All Facilities
   /api/core/facilities/{id}:
     get:
+      operationId: getFacilityById
       tags:
       - Facility
       parameters:
@@ -1087,6 +1145,7 @@ paths:
                 $ref: "#/components/schemas/FacilityModel"
       summary: Get Facility By Id
     delete:
+      operationId: deleteFacilityById
       tags:
       - Facility
       parameters:
@@ -1109,6 +1168,7 @@ paths:
         - admin
   /api/core/files:
     post:
+      operationId: saveFile
       tags:
       - File
       requestBody:
@@ -1132,9 +1192,9 @@ paths:
           description: Bad Request
       summary: Save File
       security:
-      - SecurityScheme:
-        - admin
+      - SecurityScheme: []
     get:
+      operationId: getAllFiles
       tags:
       - File
       responses:
@@ -1149,6 +1209,7 @@ paths:
       summary: Get All Files
   /api/core/files/{id}:
     get:
+      operationId: getFileById
       tags:
       - File
       parameters:
@@ -1167,6 +1228,7 @@ paths:
                 $ref: "#/components/schemas/FileModel"
       summary: Get File By Id
     delete:
+      operationId: deleteFileById
       tags:
       - File
       parameters:
@@ -1185,10 +1247,10 @@ paths:
           description: Not Allowed
       summary: Delete File By Id
       security:
-      - SecurityScheme:
-        - admin
+      - SecurityScheme: []
   /api/core/hotels:
     post:
+      operationId: saveHotel
       tags:
       - Hotel
       requestBody:
@@ -1215,6 +1277,7 @@ paths:
       - SecurityScheme:
         - admin
     get:
+      operationId: getAllHotels
       tags:
       - Hotel
       responses:
@@ -1229,6 +1292,7 @@ paths:
       summary: Get All Hotels
   /api/core/hotels/{id}:
     get:
+      operationId: getHotelById
       tags:
       - Hotel
       parameters:
@@ -1247,6 +1311,7 @@ paths:
                 $ref: "#/components/schemas/HotelModel"
       summary: Get Hotel By Id
     delete:
+      operationId: deleteHotelById
       tags:
       - Hotel
       parameters:
@@ -1269,6 +1334,7 @@ paths:
         - admin
   /api/core/media:
     post:
+      operationId: saveMedia
       tags:
       - Media
       requestBody:
@@ -1292,9 +1358,9 @@ paths:
           description: Bad Request
       summary: Save Media
       security:
-      - SecurityScheme:
-        - admin
+      - SecurityScheme: []
     get:
+      operationId: getAllMedia
       tags:
       - Media
       responses:
@@ -1309,6 +1375,7 @@ paths:
       summary: Get All Media
   /api/core/media/ref/{refId}/{refType}:
     get:
+      operationId: getMediaByRefIdAndRefType
       tags:
       - Media
       parameters:
@@ -1335,6 +1402,7 @@ paths:
       summary: Get Media By Ref Id And Ref Type
   /api/core/media/{id}:
     get:
+      operationId: getMediaById
       tags:
       - Media
       parameters:
@@ -1353,6 +1421,7 @@ paths:
                 $ref: "#/components/schemas/MediaModel"
       summary: Get Media By Id
     delete:
+      operationId: deleteMediaById
       tags:
       - Media
       parameters:
@@ -1375,6 +1444,7 @@ paths:
         - admin
   /api/core/orders:
     post:
+      operationId: saveOrder
       tags:
       - Order
       requestBody:
@@ -1390,10 +1460,17 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/OrderSaveResponse"
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
         "400":
           description: Bad Request
       summary: Save Order
+      security:
+      - SecurityScheme: []
     get:
+      operationId: getAllOrders
       tags:
       - Order
       responses:
@@ -1408,6 +1485,7 @@ paths:
       summary: Get All Orders
   /api/core/orders/hotel/{hotelId}:
     get:
+      operationId: getOrdersByHotelId
       tags:
       - Order
       parameters:
@@ -1427,8 +1505,31 @@ paths:
                 items:
                   $ref: "#/components/schemas/OrderModel"
       summary: Get Orders By Hotel Id
+  /api/core/orders/roomType/{roomTypeId}:
+    get:
+      operationId: getOrdersByRoomTypeId
+      tags:
+      - Order
+      parameters:
+      - name: roomTypeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderModel"
+      summary: Get Orders By Room Type Id
   /api/core/orders/user/{userId}:
     get:
+      operationId: getOrdersByUserId
       tags:
       - Order
       parameters:
@@ -1450,6 +1551,7 @@ paths:
       summary: Get Orders By User Id
   /api/core/orders/{id}:
     get:
+      operationId: getOrderById
       tags:
       - Order
       parameters:
@@ -1468,6 +1570,7 @@ paths:
                 $ref: "#/components/schemas/OrderModel"
       summary: Get Order By Id
     delete:
+      operationId: deleteOrderById
       tags:
       - Order
       parameters:
@@ -1480,9 +1583,17 @@ paths:
       responses:
         "204":
           description: No Content
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
       summary: Delete Order By Id
+      security:
+      - SecurityScheme:
+        - admin
   /api/core/room-type-facilities:
     post:
+      operationId: saveRoomTypeFacility
       tags:
       - RoomTypeFacility
       requestBody:
@@ -1509,6 +1620,7 @@ paths:
       - SecurityScheme:
         - admin
     get:
+      operationId: getAllRoomTypeFacilities
       tags:
       - RoomTypeFacility
       responses:
@@ -1523,6 +1635,7 @@ paths:
       summary: Get All Room Type Facilities
   /api/core/room-type-facilities/facility/{facilityId}:
     get:
+      operationId: getRoomTypeFacilitiesByFacilityId
       tags:
       - RoomTypeFacility
       parameters:
@@ -1544,6 +1657,7 @@ paths:
       summary: Get Room Type Facilities By Facility Id
   /api/core/room-type-facilities/room-type/{roomTypeId}:
     get:
+      operationId: getRoomTypeFacilitiesByRoomTypeId
       tags:
       - RoomTypeFacility
       parameters:
@@ -1565,6 +1679,7 @@ paths:
       summary: Get Room Type Facilities By Room Type Id
   /api/core/room-type-facilities/{id}:
     get:
+      operationId: getRoomTypeFacilityById
       tags:
       - RoomTypeFacility
       parameters:
@@ -1583,6 +1698,7 @@ paths:
                 $ref: "#/components/schemas/RoomTypeFacilityModel"
       summary: Get Room Type Facility By Id
     delete:
+      operationId: deleteRoomTypeFacilityById
       tags:
       - RoomTypeFacility
       parameters:
@@ -1605,6 +1721,7 @@ paths:
         - admin
   /api/core/room-types:
     post:
+      operationId: saveRoomType
       tags:
       - RoomType
       requestBody:
@@ -1631,6 +1748,7 @@ paths:
       - SecurityScheme:
         - admin
     get:
+      operationId: getAllRoomTypes
       tags:
       - RoomType
       responses:
@@ -1645,6 +1763,7 @@ paths:
       summary: Get All Room Types
   /api/core/room-types/{id}:
     get:
+      operationId: getRoomTypeById
       tags:
       - RoomType
       parameters:
@@ -1663,6 +1782,7 @@ paths:
                 $ref: "#/components/schemas/RoomTypeModel"
       summary: Get Room Type By Id
     delete:
+      operationId: deleteRoomTypeById
       tags:
       - RoomType
       parameters:
@@ -1685,6 +1805,7 @@ paths:
         - admin
   /api/core/users:
     post:
+      operationId: saveUser
       tags:
       - User
       requestBody:
@@ -1711,6 +1832,7 @@ paths:
       - SecurityScheme:
         - admin
     get:
+      operationId: getAllUsers
       tags:
       - User
       responses:
@@ -1730,8 +1852,28 @@ paths:
       security:
       - SecurityScheme:
         - admin
+  /api/core/users/me:
+    get:
+      operationId: getMe
+      tags:
+      - User
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      summary: Get Me
+      security:
+      - SecurityScheme: []
   /api/core/users/{id}:
     get:
+      operationId: getUserById
       tags:
       - User
       parameters:
@@ -1757,6 +1899,7 @@ paths:
       - SecurityScheme:
         - admin
     delete:
+      operationId: deleteUserById
       tags:
       - User
       parameters:

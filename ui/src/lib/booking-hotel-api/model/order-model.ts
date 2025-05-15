@@ -15,6 +15,7 @@ export interface OrderModel {
     toData: string;
     hotelId: number;
     userId: number;
+    roomTypeId: number;
     createdAt: string;
     updatedAt: string;
     removed: boolean;

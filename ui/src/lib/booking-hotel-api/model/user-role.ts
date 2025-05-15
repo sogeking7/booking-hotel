@@ -9,12 +9,12 @@
  */
 
 
-export interface OrderSaveRequest { 
-    id?: number;
-    fromDate: string;
-    toData: string;
-    hotelId: number;
-    userId: number;
-    roomTypeId: number;
-}
+export type UserRole = 'admin' | 'user';
+
+export const UserRole = {
+
+    admin: 'admin' as UserRole,
+
+    user: 'user' as UserRole
+};
 
