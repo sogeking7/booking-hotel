@@ -1,5 +1,6 @@
 package org.booking_hotel.hotels;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -25,7 +26,7 @@ public class HotelResource {
         return HotelModel.of(hotel);
     }
 
-
+    @RolesAllowed("admin")
     @POST
     public HotelSaveResponse saveHotel(@Valid HotelSaveRequest req) throws BusinessException {
         return hotelService.saveHotel(req);
@@ -37,6 +38,7 @@ public class HotelResource {
     }
 
 
+    @RolesAllowed("admin")
     @DELETE
     @Path("/{id}")
     public void deleteHotelById(@PathParam("id") Long id) {

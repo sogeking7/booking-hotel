@@ -1,5 +1,7 @@
 package org.booking_hotel.media;
 
+import io.quarkus.security.Authenticated;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -25,7 +27,7 @@ public class MediaResource {
         return MediaModel.of(media);
     }
 
-
+    @Authenticated
     @POST
     public MediaSaveResponse saveMedia(@Valid MediaSaveRequest req) throws BusinessException {
         return mediaService.saveMedia(req);
@@ -46,6 +48,7 @@ public class MediaResource {
     }
 
 
+    @RolesAllowed("admin")
     @DELETE
     @Path("/{id}")
     public void deleteMediaById(@PathParam("id") Long id) {

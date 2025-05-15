@@ -1,5 +1,7 @@
 package org.booking_hotel.orders;
 
+import io.quarkus.security.Authenticated;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -25,6 +27,7 @@ public class OrderResource {
         return OrderModel.of(order);
     }
 
+    @Authenticated
     @POST
     public OrderSaveResponse saveOrder(@Valid OrderSaveRequest req) throws BusinessException {
         return orderService.saveOrder(req);
@@ -53,6 +56,7 @@ public class OrderResource {
         return orderService.getOrdersByRoomTypeId(roomTypeId).stream().map(OrderModel::of).toList();
     }
 
+    @RolesAllowed("admin")
     @DELETE
     @Path("/{id}")
     public void deleteOrderById(@PathParam("id") Long id) {

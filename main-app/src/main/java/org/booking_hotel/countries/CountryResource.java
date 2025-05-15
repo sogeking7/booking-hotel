@@ -1,5 +1,6 @@
 package org.booking_hotel.countries;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -25,7 +26,7 @@ public class CountryResource {
         return CountryModel.of(country);
     }
 
-
+    @RolesAllowed("admin")
     @POST
     public CountrySaveResponse saveCountry(@Valid CountrySaveRequest req) throws BusinessException {
         return countryService.saveCountry(req);
@@ -36,7 +37,7 @@ public class CountryResource {
         return countryService.getAllCountries().stream().map(CountryModel::of).toList();
     }
 
-
+    @RolesAllowed("admin")
     @DELETE
     @Path("/{id}")
     public void deleteCountryById(@PathParam("id") Long id) {

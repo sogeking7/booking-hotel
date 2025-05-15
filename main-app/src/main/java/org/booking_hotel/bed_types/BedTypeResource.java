@@ -1,5 +1,6 @@
 package org.booking_hotel.bed_types;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -24,7 +25,7 @@ public class BedTypeResource {
         return BedTypeModel.of(bedType);
     }
 
-
+    @RolesAllowed("admin")
     @POST
     public BedTypeSaveResponse saveBedType(@Valid BedTypeSaveRequest req) {
         return bedTypeService.saveBedType(req);
@@ -35,7 +36,7 @@ public class BedTypeResource {
         return bedTypeService.getAllBedTypes().stream().map(BedTypeModel::of).toList();
     }
 
-
+    @RolesAllowed("admin")
     @DELETE
     @Path("/{id}")
     public void deleteBedTypeById(@PathParam("id") Long id) {

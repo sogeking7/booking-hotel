@@ -1,5 +1,6 @@
 package org.booking_hotel.files;
 
+import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -24,7 +25,7 @@ public class FileResource {
         return FileModel.of(file);
     }
 
-
+    @Authenticated
     @POST
     public FileSaveResponse saveFile(@Valid FileSaveRequest req) {
         return fileService.saveFile(req);
@@ -36,6 +37,7 @@ public class FileResource {
     }
 
 
+    @Authenticated
     @DELETE
     @Path("/{id}")
     public void deleteFileById(@PathParam("id") Long id) {

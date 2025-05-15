@@ -1,5 +1,6 @@
 package org.booking_hotel.users;
 
+import io.quarkus.security.Authenticated;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -21,14 +22,14 @@ public class UserResource {
     @Inject
     UserService userService;
 
-    //    @Authenticated
-    @RolesAllowed("admin")
+    @Authenticated
     @GET
     @Path("/me")
     public String getMe(@Context SecurityContext securityContext) {
         return securityContext.getUserPrincipal().getName();
     }
 
+    @RolesAllowed("admin")
     @GET
     @Path("/{id}")
     public UserModel getUserById(@PathParam("id") Long id) {
@@ -36,16 +37,19 @@ public class UserResource {
         return UserModel.of(user);
     }
 
+    @RolesAllowed("admin")
     @POST
     public UserSaveResponse saveUser(@Valid UserSaveRequest req) throws BusinessException {
         return userService.saveUser(req);
     }
 
+    @RolesAllowed("admin")
     @GET
     public List<UserModel> getAllUsers() {
         return userService.getAllUsers().stream().map(UserModel::of).toList();
     }
 
+    @RolesAllowed("admin")
     @DELETE
     @Path("/{id}")
     public void deleteUserById(@PathParam("id") Long id) {
