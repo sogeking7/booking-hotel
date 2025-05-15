@@ -7,7 +7,7 @@ import java.time.OffsetDateTime;
 
 public record SessionDto(
         @NotNull String token,
-        @NotNull Long user_id,
+        @NotNull Long userId,
         @NotNull OffsetDateTime created,
         @NotNull OffsetDateTime expires
 ) {

@@ -2,6 +2,7 @@ package org.booking_hotel.users.model;
 
 import jakarta.validation.constraints.NotNull;
 import org.booking_hotel.daos.users.dto.UserDto;
+import org.booking_hotel.jooq.model.enums.UserRole;
 
 import java.time.OffsetDateTime;
 
@@ -10,7 +11,7 @@ public record UserModel(
         @NotNull String firstName,
         @NotNull String lastName,
         @NotNull String email,
-        @NotNull String role,
+        @NotNull UserRole role,
 
         @NotNull OffsetDateTime createdAt,
         @NotNull OffsetDateTime updatedAt,

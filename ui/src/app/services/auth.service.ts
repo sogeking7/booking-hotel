@@ -1,73 +1,28 @@
-import {Injectable, PLATFORM_ID, Inject} from '@angular/core';
-import {isPlatformBrowser} from '@angular/common';
-import {tap} from 'rxjs/operators';
-import {AuthService, SignInRequest} from '../../lib/booking-hotel-api';
+import {Injectable} from '@angular/core';
+import {AuthService} from '../../lib/booking-hotel-api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private readonly isBrowser: boolean;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
     private authService: AuthService,
   ) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   login(username: string, password: string) {
-    const signInRequest: SignInRequest = {
+    return this.authService.apiAuthSignInPost({
       email: username,
       password: password
-    };
-
-    return this.authService.apiAuthSignInPost(signInRequest)
-      .pipe(
-        tap(jwtModel => {
-          this.setToken(jwtModel.accessToken);
-        })
-      );
+    }).pipe();
   }
 
-
-  private getFromStorage(key: string): string | null {
-    if (this.isBrowser) {
-      return localStorage.getItem(key);
-    }
-    return null;
+  async isAuthenticated(): Promise<boolean> {
+    return (await true);
   }
 
-  private setToStorage(key: string, value: string): void {
-    if (this.isBrowser) {
-      localStorage.setItem(key, value);
-    }
-  }
+  async logout() {
 
-  private removeFromStorage(key: string): void {
-    if (this.isBrowser) {
-      localStorage.removeItem(key);
-    }
-  }
-
-  isAuthenticated(): boolean {
-    const token = this.getToken();
-    return !!token;
-  }
-
-  getToken(): string | null {
-    return this.getFromStorage('token');
-  }
-
-  setToken(token: string): void {
-    this.setToStorage('token', token);
-  }
-
-  removeToken(): void {
-    this.removeFromStorage('token');
-  }
-
-  logout(): void {
-    this.removeToken();
   }
 }

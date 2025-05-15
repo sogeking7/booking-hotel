@@ -1,6 +1,7 @@
 package org.booking_hotel.daos.users.dto;
 
 import jakarta.validation.constraints.NotNull;
+import org.booking_hotel.jooq.model.enums.UserRole;
 import org.booking_hotel.jooq.model.tables.records.UserRecord;
 
 import java.time.OffsetDateTime;
@@ -15,7 +16,7 @@ public record UserDto(
         @NotNull String lastName,
         @NotNull String email,
         @NotNull String passwordHash,
-        @NotNull String role
+        @NotNull UserRole role
 ) {
 
     public static UserDto of(UserRecord record) {
@@ -29,7 +30,7 @@ public record UserDto(
                 record.getLastName(),
                 record.getEmail(),
                 record.getPasswordHash(),
-                record.getRole().getLiteral()
+                record.getRole()
         );
     }
 }

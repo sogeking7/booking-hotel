@@ -5,7 +5,6 @@ import jakarta.inject.Inject;
 import org.booking_hotel.daos.sessions.dto.SessionDto;
 import org.booking_hotel.jooq.model.tables.Sessions;
 import org.jooq.DSLContext;
-import org.jooq.exception.NoDataFoundException;
 
 import static org.jooq.impl.DSL.currentOffsetDateTime;
 import static org.jooq.impl.DSL.defaultValue;
@@ -26,12 +25,11 @@ public class SessionDaoImpl implements SessionDao {
     }
 
     @Override
-    public Long getUserId(String token) {
+    public SessionDto getActiveByToken(String token) {
         return dsl.selectFrom(s)
-                .where(s.TOKEN.eq(token))
-                .and(s.EXPIRES.gt(currentOffsetDateTime()))
-                .fetchOptional(s.USER_ID)
-                .orElseThrow(() -> new NoDataFoundException("Session token not found or expired: " + token));
+                .where(s.TOKEN.eq(token)
+                        .and(s.EXPIRES.gt(currentOffsetDateTime())))
+                .fetchSingle(SessionDto::of);
     }
 
     @Override
@@ -56,6 +54,6 @@ public class SessionDaoImpl implements SessionDao {
         return dsl.insertInto(s)
                 .set(s.USER_ID, userId)
                 .returning()
-                .fetchOne(SessionDto::of);
+                .fetchSingle(SessionDto::of);
     }
 }

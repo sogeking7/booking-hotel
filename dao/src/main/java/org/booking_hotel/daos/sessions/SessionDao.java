@@ -6,7 +6,7 @@ import org.booking_hotel.daos.sessions.dto.SessionDto;
 public interface SessionDao {
 
     @NotNull
-    Long getUserId(@NotNull String token);
+    SessionDto getActiveByToken(@NotNull String token);
 
     @NotNull
     SessionDto createSession(@NotNull Long userId); // New method to create a session
