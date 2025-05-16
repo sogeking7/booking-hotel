@@ -2,6 +2,8 @@ package org.booking_hotel.daos.cities;
 
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import org.booking_hotel.common.Page;
+import org.booking_hotel.common.PageRequest;
 import org.booking_hotel.daos.cities.dto.CityDto;
 import org.booking_hotel.jooq.model.tables.Cities;
 import org.booking_hotel.jooq.model.tables.records.CityRecord;
@@ -17,6 +19,11 @@ public class CityDaoImpl implements CityDao {
 
     @Inject
     DSLContext dsl;
+
+    @Override
+    public Page<CityDto> getAll(PageRequest pageRequest) {
+        return null;
+    }
 
     public List<CityDto> getAll() {
         return dsl.selectFrom(c)

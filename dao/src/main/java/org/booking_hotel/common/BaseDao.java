@@ -20,4 +20,6 @@ public interface BaseDao<T, R extends UpdatableRecord, ID> {
 
     @NotNull
     ID removeById(@NotNull ID id);
+
+    Page<T> getAll(PageRequest pageRequest);
 }

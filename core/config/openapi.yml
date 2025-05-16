@@ -566,6 +566,37 @@ components:
         roomTypeId:
           type: integer
           format: int64
+    PageResponseUserModel:
+      type: object
+      required:
+      - content
+      - totalPages
+      - totalElements
+      - currentPage
+      - pageSize
+      - hasNext
+      - hasPrevious
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserModel"
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        currentPage:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        hasNext:
+          type: boolean
+        hasPrevious:
+          type: boolean
     RoomTypeFacilityModel:
       type: object
       required:
@@ -1855,15 +1886,26 @@ paths:
       operationId: getAllUsers
       tags:
       - User
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 10
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/UserModel"
+                $ref: "#/components/schemas/PageResponseUserModel"
         "401":
           description: Not Authorized
         "403":

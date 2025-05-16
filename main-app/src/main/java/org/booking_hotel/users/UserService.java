@@ -4,6 +4,8 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
+import org.booking_hotel.common.Page;
+import org.booking_hotel.common.PageRequest;
 import org.booking_hotel.daos.users.UserDao;
 import org.booking_hotel.daos.users.dto.UserDto;
 import org.booking_hotel.jooq.model.tables.records.UserRecord;
@@ -12,7 +14,6 @@ import org.booking_hotel.users.model.UserSaveResponse;
 import org.booking_hotel.utils.BusinessException;
 import org.booking_hotel.utils.PasswordUtil;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 //dependency injection, scope CDI
@@ -23,8 +24,8 @@ public class UserService {
     @Inject
     UserDao userDao;
 
-    public List<UserDto> getAllUsers() {
-        return userDao.getAll();
+    public Page<UserDto> getAllUsers(PageRequest pageRequest) {
+        return userDao.getAll(pageRequest);
     }
 
     public UserDto getUserById(Long id) {

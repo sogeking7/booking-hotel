@@ -2,6 +2,8 @@ package org.booking_hotel.daos.media;
 
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import org.booking_hotel.common.Page;
+import org.booking_hotel.common.PageRequest;
 import org.booking_hotel.daos.media.dto.MediaDto;
 import org.booking_hotel.jooq.model.tables.Media;
 import org.booking_hotel.jooq.model.tables.records.MediaRecord;
@@ -57,6 +59,11 @@ public class MediaDaoImpl implements MediaDao {
                 .set(m.REMOVED, true)
                 .where(m.REMOVED.isFalse(), m.ID.eq(id))
                 .execute();
+    }
+
+    @Override
+    public Page<MediaDto> getAll(PageRequest pageRequest) {
+        return null;
     }
 
     @Override

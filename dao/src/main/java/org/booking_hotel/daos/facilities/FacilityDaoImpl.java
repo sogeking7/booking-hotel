@@ -2,6 +2,8 @@ package org.booking_hotel.daos.facilities;
 
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import org.booking_hotel.common.Page;
+import org.booking_hotel.common.PageRequest;
 import org.booking_hotel.daos.facilities.dto.FacilityDto;
 import org.booking_hotel.jooq.model.tables.Facilities;
 import org.booking_hotel.jooq.model.tables.records.FacilityRecord;
@@ -17,6 +19,11 @@ public class FacilityDaoImpl implements FacilityDao {
 
     @Inject
     DSLContext dsl;
+
+    @Override
+    public Page<FacilityDto> getAll(PageRequest pageRequest) {
+        return null;
+    }
 
     public List<FacilityDto> getAll() {
         return dsl.selectFrom(f)

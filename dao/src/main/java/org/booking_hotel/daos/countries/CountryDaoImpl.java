@@ -2,6 +2,8 @@ package org.booking_hotel.daos.countries;
 
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import org.booking_hotel.common.Page;
+import org.booking_hotel.common.PageRequest;
 import org.booking_hotel.daos.countries.dto.CountryDto;
 import org.booking_hotel.jooq.model.tables.Countries;
 import org.booking_hotel.jooq.model.tables.records.CountryRecord;
@@ -16,6 +18,11 @@ public class CountryDaoImpl implements CountryDao {
 
     @Inject
     DSLContext dsl;
+
+    @Override
+    public Page<CountryDto> getAll(PageRequest pageRequest) {
+        return null;
+    }
 
     public List<CountryDto> getAll() {
         return dsl.selectFrom(c)

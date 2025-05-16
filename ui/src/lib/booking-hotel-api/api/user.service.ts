@@ -21,6 +21,8 @@ import { AppUserModel } from '../model/app-user-model';
 // @ts-ignore
 import { GetMeResponse } from '../model/get-me-response';
 // @ts-ignore
+import { PageResponseUserModel } from '../model/page-response-user-model';
+// @ts-ignore
 import { UserModel } from '../model/user-model';
 // @ts-ignore
 import { UserSaveRequest } from '../model/user-save-request';
@@ -100,13 +102,21 @@ export class UserService extends BaseService {
 
     /**
      * Get All Users
+     * @param page 
+     * @param size 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllUsers(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<UserModel>>;
-    public getAllUsers(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<UserModel>>>;
-    public getAllUsers(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<UserModel>>>;
-    public getAllUsers(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public getAllUsers(page?: number, size?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<PageResponseUserModel>;
+    public getAllUsers(page?: number, size?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<PageResponseUserModel>>;
+    public getAllUsers(page?: number, size?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<PageResponseUserModel>>;
+    public getAllUsers(page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>page, 'page');
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>size, 'size');
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -137,9 +147,10 @@ export class UserService extends BaseService {
         }
 
         let localVarPath = `/api/core/users`;
-        return this.httpClient.request<Array<UserModel>>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<PageResponseUserModel>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

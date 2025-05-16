@@ -2,6 +2,8 @@ package org.booking_hotel.daos.hotels;
 
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import org.booking_hotel.common.Page;
+import org.booking_hotel.common.PageRequest;
 import org.booking_hotel.daos.hotels.dto.HotelDto;
 import org.booking_hotel.jooq.model.tables.Hotels;
 import org.booking_hotel.jooq.model.tables.records.HotelRecord;
@@ -12,11 +14,14 @@ import java.util.function.Consumer;
 
 @Dependent
 public class HotelDaoImpl implements HotelDao {
-
     private final Hotels h = Hotels.HOTELS.as("h");
-
     @Inject
     DSLContext dsl;
+
+    @Override
+    public Page<HotelDto> getAll(PageRequest pageRequest) {
+        return null;
+    }
 
     public List<HotelDto> getAll() {
         return dsl.selectFrom(h)

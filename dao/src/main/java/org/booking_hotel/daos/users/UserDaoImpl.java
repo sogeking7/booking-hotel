@@ -2,6 +2,8 @@ package org.booking_hotel.daos.users;
 
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import org.booking_hotel.common.Page;
+import org.booking_hotel.common.PageRequest;
 import org.booking_hotel.daos.users.dto.UserDto;
 import org.booking_hotel.jooq.model.tables.Users;
 import org.booking_hotel.jooq.model.tables.records.UserRecord;
@@ -79,4 +81,23 @@ public class UserDaoImpl implements UserDao {
                 .where(u.REMOVED.isFalse(), u.EMAIL.eq(normalizedEmail))
                 .fetchSingle(UserDto::of);
     }
+
+    @Override
+    public Page<UserDto> getAll(PageRequest pageRequest) {
+        Long totalElements = dsl.selectCount()
+                .from(u)
+                .where(u.REMOVED.isFalse())
+                .fetchOne(0, Long.class);
+
+        long count = totalElements != null ? totalElements : 0L;
+
+        List<UserDto> content = dsl.selectFrom(u)
+                .where(u.REMOVED.isFalse())
+                .limit(pageRequest.getSize())
+                .offset(pageRequest.getOffset())
+                .fetch(UserDto::of);
+
+        return new Page<>(content, count, pageRequest);
+    }
+
 }

@@ -7,6 +7,9 @@ import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import org.booking_hotel.auth.model.UserSession;
+import org.booking_hotel.common.Page;
+import org.booking_hotel.common.PageRequest;
+import org.booking_hotel.common.model.PageResponse;
 import org.booking_hotel.daos.users.dto.UserDto;
 import org.booking_hotel.users.model.GetMeResponse;
 import org.booking_hotel.users.model.UserModel;
@@ -14,8 +17,6 @@ import org.booking_hotel.users.model.UserSaveRequest;
 import org.booking_hotel.users.model.UserSaveResponse;
 import org.booking_hotel.utils.BusinessException;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
-
-import java.util.List;
 
 import static org.booking_hotel.auth.AuthResource.SESSION_COOKIE_NAME;
 
@@ -52,8 +53,20 @@ public class UserResource {
 
     @RolesAllowed("admin")
     @GET
-    public List<UserModel> getAllUsers() {
-        return userService.getAllUsers().stream().map(UserModel::of).toList();
+    public PageResponse<UserModel> getAllUsers(
+            @QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("size") @DefaultValue("10") int size) {
+
+        PageRequest pageRequest = new PageRequest(page, size);
+        Page<UserDto> userPage = userService.getAllUsers(pageRequest);
+
+        Page<UserModel> modelPage = new Page<>(
+                userPage.getContent().stream().map(UserModel::of).toList(),
+                userPage.getTotalElements(),
+                pageRequest
+        );
+
+        return PageResponse.of(modelPage);
     }
 
     @RolesAllowed("admin")

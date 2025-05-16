@@ -2,6 +2,8 @@ package org.booking_hotel.daos.bed_types;
 
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import org.booking_hotel.common.Page;
+import org.booking_hotel.common.PageRequest;
 import org.booking_hotel.daos.bed_types.dto.BedTypeDto;
 import org.booking_hotel.jooq.model.tables.BedTypes;
 import org.booking_hotel.jooq.model.tables.records.BedTypeRecord;
@@ -17,6 +19,11 @@ public class BedTypeDaoImpl implements BedTypeDao {
 
     @Inject
     DSLContext dsl;
+
+    @Override
+    public Page<BedTypeDto> getAll(PageRequest pageRequest) {
+        return null;
+    }
 
     public List<BedTypeDto> getAll() {
         return dsl.selectFrom(bt)

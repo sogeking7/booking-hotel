@@ -12,24 +12,24 @@ export const routes: Routes = [
       {
         path: '',
         redirectTo: 'welcome',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'welcome',
-        loadChildren: () => import('./pages/welcome/welcome.routes').then(m => m.WELCOME_ROUTES)
+        loadChildren: () => import('./pages/welcome/welcome.routes').then(m => m.WELCOME_ROUTES),
       },
       {
         path: 'users',
-        loadChildren: () => import('./pages/users/users.routes').then(m => m.USERS_ROUTES)
-      }
-    ]
+        loadChildren: () => import('./pages/users/users.routes').then(m => m.USERS_ROUTES),
+      },
+    ],
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: '**',
-    redirectTo: ''
-  }
+    redirectTo: '',
+  },
 ];

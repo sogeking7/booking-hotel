@@ -2,6 +2,8 @@ package org.booking_hotel.daos.files;
 
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import org.booking_hotel.common.Page;
+import org.booking_hotel.common.PageRequest;
 import org.booking_hotel.daos.files.dto.FileDto;
 import org.booking_hotel.jooq.model.tables.Files;
 import org.booking_hotel.jooq.model.tables.records.FileRecord;
@@ -57,5 +59,10 @@ public class FileDaoImpl implements FileDao {
                 .set(f.REMOVED, true)
                 .where(f.REMOVED.isFalse(), f.ID.eq(id))
                 .execute();
+    }
+
+    @Override
+    public Page<FileDto> getAll(PageRequest pageRequest) {
+        return null;
     }
 }

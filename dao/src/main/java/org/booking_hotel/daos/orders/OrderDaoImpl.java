@@ -2,6 +2,8 @@ package org.booking_hotel.daos.orders;
 
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import org.booking_hotel.common.Page;
+import org.booking_hotel.common.PageRequest;
 import org.booking_hotel.daos.orders.dto.OrderDto;
 import org.booking_hotel.jooq.model.tables.Orders;
 import org.booking_hotel.jooq.model.tables.records.OrderRecord;
@@ -14,9 +16,13 @@ import java.util.function.Consumer;
 public class OrderDaoImpl implements OrderDao {
 
     private final Orders o = Orders.ORDERS.as("o");
-
     @Inject
     DSLContext dsl;
+
+    @Override
+    public Page<OrderDto> getAll(PageRequest pageRequest) {
+        return null;
+    }
 
     public List<OrderDto> getAll() {
         return dsl.selectFrom(o)

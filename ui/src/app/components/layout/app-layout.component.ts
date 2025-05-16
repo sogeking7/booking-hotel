@@ -1,13 +1,13 @@
-import { Component } from "@angular/core";
-import {NzContentComponent, NzHeaderComponent, NzLayoutComponent, NzSiderComponent} from 'ng-zorro-antd/layout';
-import {NzIconDirective} from 'ng-zorro-antd/icon';
-import {NzMenuDirective, NzMenuItemComponent, NzSubMenuComponent} from 'ng-zorro-antd/menu';
-import {RouterLink, RouterOutlet} from '@angular/router';
+import { Component } from '@angular/core';
+import { NzContentComponent, NzHeaderComponent, NzLayoutComponent, NzSiderComponent } from 'ng-zorro-antd/layout';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzMenuDirective, NzMenuItemComponent, NzSubMenuComponent } from 'ng-zorro-antd/menu';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: "app-layout",
-  templateUrl: "./app-layout.component.html",
-  styleUrls: ["./app-layout.component.css"],
+  selector: 'app-layout',
+  templateUrl: './app-layout.component.html',
+  styleUrls: ['./app-layout.component.css'],
   imports: [
     NzLayoutComponent,
     NzHeaderComponent,
@@ -18,8 +18,8 @@ import {RouterLink, RouterOutlet} from '@angular/router';
     NzSiderComponent,
     NzSubMenuComponent,
     RouterLink,
-    RouterOutlet
-  ]
+    RouterOutlet,
+  ],
 })
 export class AppLayoutComponent {
   isCollapsed = false;

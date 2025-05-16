@@ -25,6 +25,7 @@ export * from './media-save-response';
 export * from './order-model';
 export * from './order-save-request';
 export * from './order-save-response';
+export * from './page-response-user-model';
 export * from './room-type-facility-model';
 export * from './room-type-facility-save-request';
 export * from './room-type-facility-save-response';

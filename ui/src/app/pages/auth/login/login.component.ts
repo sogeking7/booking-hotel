@@ -1,20 +1,20 @@
-import { Component, OnInit } from "@angular/core";
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { first } from "rxjs/operators";
-import {AuthenticationService} from '../../../services/auth.service';
-import {NzAlertComponent} from 'ng-zorro-antd/alert';
-import {NzCardComponent} from 'ng-zorro-antd/card';
-import {NzFormControlComponent, NzFormDirective, NzFormItemComponent} from 'ng-zorro-antd/form';
-import {NzInputDirective, NzInputGroupComponent} from 'ng-zorro-antd/input';
-import {NzButtonComponent} from 'ng-zorro-antd/button';
-import {NzCheckboxComponent} from 'ng-zorro-antd/checkbox';
-import {NgIf} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { first } from 'rxjs/operators';
+import { AuthenticationService } from '../../../services/auth.service';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
+import { NzCardComponent } from 'ng-zorro-antd/card';
+import { NzFormControlComponent, NzFormDirective, NzFormItemComponent } from 'ng-zorro-antd/form';
+import { NzInputDirective, NzInputGroupComponent } from 'ng-zorro-antd/input';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
   imports: [
     NzAlertComponent,
     NzCardComponent,
@@ -24,17 +24,17 @@ import {NgIf} from '@angular/common';
     ReactiveFormsModule,
     NzButtonComponent,
     NzInputDirective,
-    NzCheckboxComponent,
+    NzCheckboxModule,
     NzFormDirective,
-    NgIf
-  ]
+    NgIf,
+  ],
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   loading = false;
   submitted = false;
-  error = "";
-  returnUrl: string = "/";
+  error = '';
+  returnUrl: string = '/';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,11 +47,11 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: [null, [Validators.required]],
       password: [null, [Validators.required]],
-      remember: [true]
+      remember: [true],
     });
 
     // Get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   submitForm(): void {
@@ -68,17 +68,14 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
     this.authService
-      .login(
-        this.loginForm.value.username,
-        this.loginForm.value.password
-      )
+      .login(this.loginForm.value.username, this.loginForm.value.password)
       .pipe(first())
       .subscribe(
-        (data) => {
+        () => {
           this.router.navigate([this.returnUrl]);
         },
-        (error) => {
-          this.error = error?.error?.message || "Login failed";
+        error => {
+          this.error = error?.error?.message || 'Login failed';
           this.loading = false;
         }
       );
