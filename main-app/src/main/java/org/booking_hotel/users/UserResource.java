@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import org.booking_hotel.auth.model.UserSession;
 import org.booking_hotel.daos.users.dto.UserDto;
+import org.booking_hotel.users.model.GetMeResponse;
 import org.booking_hotel.users.model.UserModel;
 import org.booking_hotel.users.model.UserSaveRequest;
 import org.booking_hotel.users.model.UserSaveResponse;
@@ -30,8 +31,9 @@ public class UserResource {
     @Authenticated
     @GET
     @Path("/me")
-    public UserSession getMe() {
-        return securityIdentity.getAttribute(SESSION_COOKIE_NAME);
+    public GetMeResponse getMe() {
+        UserSession session = securityIdentity.getAttribute(SESSION_COOKIE_NAME);
+        return GetMeResponse.of(session.user());
     }
 
     @RolesAllowed("admin")

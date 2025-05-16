@@ -43,11 +43,10 @@ public class AppIdentityProvider implements IdentityProvider<AppAuthRequest> {
             QuarkusSecurityIdentity.Builder builder = QuarkusSecurityIdentity.builder();
 
             getActiveUserSessionByToken(request.getSessionId()).ifPresentOrElse(session -> {
-                UserRole userRole = session.role();
+                UserRole userRole = session.user().role();
                 builder.addRoles(Set.of(userRole.name()));
                 builder.addAttribute(SESSION_COOKIE_NAME, session);
-                builder.setPrincipal(new QuarkusPrincipal(session.email()));
-
+                builder.setPrincipal(new QuarkusPrincipal(session.user().email()));
             }, () -> {
                 builder.setAnonymous(true);
             });
@@ -58,24 +57,17 @@ public class AppIdentityProvider implements IdentityProvider<AppAuthRequest> {
     private Optional<UserSession> getActiveUserSessionByToken(String token) {
         try {
             SessionDto session = sessionDao.getActiveByToken(token);
-            Long userId = session.userId();
-
-            UserDto user = userDao.getById(userId);
-
-            UserRole userRole = user.role();
+            UserDto user = userDao.getById(session.userId());
 
             return Optional.of(new UserSession(
                     session.token(),
                     session.created(),
                     session.expires(),
-                    userId,
-                    user.firstName(),
-                    user.lastName(),
-                    user.email(),
-                    userRole
+                    user
             ));
         } catch (NoDataFoundException e) {
             return Optional.empty();
         }
+
     }
 }

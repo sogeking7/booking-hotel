@@ -317,6 +317,26 @@ components:
         size:
           type: integer
           format: int64
+    GetMeResponse:
+      type: object
+      required:
+      - id
+      - firstName
+      - lastName
+      - email
+      - role
+      properties:
+        id:
+          type: integer
+          format: int64
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        role:
+          $ref: "#/components/schemas/UserRole"
     HotelModel:
       type: object
       required:
@@ -760,35 +780,6 @@ components:
         id:
           type: integer
           format: int64
-    UserSession:
-      type: object
-      required:
-      - token
-      - created
-      - expires
-      - id
-      - firstName
-      - lastName
-      - email
-      - role
-      properties:
-        token:
-          type: string
-        created:
-          $ref: "#/components/schemas/OffsetDateTime"
-        expires:
-          $ref: "#/components/schemas/OffsetDateTime"
-        id:
-          type: integer
-          format: int64
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        role:
-          $ref: "#/components/schemas/UserRole"
   securitySchemes:
     SecurityScheme:
       type: http
@@ -1892,7 +1883,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UserSession"
+                $ref: "#/components/schemas/GetMeResponse"
         "401":
           description: Not Authorized
         "403":

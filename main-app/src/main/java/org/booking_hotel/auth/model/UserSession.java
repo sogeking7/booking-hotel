@@ -1,7 +1,7 @@
 package org.booking_hotel.auth.model;
 
 import jakarta.validation.constraints.NotNull;
-import org.booking_hotel.jooq.model.enums.UserRole;
+import org.booking_hotel.daos.users.dto.UserDto;
 
 import java.time.OffsetDateTime;
 
@@ -10,10 +10,6 @@ public record UserSession(
         @NotNull OffsetDateTime created,
         @NotNull OffsetDateTime expires,
 
-        @NotNull Long id,
-        @NotNull String firstName,
-        @NotNull String lastName,
-        @NotNull String email,
-        @NotNull UserRole role
+        @NotNull UserDto user
 ) {
 }
