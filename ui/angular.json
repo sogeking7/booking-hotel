@@ -33,7 +33,7 @@
             ],
             "styles": [
               "src/theme.less",
-              "src/styles.css",
+              "src/styles.css"
             ]
           },
           "configurations": {
@@ -67,6 +67,7 @@
               "buildTarget": "ui:build:production"
             },
             "development": {
+              "proxyConfig": "proxy.conf.json",
               "buildTarget": "ui:build:development"
             }
           },

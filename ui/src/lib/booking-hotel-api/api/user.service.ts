@@ -19,13 +19,13 @@ import { Observable }                                        from 'rxjs';
 // @ts-ignore
 import { AppUserModel } from '../model/app-user-model';
 // @ts-ignore
+import { GetMeResponse } from '../model/get-me-response';
+// @ts-ignore
 import { UserModel } from '../model/user-model';
 // @ts-ignore
 import { UserSaveRequest } from '../model/user-save-request';
 // @ts-ignore
 import { UserSaveResponse } from '../model/user-save-response';
-// @ts-ignore
-import { UserSession } from '../model/user-session';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -155,9 +155,9 @@ export class UserService extends BaseService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMe(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserSession>;
-    public getMe(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserSession>>;
-    public getMe(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserSession>>;
+    public getMe(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<GetMeResponse>;
+    public getMe(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GetMeResponse>>;
+    public getMe(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GetMeResponse>>;
     public getMe(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
@@ -189,7 +189,7 @@ export class UserService extends BaseService {
         }
 
         let localVarPath = `/api/core/users/me`;
-        return this.httpClient.request<UserSession>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<GetMeResponse>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

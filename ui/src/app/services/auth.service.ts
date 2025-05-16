@@ -1,17 +1,16 @@
 import {Injectable} from '@angular/core';
-import {AuthService, UserService, UserSession} from '../../lib/booking-hotel-api';
+import {AuthService, GetMeResponse, UserService} from '../../lib/booking-hotel-api';
 import {lastValueFrom, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  userSession: UserSession | null = null;
+  user: GetMeResponse | null = null;
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
-
   ) {
   }
 
@@ -23,14 +22,14 @@ export class AuthenticationService {
   }
 
   async isAuthenticated() {
-      try {
-        this.userSession = await lastValueFrom(this.userService.getMe())
-        console.log("userSession", this.userSession);
-        return true;
-      } catch {
-        this.userSession = null;
-        return false;
-      }
+    try {
+      this.user = await lastValueFrom(this.userService.getMe())
+      console.log("userSession", this.user);
+      return true;
+    } catch {
+      this.user = null;
+      return false;
+    }
   }
 
   async logout() {
