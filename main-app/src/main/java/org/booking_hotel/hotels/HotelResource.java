@@ -33,6 +33,7 @@ public class HotelResource {
     }
 
     @GET
+    @Path("/")
     public List<HotelModel> getAllHotels() {
         return hotelService.getAllHotels().stream().map(HotelModel::of).toList();
     }
