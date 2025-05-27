@@ -780,8 +780,6 @@ components:
       required:
       - firstName
       - lastName
-      - email
-      - password
       - role
       properties:
         id:
@@ -797,12 +795,9 @@ components:
           type: string
         password:
           type: string
-          pattern: \S
           default: qwerty
         role:
-          type: string
-          pattern: \S
-          default: user
+          $ref: "#/components/schemas/UserRole"
     UserSaveResponse:
       type: object
       required:

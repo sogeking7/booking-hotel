@@ -33,37 +33,36 @@ public class UserService {
     }
 
     public UserSaveResponse saveUser(UserSaveRequest req) throws BusinessException {
-        boolean isUserEmailExist = userDao.existsByEmail(req.email());
-
-        if (isUserEmailExist) {
-            throw new BusinessException(
-                    Response.Status.BAD_REQUEST.getStatusCode(),
-                    "user.save.emailAlreadyExists",
-                    "User with email " + req.email() + " already exists"
-            );
-        }
-
-        Consumer<UserRecord> fn;
-
         if (req.id() == null) {
+            boolean isUserEmailExist = userDao.existsByEmail(req.email());
+
+            if (isUserEmailExist) {
+                throw new BusinessException(
+                        Response.Status.BAD_REQUEST.getStatusCode(),
+                        "user.save.emailAlreadyExists",
+                        "User with email " + req.email() + " already exists"
+                );
+            }
             String hashedPassword = PasswordUtil.hashPassword(req.password());
 
-            fn = record -> {
+            Consumer<UserRecord> fn = record -> {
                 record.setFirstName(req.firstName());
                 record.setLastName(req.lastName());
                 record.setEmail(req.email());
+                record.setRole(req.role());
                 record.setPasswordHash(hashedPassword);
             };
+            UserDto createdUser = userDao.insert(fn);
+            return new UserSaveResponse(createdUser.id());
         } else {
-            fn = record -> {
+            Consumer<UserRecord> fn = record -> {
                 record.setFirstName(req.firstName());
                 record.setLastName(req.lastName());
-                record.setEmail(req.email());
+                record.setRole(req.role());
             };
+            UserDto createdUser = userDao.updateById(fn, req.id());
+            return new UserSaveResponse(createdUser.id());
         }
-
-        UserDto createdUser = req.id() == null ? userDao.insert(fn) : userDao.updateById(fn, req.id());
-        return new UserSaveResponse(createdUser.id());
     }
 
     public void deleteUserById(Long id) {

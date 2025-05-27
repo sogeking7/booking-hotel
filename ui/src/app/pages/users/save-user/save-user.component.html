@@ -22,7 +22,7 @@
       </nz-form-control>
     </nz-form-item>
 
-    <nz-form-item>
+    <nz-form-item *ngIf="!user">
       <nz-form-label [nzSpan]="6" nzRequired>Email</nz-form-label>
       <nz-form-control [nzSpan]="14" [nzErrorTip]="emailErrorTpl">
         <input nz-input formControlName="email" placeholder="Email" type="email"/>

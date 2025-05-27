@@ -68,7 +68,7 @@ export class SaveUserComponent implements OnInit {
       error: error => {
         this.isLoading = false;
         this.initForm(null);
-        this.notification.error('Error', error.error?.detail || 'Failed to load user data');
+        this.notification.error('Error', error.error?.description || 'Failed to load user data');
         this.router.navigate(['/users']);
       },
     });
@@ -80,7 +80,6 @@ export class SaveUserComponent implements OnInit {
         id: [user.id, [Validators.required]],
         firstName: [user.firstName, [Validators.required]],
         lastName: [user.lastName, [Validators.required]],
-        email: [user.email, [Validators.required, Validators.email]],
         role: [user.role, [Validators.required]],
       });
     } else {
@@ -112,7 +111,7 @@ export class SaveUserComponent implements OnInit {
         },
         error: err => {
           this.isSubmitting = false;
-          this.notification.error('Error', err.error?.detail || 'Failed to save user. Please try again.');
+          this.notification.error('Error', err.error?.description || 'Failed to save user. Please try again.');
         },
       });
     } else {

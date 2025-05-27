@@ -7,14 +7,18 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { UserRole } from './user-role';
 
 
 export interface UserSaveRequest { 
     id?: number;
     firstName: string;
     lastName: string;
-    email: string;
-    password: string;
-    role: string;
+    email?: string;
+    password?: string;
+    role: UserRole;
 }
+export namespace UserSaveRequest {
+}
+
 

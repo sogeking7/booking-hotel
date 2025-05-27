@@ -8,11 +8,13 @@ import { getRoleTagColor } from '../../../lib/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzTypographyComponent } from 'ng-zorro-antd/typography';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NzPopconfirmDirective } from 'ng-zorro-antd/popconfirm';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  imports: [NzTableModule, NgForOf, NzButtonComponent, NzTagModule, RouterLink, NzIconDirective, NzTypographyComponent],
+  imports: [NzTableModule, NgForOf, NzButtonComponent, NzTagModule, RouterLink, NzIconDirective, NzTypographyComponent, NzPopconfirmDirective],
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
@@ -26,7 +28,8 @@ export class UsersComponent implements OnInit {
   constructor(
     private usersService: UserService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private notification: NzNotificationService
   ) {}
 
   ngOnInit(): void {
@@ -38,22 +41,6 @@ export class UsersComponent implements OnInit {
       this.size = pageSizeFromUrl ? +pageSizeFromUrl : 10;
 
       this.loadUsers();
-    });
-  }
-
-  searchData(reset: boolean = false): void {
-    let targetPageIndex = this.page;
-    if (reset) {
-      targetPageIndex = 1;
-    }
-
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: {
-        pageIndex: targetPageIndex,
-        pageSize: this.size,
-      },
-      queryParamsHandling: 'merge',
     });
   }
 
@@ -80,4 +67,17 @@ export class UsersComponent implements OnInit {
   }
 
   public getRoleTagColor = getRoleTagColor;
+
+  deleteUser(userId: number): void {
+    this.usersService.deleteUserById(userId).subscribe({
+      next: () => {
+        this.loadUsers();
+        this.notification.success('Success', 'User has been deleted successfully!');
+      },
+      error: err => {
+        console.error('Failed to delete user:', err);
+        this.notification.error('Error', err.error?.description || 'Failed to delete user. Please try again.');
+      },
+    });
+  }
 }
