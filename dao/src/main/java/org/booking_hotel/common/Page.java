@@ -6,15 +6,15 @@ public class Page<T> {
     private final List<T> content;
     private final int totalPages;
     private final long totalElements;
-    private final int currentPage;
-    private final int pageSize;
+    private final int page;
+    private final int size;
 
     public Page(List<T> content, long totalElements, PageRequest pageRequest) {
         this.content = content;
         this.totalElements = totalElements;
-        this.currentPage = pageRequest.getPage();
-        this.pageSize = pageRequest.getSize();
-        this.totalPages = (int) Math.ceil((double) totalElements / pageSize);
+        this.page = pageRequest.getPage();
+        this.size = pageRequest.getSize();
+        this.totalPages = (int) Math.ceil((double) totalElements / size);
     }
 
     public List<T> getContent() {
@@ -30,18 +30,18 @@ public class Page<T> {
     }
 
     public int getCurrentPage() {
-        return currentPage;
+        return page;
     }
 
-    public int getPageSize() {
-        return pageSize;
+    public int getSize() {
+        return size;
     }
 
     public boolean hasNext() {
-        return currentPage < totalPages - 1;
+        return page < totalPages - 1;
     }
 
     public boolean hasPrevious() {
-        return currentPage > 0;
+        return page > 0;
     }
 }

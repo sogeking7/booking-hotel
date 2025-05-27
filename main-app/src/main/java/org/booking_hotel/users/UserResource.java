@@ -54,7 +54,7 @@ public class UserResource {
     @RolesAllowed("admin")
     @GET
     public PageResponse<UserModel> getAllUsers(
-            @QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("page") @DefaultValue("1") int page,
             @QueryParam("size") @DefaultValue("10") int size) {
 
         PageRequest pageRequest = new PageRequest(page, size);

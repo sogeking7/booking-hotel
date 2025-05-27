@@ -20,7 +20,7 @@ public record PageResponse<T>(
                 page.getTotalPages(),
                 page.getTotalElements(),
                 page.getCurrentPage(),
-                page.getPageSize(),
+                page.getSize(),
                 page.hasNext(),
                 page.hasPrevious()
         );

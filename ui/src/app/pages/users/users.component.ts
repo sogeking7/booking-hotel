@@ -17,8 +17,8 @@ export class UsersComponent implements OnInit {
   users: UserModel[] = [];
 
   loading = true;
-  pageIndex = 1;
-  pageSize = 10;
+  page = 1;
+  size = 10;
   total = 0;
 
   constructor(
@@ -29,18 +29,18 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      const pageIndexFromUrl = params['pageIndex'];
-      const pageSizeFromUrl = params['pageSize'];
+      const pageIndexFromUrl = params['page'];
+      const pageSizeFromUrl = params['size'];
 
-      this.pageIndex = pageIndexFromUrl ? +pageIndexFromUrl : 1;
-      this.pageSize = pageSizeFromUrl ? +pageSizeFromUrl : 10;
+      this.page = pageIndexFromUrl ? +pageIndexFromUrl : 1;
+      this.size = pageSizeFromUrl ? +pageSizeFromUrl : 10;
 
       this.loadUsers();
     });
   }
 
   searchData(reset: boolean = false): void {
-    let targetPageIndex = this.pageIndex;
+    let targetPageIndex = this.page;
     if (reset) {
       targetPageIndex = 1;
     }
@@ -49,7 +49,7 @@ export class UsersComponent implements OnInit {
       relativeTo: this.route,
       queryParams: {
         pageIndex: targetPageIndex,
-        pageSize: this.pageSize,
+        pageSize: this.size,
       },
       queryParamsHandling: 'merge',
     });
@@ -57,7 +57,7 @@ export class UsersComponent implements OnInit {
 
   private loadUsers(): void {
     this.loading = true;
-    this.usersService.getAllUsers(this.pageIndex - 1, this.pageSize).subscribe(list => {
+    this.usersService.getAllUsers(this.page, this.size).subscribe(list => {
       this.loading = false;
       this.total = list.totalElements;
       this.users = list.content;
@@ -70,8 +70,8 @@ export class UsersComponent implements OnInit {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {
-        pageIndex: pageIndex,
-        pageSize: pageSize,
+        page: pageIndex,
+        size: pageSize,
       },
       queryParamsHandling: 'merge',
     });
