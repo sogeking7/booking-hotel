@@ -9,28 +9,27 @@
   [nzPageIndex]="pageIndex"
   [nzTotal]="total"
   [nzPageSize]="pageSize"
-  (nzQueryParams)="onQueryParamsChange($event)"
->
+  (nzQueryParams)="onQueryParamsChange($event)">
   <thead>
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>City ID</th>
-    <th>Address</th>
-    <th>Phone</th>
-    <th>Actions</th>
-  </tr>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>City ID</th>
+      <th>Address</th>
+      <th>Phone</th>
+      <th>Actions</th>
+    </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let h of hotelTable.data">
-    <td>{{  h.id }}</td>
-    <td>{{ h.name }}</td>
-    <td>{{ h.cityId || 'N/A' }}</td>
-    <td>{{ h.address }}</td>
-    <td>{{ h.phone || '-' }}</td>
-    <td>
-      <a nz-button nzType="link" href="https://www.hilton.com/ru/" target="_blank">View</a>
-    </td>
-  </tr>
+    <tr *ngFor="let h of hotelTable.data">
+      <td>{{ h.id }}</td>
+      <td>{{ h.name }}</td>
+      <td>{{ h.cityId || 'N/A' }}</td>
+      <td>{{ h.address }}</td>
+      <td>{{ h.phone || '-' }}</td>
+      <td>
+        <a nz-button nzType="link" href="https://www.hilton.com/ru/" target="_blank">View</a>
+      </td>
+    </tr>
   </tbody>
 </nz-table>

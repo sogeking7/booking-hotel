@@ -1,7 +1,7 @@
 <h1 nz-typography style="margin-bottom: 30px">Users</h1>
 
 <div class="table-operations" style="margin-bottom: 16px">
-  <button nz-button nzType="primary" [routerLink]="['save']"><i nz-icon nzType="user-add"></i>New User</button>
+  <button nz-button nzType="primary" [routerLink]="['new']"><i nz-icon nzType="user-add"></i>New User</button>
 </div>
 
 <nz-table
@@ -18,41 +18,41 @@
   [nzPageSize]="size"
   (nzQueryParams)="onQueryParamsChange($event)">
   <thead>
-  <tr>
-    <th>ID</th>
-    <th>First name</th>
-    <th>Last name</th>
-    <th>Email</th>
-    <th>Role</th>
-    <th>Actions</th>
-  </tr>
+    <tr>
+      <th>ID</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Actions</th>
+    </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let u of userTable.data">
-    <td>{{ u.id }}</td>
-    <td>{{ u.firstName }}</td>
-    <td>{{ u.lastName }}</td>
-    <td>{{ u.email }}</td>
-    <td>
-      <nz-tag [nzColor]="getRoleTagColor(u.role)">
-        {{ u.role }}
-      </nz-tag>
-    </td>
-    <td>
-      <button nz-button nzType="link" [routerLink]="['save']" [queryParams]="{ id: u.id }">
-        <i nz-icon nzType="edit" nzTheme="outline"></i>
-      </button>
-      <button nz-button
-              nzType="link"
-              nzDanger
-              nz-popconfirm
-              nzPopconfirmTitle="Are you sure you want to delete this user?"
-              nzPopconfirmPlacement="top"
-              (nzOnConfirm)="deleteUser(u.id)"
-      >
-        <i nz-icon nzType="delete" nzTheme="outline"></i>
-      </button>
-    </td>
-  </tr>
+    <tr *ngFor="let u of userTable.data">
+      <td>{{ u.id }}</td>
+      <td>{{ u.firstName }}</td>
+      <td>{{ u.lastName }}</td>
+      <td>{{ u.email }}</td>
+      <td>
+        <nz-tag [nzColor]="getRoleTagColor(u.role)">
+          {{ u.role }}
+        </nz-tag>
+      </td>
+      <td>
+        <button nz-button nzType="link" [routerLink]="[u.id, 'edit']">
+          <i nz-icon nzType="edit" nzTheme="outline"></i>
+        </button>
+        <button
+          nz-button
+          nzType="link"
+          nzDanger
+          nz-popconfirm
+          nzPopconfirmTitle="Are you sure you want to delete this user?"
+          nzPopconfirmPlacement="top"
+          (nzOnConfirm)="deleteUser(u.id)">
+          <i nz-icon nzType="delete" nzTheme="outline"></i>
+        </button>
+      </td>
+    </tr>
   </tbody>
 </nz-table>

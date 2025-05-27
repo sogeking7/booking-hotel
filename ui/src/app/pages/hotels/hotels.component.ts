@@ -4,7 +4,6 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   selector: 'app-hotels',
   standalone: true,
@@ -14,12 +13,8 @@ import { CommonModule } from '@angular/common';
     NzTableModule,
     CommonModule,
     NzButtonModule, // Example: If you're using NzButton
-  ],})
-
-
-
-
-
+  ],
+})
 export class HotelsComponent implements OnInit {
   hotels: Hotel[] = [];
   loading = true;
@@ -44,7 +39,7 @@ export class HotelsComponent implements OnInit {
         this.total = data.length; // Set the total number of entries
         this.loading = false;
       },
-      (error) => {
+      error => {
         console.error('Error fetching hotels:', error);
         this.loading = false;
       }
