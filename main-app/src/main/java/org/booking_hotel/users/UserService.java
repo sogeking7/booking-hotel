@@ -43,14 +43,24 @@ public class UserService {
             );
         }
 
-        String hashedPassword = PasswordUtil.hashPassword(req.password());
+        Consumer<UserRecord> fn;
 
-        Consumer<UserRecord> fn = record -> {
-            record.setFirstName(req.firstName());
-            record.setLastName(req.lastName());
-            record.setEmail(req.email());
-            record.setPasswordHash(hashedPassword);
-        };
+        if (req.id() == null) {
+            String hashedPassword = PasswordUtil.hashPassword(req.password());
+
+            fn = record -> {
+                record.setFirstName(req.firstName());
+                record.setLastName(req.lastName());
+                record.setEmail(req.email());
+                record.setPasswordHash(hashedPassword);
+            };
+        } else {
+            fn = record -> {
+                record.setFirstName(req.firstName());
+                record.setLastName(req.lastName());
+                record.setEmail(req.email());
+            };
+        }
 
         UserDto createdUser = req.id() == null ? userDao.insert(fn) : userDao.updateById(fn, req.id());
         return new UserSaveResponse(createdUser.id());

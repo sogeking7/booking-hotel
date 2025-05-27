@@ -17,7 +17,7 @@ public class AppUserResource {
 
     @GET
     @Path("/{id}")
-    public AppUserModel getUserById(@PathParam("id") Long id) {
+    public AppUserModel appGetUserById(@PathParam("id") Long id) {
         UserDto user = userService.getUserById(id);
         return new AppUserModel(user.id(), user.firstName(), user.lastName(), user.email());
     }

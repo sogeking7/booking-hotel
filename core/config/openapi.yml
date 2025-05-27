@@ -863,7 +863,7 @@ paths:
       summary: Sign Up
   /api/core/app/users/{id}:
     get:
-      operationId: getUserById
+      operationId: appGetUserById
       tags:
       - User
       parameters:
@@ -880,7 +880,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppUserModel"
-      summary: Get User By Id
+      summary: App Get User By Id
   /api/core/bed-types:
     post:
       operationId: saveBedType
@@ -1892,7 +1892,7 @@ paths:
         schema:
           type: integer
           format: int32
-          default: 0
+          default: 1
       - name: size
         in: query
         schema:

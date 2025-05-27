@@ -10,7 +10,7 @@ public record UserSaveRequest(
         @NotNull @NotBlank String firstName,
         @NotNull @NotBlank String lastName,
         @NotNull @Email String email,
-        @NotNull @NotBlank @Schema(defaultValue = "qwerty") String password,
+        @Schema(defaultValue = "qwerty") String password,
         @NotNull @NotBlank @Schema(defaultValue = "user") String role
 ) {
 }

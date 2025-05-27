@@ -5,12 +5,14 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NgForOf } from '@angular/common';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { getRoleTagColor } from '../../../lib/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzTypographyComponent } from 'ng-zorro-antd/typography';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  imports: [NzTableModule, NgForOf, NzButtonComponent, NzTagModule],
+  imports: [NzTableModule, NgForOf, NzButtonComponent, NzTagModule, RouterLink, NzIconDirective, NzTypographyComponent],
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
