@@ -1,0 +1,42 @@
+<h2 nz-typography>
+  {{ city ? 'Edit City' : 'Create City' }}
+</h2>
+
+@if (isLoading.city) {
+  <div class="loading-container">
+    <nz-spin nzTip="Loading city data..."></nz-spin>
+  </div>
+}
+
+@if (!isLoading.city && editForm) {
+  <div>
+    <form nz-form [formGroup]="editForm" (ngSubmit)="saveCity()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>Name</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Please input name!">
+          <input nz-input formControlName="name" placeholder="Name"/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>Country</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Please select a country!">
+          <nz-select formControlName="countryId" nzPlaceHolder="Select a country">
+            <nz-option *ngFor="let c of countries" [nzValue]="c.id" [nzLabel]="c.name">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+
+      <div class="form-actions">
+        <button nz-button nzType="default" (click)="cancel()" style="margin-right: 8px">Cancel</button>
+        <button nz-button nzType="primary" [disabled]="!editForm.valid || isLoading.save" type="submit"
+                [nzLoading]="isLoading.save"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+}

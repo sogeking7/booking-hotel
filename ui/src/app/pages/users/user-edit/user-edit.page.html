@@ -11,6 +11,7 @@
 @if (!isLoading.user && editForm) {
   <div>
     <form nz-form [formGroup]="editForm" (ngSubmit)="saveUser()">
+      {{editForm.errors | json}}
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzRequired>First Name</nz-form-label>
         <nz-form-control [nzSpan]="14" nzErrorTip="Please input first name!">
@@ -27,7 +28,7 @@
 
       @if (!user) {
         <nz-form-item>
-          <nz-form-label [nzSpan]="6" nzRequired>Email</nz-form-label>
+          <nz-form-label [nzSpan]="6" nzRequired="">Email</nz-form-label>
           <nz-form-control [nzSpan]="14" [nzErrorTip]="emailErrorTpl">
             <input nz-input formControlName="email" placeholder="Email" type="email"/>
             <ng-template #emailErrorTpl let-control>
@@ -42,7 +43,6 @@
         </nz-form-item>
       }
 
-
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzRequired>Role</nz-form-label>
         <nz-form-control [nzSpan]="14" nzErrorTip="Please select a role!">
@@ -54,6 +54,9 @@
       </nz-form-item>
 
       @if (!user) {
+        @if (editForm.controls.password.errors) {
+          {{ editForm.controls.password.errors['required'] }}
+        }
         <nz-form-item>
           <nz-form-label [nzSpan]="6" nzRequired>Password</nz-form-label>
           <nz-form-control [nzSpan]="14" [nzErrorTip]="passwordErrorTpl">
