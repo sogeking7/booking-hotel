@@ -15,7 +15,7 @@ import { firstValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-save-user',
+  selector: 'app-save-user-page',
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -28,10 +28,10 @@ import { HttpErrorResponse } from '@angular/common/http';
     RouterModule,
     NzTypographyComponent,
   ],
-  templateUrl: './user-edit.component.html',
-  styleUrl: './user-edit.component.css',
+  templateUrl: './user-edit.page.html',
+  styleUrl: './user-edit.page.css',
 })
-export class UserEditComponent implements OnInit {
+export class UserEditPage implements OnInit {
   user?: UserModel;
   editForm = new FormGroup({
     firstName: new FormControl<string | null>(null, [Validators.required]),
@@ -52,11 +52,11 @@ export class UserEditComponent implements OnInit {
   private router = inject(Router);
   private notification = inject(NzNotificationService);
 
-  ngOnInit(): void {
+  async ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.isEdit = true;
-      this.loadUser(Number(id));
+      await this.loadUser(Number(id));
     }
   }
 
