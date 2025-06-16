@@ -63,4 +63,11 @@ public class RoomTypeDaoImpl implements RoomTypeDao {
                 .where(rt.REMOVED.isFalse(), rt.ID.eq(id))
                 .execute();
     }
+
+    @Override
+    public List<RoomTypeDto> getByHotelId(Long hotelId) {
+        return dsl.selectFrom(rt)
+                .where(rt.REMOVED.isFalse(), rt.HOTEL_ID.eq(hotelId))
+                .fetch().stream().map(RoomTypeDto::of).toList();
+    }
 }

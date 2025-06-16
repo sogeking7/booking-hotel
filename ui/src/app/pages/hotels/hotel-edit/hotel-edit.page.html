@@ -1,0 +1,55 @@
+<h2 nz-typography>
+  {{ hotel ? 'Edit Hotel' : 'Create Hotel' }}
+</h2>
+
+@if (isLoading.hotel) {
+  <div class="loading-container">
+    <nz-spin nzTip="Loading hotel data..."></nz-spin>
+  </div>
+}
+
+@if (!isLoading.hotel && editForm) {
+  <div>
+    <form nz-form [formGroup]="editForm" (ngSubmit)="saveHotel()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>Name</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Please input hotel name!">
+          <input nz-input formControlName="name" placeholder="Hotel Name"/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>Address</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Please input hotel address!">
+          <input nz-input formControlName="address" placeholder="Hotel Address"/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>Phone</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Please input hotel phone number!">
+          <input nz-input formControlName="phone" placeholder="Phone Number"/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>City</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Please select a city!">
+          <nz-select formControlName="cityId" nzPlaceHolder="Select a city">
+            <nz-option *ngFor="let c of cities" [nzValue]="c.id" [nzLabel]="c.name">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div class="form-actions">
+        <button nz-button nzType="default" (click)="cancel()" style="margin-right: 8px">Cancel</button>
+        <button nz-button nzType="primary" [disabled]="!editForm.valid || isLoading.save" type="submit"
+                [nzLoading]="isLoading.save"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+}

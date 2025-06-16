@@ -1,3 +1,21 @@
+<h1 nz-typography style="margin-bottom: 30px">Hotels</h1>
+
+<div class="table-operations" style="margin-bottom: 16px">
+  <button nz-button nzType="primary" [routerLink]="['new']"><i nz-icon nzType="hotel-add"></i>New Hotel</button>
+
+  <div class="search-box" style="margin-top: 16px; margin-bottom: 16px; display: flex; gap: 8px;">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="onSearchChange()"
+      placeholder="Search hotels..."
+      style="padding: 8px; width: 300px; border: 1px solid #d9d9d9; border-radius: 4px;"
+    />
+    <button nz-button nzType="primary" (click)="onSearch()">Filter</button>
+  </div>
+</div>
+
+
 <nz-table
   #hotelTable
   [nzData]="hotels"
@@ -28,8 +46,9 @@
       <td>{{ h.address }}</td>
       <td>{{ h.phone || '-' }}</td>
       <td>
-        <a nz-button nzType="link" href="https://www.hilton.com/ru/" target="_blank">View</a>
+        <a nz-button nzType="link" [routerLink]="['/hotels', h.id]">View Details</a>
       </td>
+
     </tr>
   </tbody>
 </nz-table>

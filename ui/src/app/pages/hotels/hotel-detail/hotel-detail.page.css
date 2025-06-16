@@ -1,0 +1,51 @@
+.hotel-detail-container {
+  padding: 20px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.hotel-info {
+  margin-bottom: 30px;
+}
+
+.room-types-section {
+  margin-bottom: 30px;
+}
+
+.room-types-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.room-type-card {
+  height: 100%;
+}
+
+.bed-type-info, .facilities-info {
+  margin-top: 15px;
+}
+
+.facilities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+.actions {
+  margin-top: 20px;
+}

@@ -1,0 +1,62 @@
+<div class="hotel-detail-container">
+  <h2 nz-typography>Hotel Details</h2>
+
+  @if (isLoading) {
+    <div class="loading-container">
+      <nz-spin nzTip="Loading hotel details..."></nz-spin>
+    </div>
+  }
+
+  @if (!isLoading && hotel) {
+    <div class="hotel-info">
+      <nz-card nzTitle="Hotel Information">
+        <p><strong>Name:</strong> {{ hotel.name }}</p>
+        <p><strong>Address:</strong> {{ hotel.address }}</p>
+        <p><strong>Phone:</strong> {{ hotel.phone }}</p>
+      </nz-card>
+    </div>
+
+    <div class="room-types-section">
+      <h3 nz-typography>Room Types</h3>
+
+      @if (hotel.roomTypes && hotel.roomTypes.length > 0) {
+        <div class="room-types-grid">
+          @for (roomType of hotel.roomTypes; track roomType.id) {
+            <nz-card class="room-type-card">
+              <h4 nz-typography>{{ roomType.name }}</h4>
+              <p><strong>Count:</strong> {{ roomType.count }}</p>
+
+              <div class="bed-type-info">
+                <h5 nz-typography>Bed Type</h5>
+                <p>{{ roomType.bedType.name }}</p>
+                <img *ngIf="roomType.bedType.iconRef" [src]="roomType.bedType.iconRef" alt="Bed Type Icon" class="icon">
+              </div>
+
+              @if (roomType.facilities && roomType.facilities.length > 0) {
+                <div class="facilities-info">
+                  <h5 nz-typography>Facilities</h5>
+                  <div class="facilities-list">
+                    @for (facility of roomType.facilities; track facility.id) {
+                      <nz-tag>
+                        <span>{{ facility.name }}</span>
+                        <img *ngIf="facility.iconRef" [src]="facility.iconRef" alt="Facility Icon" class="icon">
+                      </nz-tag>
+                    }
+                  </div>
+                </div>
+              } @else {
+                <p>No facilities available for this room type.</p>
+              }
+            </nz-card>
+          }
+        </div>
+      } @else {
+        <p>No room types available for this hotel.</p>
+      }
+    </div>
+
+    <div class="actions">
+      <button nz-button nzType="default" (click)="goBack()">Back to Hotels</button>
+    </div>
+  }
+</div>
