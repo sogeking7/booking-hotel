@@ -1,87 +1,39 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {firstValueFrom} from 'rxjs';
+import {HotelModel, HotelSaveRequest, HotelSaveResponse, HotelService} from '@lib/booking-hotel-api';
 
-// Define the hotel interface to match the backend data structure
-export interface Hotel {
-  id?: number;
-  name: string;
-  address: string;
-  phone: string;
-  cityId?: number;
-}
-
-export interface BedType {
-  id: number;
-  name: string;
-  iconRef: string;
-}
-
-export interface Facility {
-  id: number;
-  name: string;
-  iconRef: string;
-  type?: string;
-}
-
-export interface RoomType {
-  id: number;
-  hotelId: number;
-  bedTypeId: number;
-  name: string;
-  count: number;
-  bedType: BedType;
-  facilities: Facility[];
-}
-
-export interface HotelDetail extends Hotel {
-  roomTypes: RoomType[];
-}
-
-// HotelsService to handle HTTP requests
 @Injectable({
   providedIn: 'root',
 })
 export class HotelsService {
-  private apiUrl = '/api/core/hotels'; // Backend API endpoint
-
-  constructor(private http: HttpClient) {}
-
-  // Fetch all hotels from the backend
-  getAllHotels(): Observable<Hotel[]> {
-    return this.http.get<Hotel[]>(this.apiUrl);
+  constructor(private hotelApi: HotelService) {
   }
 
-  // Get a hotel by ID
-  getHotelById(id: number): Observable<Hotel> {
-    return this.http.get<Hotel>(`${this.apiUrl}/${id}`);
+  async getAllHotels(): Promise<HotelModel[]> {
+    return await firstValueFrom(this.hotelApi.getAllHotels('body'));
   }
 
-  // Get hotel details with rooms, bed types, and facilities
-  getHotelDetails(id: number): Observable<HotelDetail> {
-    return this.http.get<HotelDetail>(`${this.apiUrl}/${id}/details`);
+  async getHotelById(id: number): Promise<HotelModel> {
+    return await firstValueFrom(this.hotelApi.getHotelById(id, 'body'));
   }
 
-  // Save (create or update) a hotel
-  saveHotel(hotel: Hotel): Observable<Hotel> {
-    if (hotel.id) {
-      // Update existing hotel
-      return this.http.put<Hotel>(`${this.apiUrl}/${hotel.id}`, hotel);
-    } else {
-      // Create new hotel
-      return this.http.post<Hotel>(this.apiUrl, hotel);
-    }
+  async createHotel(hotel: HotelSaveRequest): Promise<HotelSaveResponse> {
+    return await firstValueFrom(this.hotelApi.saveHotel(hotel, 'body'));
+  }
+
+  async updateHotel(id: number, hotel: HotelSaveRequest): Promise<HotelSaveResponse> {
+    return await firstValueFrom(this.hotelApi.saveHotel(hotel, 'body'));
+  }
+
+  async deleteHotel(id: number): Promise<void> {
+    return await firstValueFrom(this.hotelApi.deleteHotelById(id, 'body'));
+  }
+
+  async searchHotels(search: string): Promise<HotelModel[]> {
+    return await firstValueFrom(this.hotelApi.searchHotels(search, 'body'));
   }
 
   getHotels(search: string) {
-    return this.http.get<Hotel[]>(`${this.apiUrl}/search`, {
-      params: { search }
-    });
-  }
-
-
-  // Delete a hotel
-  deleteHotel(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.hotelApi.searchHotels(search, 'body');
   }
 }

@@ -7,9 +7,12 @@ import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import {provideHttpClient, withFetch, withInterceptors} from '@angular/common/http';
 import { authInterceptor } from './interceptors/auth.interceptor';
 import { BASE_PATH } from '../lib/booking-hotel-api';
+import { ApiModule, Configuration } from '../lib/booking-hotel-api';
+
+import { importProvidersFrom } from '@angular/core';
 
 registerLocaleData(en);
 
@@ -19,10 +22,21 @@ export const appConfig: ApplicationConfig = {
     provideNzIcons(icons),
     provideNzI18n(en_US),
     provideAnimationsAsync(),
-    provideHttpClient(withInterceptors([authInterceptor])),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([authInterceptor])),
+
+
+
     {
       provide: BASE_PATH,
       useValue: '',
     },
-  ],
+    importProvidersFrom(
+      ApiModule.forRoot(() => new Configuration({
+        basePath: 'http://localhost:8080',
+        withCredentials: true,
+      }))
+    )
+  ]
 };

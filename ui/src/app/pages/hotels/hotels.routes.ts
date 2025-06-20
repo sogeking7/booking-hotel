@@ -1,18 +1,32 @@
 import { Routes } from '@angular/router';
-import { HotelsComponent } from './hotels.component';
-import { HotelEditPage } from './hotel-edit/hotel-edit.page';
-import { HotelDetailPage } from './hotel-detail/hotel-detail.page';
 
 export const HOTELS_ROUTES: Routes = [
-  { path: '', component: HotelsComponent },
+  {
+    path: '',
+    loadComponent: () => import('./hotels.component').then(m => m.HotelsComponent),
+  },
+  {
+    path: 'new',
+    loadComponent: () => import('./hotel-edit/hotel-edit.page').then(m => m.HotelEditPage),
+  },
   {
     path: ':id/edit',
-    component: HotelEditPage,
-    resolve: {},
+    loadComponent: () => import('./hotel-edit/hotel-edit.page').then(m => m.HotelEditPage),
+  },
+  {
+    path: ':id/rooms/new',
+    loadComponent: () => import('./room-types/room-form.component').then(m => m.RoomFormComponent),
+  },
+  {
+    path: ':id/rooms/:roomId/edit',
+    loadComponent: () => import('./room-types/room-form.component').then(m => m.RoomFormComponent),
+  },
+  {
+    path: ':id/rooms',
+    loadComponent: () => import('./room-types/rooms.component').then(m => m.RoomsComponent),
   },
   {
     path: ':id',
-    component: HotelDetailPage,
+    loadComponent: () => import('./hotel-detail/hotel-detail.page').then(m => m.HotelDetailPage),
   },
-  { path: 'new', component: HotelEditPage },
 ];

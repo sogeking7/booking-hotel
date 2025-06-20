@@ -9,7 +9,9 @@
     "test": "ng test",
     "serve:ssr:ui": "node dist/ui/server/server.mjs",
     "lint": "ng lint",
-    "prettier": "prettier --write \"src/**/*.{ts,html,json,scss,css}\""
+    "prettier": "prettier --write \"src/**/*.{ts,html,json,scss,css}\"",
+    "generate-api": "openapi-generator-cli generate -i openapi/openapi.json -g typescript-angular -o src/app/api --additional-properties=providedInRoot=true,stringEnums=true,serviceSuffix=Api"
+
   },
   "private": true,
   "dependencies": {

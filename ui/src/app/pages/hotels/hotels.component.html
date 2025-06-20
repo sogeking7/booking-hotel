@@ -1,7 +1,10 @@
 <h1 nz-typography style="margin-bottom: 30px">Hotels</h1>
 
 <div class="table-operations" style="margin-bottom: 16px">
-  <button nz-button nzType="primary" [routerLink]="['new']"><i nz-icon nzType="hotel-add"></i>New Hotel</button>
+  <button nz-button nzType="primary" [routerLink]="['/hotels', 'new']">
+    <i nz-icon nzType="hotel-add"></i>New Hotel
+  </button>
+
 
   <div class="search-box" style="margin-top: 16px; margin-bottom: 16px; display: flex; gap: 8px;">
     <input
@@ -46,8 +49,17 @@
       <td>{{ h.address }}</td>
       <td>{{ h.phone || '-' }}</td>
       <td>
-        <a nz-button nzType="link" [routerLink]="['/hotels', h.id]">View Details</a>
+        <a nz-button nzType="link" [routerLink]="[h.id]">View Details</a>
+        |
+        <a nz-button nzType="link" [routerLink]="[h.id, 'rooms']">
+          View Rooms
+        </a>
+        |
+        <a nz-button nzType="link" [routerLink]="[h.id, 'edit']">
+          ✏️ Edit
+        </a>
       </td>
+
 
     </tr>
   </tbody>

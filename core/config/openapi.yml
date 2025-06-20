@@ -66,6 +66,29 @@ components:
           $ref: "#/components/schemas/OffsetDateTime"
         removed:
           type: boolean
+    BedTypeModel1:
+      type: object
+      required:
+      - id
+      - name
+      - iconRef
+      - createdAt
+      - updatedAt
+      - removed
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        iconRef:
+          type: string
+        createdAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        updatedAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        removed:
+          type: boolean
     BedTypeSaveRequest:
       type: object
       required:
@@ -186,6 +209,31 @@ components:
           type: integer
           format: int64
     FacilityModel:
+      type: object
+      required:
+      - id
+      - name
+      - iconRef
+      - createdAt
+      - updatedAt
+      - removed
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        iconRef:
+          type: string
+        type:
+          $ref: "#/components/schemas/FacilityTypes"
+        createdAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        updatedAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        removed:
+          type: boolean
+    FacilityModel1:
       type: object
       required:
       - id
@@ -337,6 +385,39 @@ components:
           type: string
         role:
           $ref: "#/components/schemas/UserRole"
+    HotelDetailModel:
+      type: object
+      required:
+      - id
+      - name
+      - address
+      - phone
+      - createdAt
+      - updatedAt
+      - removed
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+        cityId:
+          type: integer
+          format: int64
+        roomTypes:
+          type: array
+          items:
+            $ref: "#/components/schemas/RoomTypeModel"
+        createdAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        updatedAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        removed:
+          type: boolean
     HotelModel:
       type: object
       required:
@@ -654,6 +735,44 @@ components:
           type: integer
           format: int64
     RoomTypeModel:
+      type: object
+      required:
+      - id
+      - hotelId
+      - bedTypeId
+      - name
+      - count
+      - createdAt
+      - updatedAt
+      - removed
+      properties:
+        id:
+          type: integer
+          format: int64
+        hotelId:
+          type: integer
+          format: int64
+        bedTypeId:
+          type: integer
+          format: int64
+        name:
+          type: string
+        count:
+          type: integer
+          format: int32
+        bedType:
+          $ref: "#/components/schemas/BedTypeModel1"
+        facilities:
+          type: array
+          items:
+            $ref: "#/components/schemas/FacilityModel1"
+        createdAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        updatedAt:
+          $ref: "#/components/schemas/OffsetDateTime"
+        removed:
+          type: boolean
+    RoomTypeModel1:
       type: object
       required:
       - id
@@ -1336,6 +1455,26 @@ paths:
                 items:
                   $ref: "#/components/schemas/HotelModel"
       summary: Get All Hotels
+  /api/core/hotels/search:
+    get:
+      operationId: searchHotels
+      tags:
+      - Hotel
+      parameters:
+      - name: search
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HotelModel"
+      summary: Search Hotels
   /api/core/hotels/{id}:
     get:
       operationId: getHotelById
@@ -1378,6 +1517,26 @@ paths:
       security:
       - SecurityScheme:
         - admin
+  /api/core/hotels/{id}/details:
+    get:
+      operationId: getHotelDetails
+      tags:
+      - Hotel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HotelDetailModel"
+      summary: Get Hotel Details
   /api/core/media:
     post:
       operationId: saveMedia
@@ -1805,7 +1964,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/RoomTypeModel"
+                  $ref: "#/components/schemas/RoomTypeModel1"
       summary: Get All Room Types
   /api/core/room-types/{id}:
     get:
@@ -1825,7 +1984,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RoomTypeModel"
+                $ref: "#/components/schemas/RoomTypeModel1"
       summary: Get Room Type By Id
     delete:
       operationId: deleteRoomTypeById
