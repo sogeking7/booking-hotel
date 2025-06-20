@@ -9,9 +9,9 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { firstValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { HotelDetail, HotelsService } from '../HotelsService';
+import { HotelsService } from '../HotelsService';
+import {HotelDetailModel} from '@lib/booking-hotel-api';
 
 @Component({
   selector: 'app-hotel-detail-page',
@@ -30,7 +30,7 @@ import { HotelDetail, HotelsService } from '../HotelsService';
   styleUrl: './hotel-detail.page.css',
 })
 export class HotelDetailPage implements OnInit {
-  hotel?: HotelDetail;
+  hotel?: HotelDetailModel;
   isLoading = true;
 
   private hotelsService = inject(HotelsService);
@@ -53,7 +53,7 @@ export class HotelDetailPage implements OnInit {
   private async loadHotelDetails(hotelId: number) {
     this.isLoading = true;
     try {
-      this.hotel = await firstValueFrom(this.hotelsService.getHotelDetails(hotelId));
+      this.hotel = await this.hotelsService.getHotelById(hotelId);
     } catch (e: unknown) {
       const error = e as HttpErrorResponse;
       this.notification.error('Error', error.error?.description || 'Failed to load hotel details');

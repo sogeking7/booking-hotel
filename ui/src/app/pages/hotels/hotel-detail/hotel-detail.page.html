@@ -26,11 +26,12 @@
               <h4 nz-typography>{{ roomType.name }}</h4>
               <p><strong>Count:</strong> {{ roomType.count }}</p>
 
-              <div class="bed-type-info">
+              <div class="bed-type-info" *ngIf="roomType.bedType">
                 <h5 nz-typography>Bed Type</h5>
                 <p>{{ roomType.bedType.name }}</p>
-                <img *ngIf="roomType.bedType.iconRef" [src]="roomType.bedType.iconRef" alt="Bed Type Icon" class="icon">
+                <img *ngIf="roomType.bedType.iconRef" [src]="roomType.bedType.iconRef" alt="Bed Type Icon" class="icon" />
               </div>
+
 
               @if (roomType.facilities && roomType.facilities.length > 0) {
                 <div class="facilities-info">

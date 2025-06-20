@@ -1,19 +1,20 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CityModel, CityService } from '../../../../lib/booking-hotel-api';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NzSpinModule } from 'ng-zorro-antd/spin';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzTypographyModule } from 'ng-zorro-antd/typography';
-import { firstValueFrom } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Hotel, HotelsService } from '../../hotels/HotelsService';
+import {Component, inject, OnInit} from '@angular/core';
+import {CityModel, CityService, HotelSaveRequest} from '../../../../lib/booking-hotel-api';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
+import {NzNotificationService} from 'ng-zorro-antd/notification';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {NzFormModule} from 'ng-zorro-antd/form';
+import {NzInputModule} from 'ng-zorro-antd/input';
+import {NzButtonModule} from 'ng-zorro-antd/button';
+import {NzSelectModule} from 'ng-zorro-antd/select';
+import {NzSpinModule} from 'ng-zorro-antd/spin';
+import {NzIconModule} from 'ng-zorro-antd/icon';
+import {NzTypographyModule} from 'ng-zorro-antd/typography';
+import {firstValueFrom} from 'rxjs';
+import {HttpErrorResponse} from '@angular/common/http';
+import {HotelsService} from '../../hotels/HotelsService';
+import {HotelModel} from '../../../../lib/booking-hotel-api';
 
 @Component({
   selector: 'app-save-hotel-page',
@@ -33,7 +34,7 @@ import { Hotel, HotelsService } from '../../hotels/HotelsService';
   styleUrl: './hotel-edit.page.css',
 })
 export class HotelEditPage implements OnInit {
-  hotel?: Hotel;
+  hotel?: HotelModel;
   cities?: CityModel[];
   editForm = new FormGroup({
     name: new FormControl<string | null>(null, [Validators.required]),
@@ -74,7 +75,7 @@ export class HotelEditPage implements OnInit {
   private async loadHotel(hotelId: number) {
     this.isLoading.hotel = true;
     try {
-      this.hotel = await firstValueFrom(this.hotelsService.getHotelById(hotelId));
+      this.hotel = await this.hotelsService.getHotelById(hotelId);
       this.editForm.patchValue({
         name: this.hotel.name,
         address: this.hotel.address,
@@ -112,6 +113,8 @@ export class HotelEditPage implements OnInit {
       return;
     }
 
+    if (!this.hotel?.id) return;
+
     const formModel = this.editForm.value;
     if (!formModel.name || !formModel.address || !formModel.phone) {
       throw new Error('required.fields');
@@ -119,15 +122,18 @@ export class HotelEditPage implements OnInit {
 
     this.isLoading.save = true;
     try {
-      await firstValueFrom(
-        this.hotelsService.saveHotel({
-          id: this.hotel?.id,
-          name: formModel.name,
-          address: formModel.address,
-          phone: formModel.phone,
-          cityId: formModel.cityId ?? undefined,
-        })
-      );
+      const updateHotel: HotelSaveRequest = {
+        id: this.hotel.id,
+        name: formModel.name,
+        address: formModel.address,
+        phone: formModel.phone,
+        cityId: formModel.cityId ?? undefined,
+      }
+      await this.hotelsService.updateHotel(
+        this.hotel.id,
+        updateHotel
+      )
+
       this.notification.success('Success', 'Hotel has been saved successfully!');
       this.router.navigate(['/hotels']);
     } catch (e: unknown) {

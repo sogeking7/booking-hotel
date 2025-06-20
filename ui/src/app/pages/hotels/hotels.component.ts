@@ -1,5 +1,8 @@
 import {Component, inject, NgModule, OnInit} from '@angular/core';
-import { HotelsService, Hotel } from './HotelsService';
+import { HotelsService } from './HotelsService';
+import { HotelModel } from '@lib/booking-hotel-api';
+
+
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { CommonModule } from '@angular/common';
@@ -28,7 +31,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
   ],
 })
 export class HotelsComponent implements OnInit {
-  hotels: Hotel[] = [];
+  hotels: HotelModel[] = [];
   loading = true;
   pageIndex = 1;
   pageSize = 10;
@@ -71,45 +74,25 @@ export class HotelsComponent implements OnInit {
   }
 
   // Fetch the hotels from the backend service
-  loadHotels(searchOverride?: string): void {
+  async loadHotels(searchOverride?: string): Promise<void> {
     this.loading = true;
 
-    // Use provided search term or fall back to component's searchTerm
     const searchTerm = searchOverride !== undefined ? searchOverride : this.searchTerm;
-
-    // Update the component's searchTerm
     this.searchTerm = searchTerm;
 
-    // If search term exists, use search endpoint, otherwise get all hotels
-    if (searchTerm && searchTerm.trim() !== '') {
-      this.hotelsService.getHotels(searchTerm).subscribe(
-        (data: Hotel[]) => {
-          this.hotels = data;
-          this.total = data.length; // Set the total number of entries
-          this.loading = false;
-          // Update URL with current state
-          this.updateUrlQueryParams();
-        },
-        error => {
-          console.error('Error fetching hotels:', error);
-          this.loading = false;
-        }
-      );
-    } else {
-      // Call the service to get data from the backend
-      this.hotelsService.getAllHotels().subscribe(
-        (data: Hotel[]) => {
-          this.hotels = data;
-          this.total = data.length; // Set the total number of entries
-          this.loading = false;
-          // Update URL with current state
-          this.updateUrlQueryParams();
-        },
-        error => {
-          console.error('Error fetching hotels:', error);
-          this.loading = false;
-        }
-      );
+    try {
+      if (searchTerm && searchTerm.trim() !== '') {
+        this.hotels = await this.hotelsService.searchHotels(searchTerm);
+      } else {
+        this.hotels = await this.hotelsService.getAllHotels();
+      }
+
+      this.total = this.hotels.length;
+    } catch (error) {
+      console.error('Error fetching hotels:', error);
+    } finally {
+      this.loading = false;
+      this.updateUrlQueryParams();
     }
   }
 
@@ -123,7 +106,6 @@ export class HotelsComponent implements OnInit {
     this.updateUrlQueryParams();
   }
 
-  // Handle query parameter changes (pagination updates)
   onQueryParamsChange(params: any): void {
     const { pageSize, pageIndex } = params;
     this.pageSize = pageSize;
@@ -131,7 +113,6 @@ export class HotelsComponent implements OnInit {
     this.updateUrlQueryParams();
   }
 
-  // Helper method to update URL query parameters
   private updateUrlQueryParams(): void {
     const queryParams: any = {};
 
@@ -142,12 +123,11 @@ export class HotelsComponent implements OnInit {
     queryParams.pageIndex = this.pageIndex;
     queryParams.pageSize = this.pageSize;
 
-    // Update URL without reloading the page
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: queryParams,
-      queryParamsHandling: 'merge', // Keep existing query params
-      replaceUrl: true // Replace the current URL to avoid adding to browser history
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
     });
   }
 }
