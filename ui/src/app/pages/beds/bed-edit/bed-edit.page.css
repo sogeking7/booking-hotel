@@ -1,0 +1,9 @@
+.loading-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.form-actions {
+  margin-top: 24px;
+}

@@ -1,0 +1,38 @@
+<h2 nz-typography>
+  {{ bedType ? 'Edit Bed Type' : 'Create Bed Type' }}
+</h2>
+
+@if (isLoading.bedType) {
+  <div class="loading-container">
+    <nz-spin nzTip="Loading bed type data..."></nz-spin>
+  </div>
+}
+
+@if (!isLoading.bedType && editForm) {
+  <div>
+    <form nz-form [formGroup]="editForm" (ngSubmit)="saveBedType()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>Name</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Please input name!">
+          <input nz-input formControlName="name" placeholder="Name"/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>Icon Reference</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Please input icon reference!">
+          <input nz-input formControlName="iconRef" placeholder="Icon Reference"/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div class="form-actions">
+        <button nz-button nzType="default" (click)="cancel()" style="margin-right: 8px">Cancel</button>
+        <button nz-button nzType="primary" [disabled]="!editForm.valid || isLoading.save" type="submit"
+                [nzLoading]="isLoading.save"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+}

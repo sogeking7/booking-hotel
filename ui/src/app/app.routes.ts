@@ -30,6 +30,10 @@ export const routes: Routes = [
         path: 'cities',
         loadChildren: () => import('./pages/cities/cities.routes').then(m => m.CITIES_ROUTES),
       },
+      {
+        path: 'beds',
+        loadChildren: () => import('./pages/beds/beds.routes').then(m => m.BEDS_ROUTES),
+      }
     ],
   },
   {

@@ -1,15 +1,15 @@
 import {Component, inject, NgModule, OnInit} from '@angular/core';
-import { HotelsService } from './HotelsService';
-import { HotelModel } from '@lib/booking-hotel-api';
+import {HotelsService} from './HotelsService';
+import {HotelModel} from '@lib/booking-hotel-api';
 
 
-import { NzTableModule } from 'ng-zorro-antd/table';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { CommonModule } from '@angular/common';
+import {NzTableModule} from 'ng-zorro-antd/table';
+import {NzButtonModule} from 'ng-zorro-antd/button';
+import {CommonModule} from '@angular/common';
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzTypographyComponent} from "ng-zorro-antd/typography";
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import {FormsModule } from '@angular/forms'; // Import FormsModule for ngModel
+import {FormsModule} from '@angular/forms'; // Import FormsModule for ngModel
 import {debounceTime, distinctUntilChanged, Subject} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
@@ -107,7 +107,7 @@ export class HotelsComponent implements OnInit {
   }
 
   onQueryParamsChange(params: any): void {
-    const { pageSize, pageIndex } = params;
+    const {pageSize, pageIndex} = params;
     this.pageSize = pageSize;
     this.pageIndex = pageIndex;
     this.updateUrlQueryParams();

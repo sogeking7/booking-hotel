@@ -28,8 +28,18 @@ public class RoomTypeResource {
     @RolesAllowed("admin")
     @POST
     public RoomTypeSaveResponse saveRoomType(@Valid RoomTypeSaveRequest req) {
-        return roomTypeService.saveRoomType(req);
+        System.out.println("Received RoomTypeSaveRequest: " + req);
+
+        try {
+            return roomTypeService.saveRoomType(req);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+
+            throw new InternalServerErrorException("Failed to save room type: " + e.getMessage());
+        }
     }
+
 
     @GET
     public List<RoomTypeModel> getAllRoomTypes() {

@@ -11,6 +11,8 @@ import org.booking_hotel.room_types.model.RoomTypeSaveResponse;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.time.OffsetDateTime;
+
 
 @RequestScoped
 @Transactional
@@ -32,6 +34,10 @@ public class RoomTypeService {
             record.setBedTypeId(req.bedTypeId());
             record.setName(req.name());
             record.setCount(req.count());
+
+            record.setCreatedAt(OffsetDateTime.now());
+            record.setUpdatedAt(OffsetDateTime.now()); // Update the timestamp on creation or update
+            record.setRemoved(false);
         };
 
         RoomTypeDto createdRoomType = req.id() == null ? roomTypeDao.insert(fn) : roomTypeDao.updateById(fn, req.id());
