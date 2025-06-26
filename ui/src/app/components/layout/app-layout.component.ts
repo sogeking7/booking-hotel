@@ -6,6 +6,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-layout',
+  standalone: true,
   templateUrl: './app-layout.component.html',
   styleUrls: ['./app-layout.component.css'],
   imports: [

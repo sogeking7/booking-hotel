@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {firstValueFrom} from 'rxjs';
-import {HotelModel, HotelSaveRequest, HotelSaveResponse, HotelService} from '@lib/booking-hotel-api';
+import {HotelModel, HotelDetailModel, HotelSaveRequest, HotelSaveResponse, HotelService} from '@lib/booking-hotel-api';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +13,8 @@ export class HotelsService {
     return await firstValueFrom(this.hotelApi.getAllHotels('body'));
   }
 
-  async getHotelById(id: number): Promise<HotelModel> {
-    return await firstValueFrom(this.hotelApi.getHotelById(id, 'body'));
+  async getHotelById(id: number): Promise<HotelDetailModel> {
+    return await firstValueFrom(this.hotelApi.getHotelDetails(id, 'body'));
   }
 
   async createHotel(hotel: HotelSaveRequest): Promise<HotelSaveResponse> {

@@ -33,6 +33,14 @@ export const routes: Routes = [
       {
         path: 'beds',
         loadChildren: () => import('./pages/beds/beds.routes').then(m => m.BEDS_ROUTES),
+      },
+      {
+        path: 'facilities',
+        loadChildren: () => import('./pages/facilities/facilities.routes').then(m => m.FACILITIES_ROUTES),
+      },
+      {
+        path: 'orders',
+        loadComponent: () => import('./pages/orders/orders.page').then(m => m.OrdersPageComponent),
       }
     ],
   },

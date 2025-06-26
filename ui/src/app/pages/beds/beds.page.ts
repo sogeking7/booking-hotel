@@ -34,7 +34,7 @@ export class BedsPage implements OnInit {
     await this.loadBedTypes();
   }
 
-  private async loadBedTypes() {
+  private async loadBedTypes() { // Load all bed types
     this.isLoading.bedTypes = true;
     try {
       this.bedTypes = await firstValueFrom(this.bedTypeService.getAllBedTypes());

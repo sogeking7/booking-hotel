@@ -13,6 +13,9 @@
         <p><strong>Name:</strong> {{ hotel.name }}</p>
         <p><strong>Address:</strong> {{ hotel.address }}</p>
         <p><strong>Phone:</strong> {{ hotel.phone }}</p>
+        <div class="total-rooms-info">
+          <p><strong>Total Rooms:</strong> <span class="total-rooms-value">{{ totalRooms }}</span></p>
+        </div>
       </nz-card>
     </div>
 
@@ -24,7 +27,10 @@
           @for (roomType of hotel.roomTypes; track roomType.id) {
             <nz-card class="room-type-card">
               <h4 nz-typography>{{ roomType.name }}</h4>
-              <p><strong>Count:</strong> {{ roomType.count }}</p>
+              <div class="room-count">
+                <h5 nz-typography>Available Rooms</h5>
+                <p class="room-count-value">{{ roomType.count }}</p>
+              </div>
 
               <div class="bed-type-info" *ngIf="roomType.bedType">
                 <h5 nz-typography>Bed Type</h5>

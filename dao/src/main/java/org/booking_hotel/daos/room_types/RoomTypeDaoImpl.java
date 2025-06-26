@@ -11,7 +11,7 @@ import org.jooq.DSLContext;
 
 import java.util.List;
 import java.util.function.Consumer;
-
+// dsl - domain specific language, used for building SQL queries in a type-safe manner
 @Dependent
 public class RoomTypeDaoImpl implements RoomTypeDao {
     private final RoomTypes rt = RoomTypes.ROOM_TYPES.as("rt");
@@ -49,11 +49,27 @@ public class RoomTypeDaoImpl implements RoomTypeDao {
     public RoomTypeDto updateById(Consumer<RoomTypeRecord> fn, Long id) {
         var record = new RoomTypeRecord();
         fn.accept(record);
-        return dsl.update(rt)
-                .set(record)
+
+        // First check if the record exists
+        var existingRecord = dsl.selectFrom(rt)
                 .where(rt.REMOVED.isFalse(), rt.ID.eq(id))
-                .returning()
-                .fetchSingle(RoomTypeDto::of);
+                .fetchOne();
+
+        if (existingRecord == null) {
+            // If record doesn't exist, insert a new one with the specified ID
+            record.setId(id);
+            return dsl.insertInto(rt)
+                    .set(record)
+                    .returning()
+                    .fetchSingle(RoomTypeDto::of);
+        } else {
+            // If record exists, update it
+            return dsl.update(rt)
+                    .set(record)
+                    .where(rt.REMOVED.isFalse(), rt.ID.eq(id))
+                    .returning()
+                    .fetchSingle(RoomTypeDto::of);
+        }
     }
 
     @Override

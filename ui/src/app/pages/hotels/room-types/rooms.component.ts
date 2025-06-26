@@ -51,6 +51,14 @@ import { HotelRoomsService, Room } from './HotelRoomsService'; // сервис �
             >
               Delete
             </button>
+            <button
+              nz-button
+              nzType="primary"
+              nzSize="small"
+              (click)="bookRoom(room.id)"
+            >
+              Book Now
+            </button>
           </td>
         </tr>
       </tbody>
@@ -114,5 +122,14 @@ export class RoomsComponent implements OnInit {
     } finally {
       this.loading = false;
     }
+  }
+
+  bookRoom(roomTypeId: number): void {
+    this.router.navigate(['/orders'], {
+      queryParams: {
+        hotelId: this.hotelId,
+        roomTypeId: roomTypeId
+      }
+    });
   }
 }

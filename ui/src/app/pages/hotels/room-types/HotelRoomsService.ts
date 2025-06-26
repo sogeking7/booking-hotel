@@ -52,7 +52,7 @@ export class HotelRoomsService {
         })
       );
       if (roomTypes.hotelId !== hotelId) {
-        throw new Error('Room doen not belong to the hotel');
+        throw new Error('Room does not belong to the hotel');
       }
 
       return {

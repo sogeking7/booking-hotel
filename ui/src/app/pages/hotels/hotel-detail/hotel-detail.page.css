@@ -28,8 +28,30 @@
   height: 100%;
 }
 
-.bed-type-info, .facilities-info {
+.bed-type-info, .facilities-info, .room-count {
   margin-top: 15px;
+}
+
+.room-count {
+  background-color: #f6f6f6;
+  border-radius: 4px;
+  padding: 10px;
+  border-left: 4px solid #1890ff;
+}
+
+.room-count-value, .total-rooms-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1890ff;
+  margin: 5px 0;
+}
+
+.total-rooms-info {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #e6f7ff;
+  border-radius: 4px;
+  border-left: 4px solid #1890ff;
 }
 
 .facilities-list {

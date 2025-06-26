@@ -1,0 +1,120 @@
+<div class="container">
+  <h1>Book a Room</h1>
+
+  <form nz-form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzRequired>Hotel</nz-form-label>
+          <nz-form-control [nzSpan]="24" nzErrorTip="Please select a hotel">
+            <nz-select
+              formControlName="hotelId"
+              nzPlaceHolder="Select a hotel"
+              (ngModelChange)="onHotelChange($event)">
+              <nz-option
+                *ngFor="let hotel of hotels"
+                [nzValue]="hotel.id"
+                [nzLabel]="hotel.name">
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzRequired>Room Type</nz-form-label>
+          <nz-form-control [nzSpan]="24" nzErrorTip="Please select a room type">
+            <nz-select
+              formControlName="roomTypeId"
+              nzPlaceHolder="Select a room type">
+              <nz-option
+                *ngFor="let room of rooms"
+                [nzValue]="room.id"
+                [nzLabel]="room.type + ' - $' + room.price + ' - ' + room.description">
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzRequired>Check-in Date</nz-form-label>
+          <nz-form-control [nzSpan]="24" nzErrorTip="Please select check-in date">
+            <nz-date-picker
+              formControlName="fromDate"
+              nzFormat="yyyy-MM-dd"
+              style="width: 100%">
+            </nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzRequired>Check-out Date</nz-form-label>
+          <nz-form-control [nzSpan]="24" nzErrorTip="Please select check-out date">
+            <nz-date-picker
+              formControlName="toDate"
+              nzFormat="yyyy-MM-dd"
+              style="width: 100%">
+            </nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row>
+      <div nz-col [nzSpan]="24" style="text-align: right;">
+        <button
+          nz-button
+          nzType="primary"
+          [nzLoading]="isLoading"
+          [disabled]="orderForm.invalid">
+          Book Now
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <nz-divider></nz-divider>
+
+  <h2>My Bookings</h2>
+
+  <nz-table #ordersTable [nzData]="orders" [nzLoading]="isLoading">
+    <thead>
+      <tr>
+        <th>Hotel</th>
+        <th>Room Type</th>
+        <th>Check-in Date</th>
+        <th>Check-out Date</th>
+        <th>Created At</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of ordersTable.data">
+        <td>{{ getHotelName(order.hotelId) }}</td>
+        <td>{{ getRoomTypeName(order.roomTypeId) }}</td>
+        <td>{{ formatDate(order.fromDate) }}</td>
+        <td>{{ formatDate(order.toData) }}</td>
+        <td>{{ formatDate(order.createdAt) }}</td>
+        <td>
+          <button
+            nz-button
+            nzType="default"
+            nzDanger
+            (click)="cancelOrder(order.id)">
+            Cancel
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="orders.length === 0">
+        <td colspan="6" style="text-align: center;">No bookings found</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

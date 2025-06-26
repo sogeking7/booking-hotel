@@ -58,6 +58,10 @@
         <a nz-button nzType="link" [routerLink]="[h.id, 'edit']">
           ✏️ Edit
         </a>
+        |
+        <a nz-button nzType="link" [routerLink]="['/orders']" [queryParams]="{hotelId: h.id}">
+          🏨 Book Now
+        </a>
       </td>
 
 

@@ -32,6 +32,7 @@ import {HotelDetailModel} from '@lib/booking-hotel-api';
 export class HotelDetailPage implements OnInit {
   hotel?: HotelDetailModel;
   isLoading = true;
+  totalRooms = 0;
 
   private hotelsService = inject(HotelsService);
   private route = inject(ActivatedRoute);
@@ -54,12 +55,21 @@ export class HotelDetailPage implements OnInit {
     this.isLoading = true;
     try {
       this.hotel = await this.hotelsService.getHotelById(hotelId);
+      this.calculateTotalRooms(); //добавил чтобы считать комнаты
     } catch (e: unknown) {
       const error = e as HttpErrorResponse;
       this.notification.error('Error', error.error?.description || 'Failed to load hotel details');
       await this.router.navigate(['/hotels']);
     } finally {
       this.isLoading = false;
+    }
+  }
+
+  private calculateTotalRooms() {  // само функция
+    if (this.hotel && this.hotel.roomTypes && this.hotel.roomTypes.length > 0) {
+      this.totalRooms = this.hotel.roomTypes.reduce((total, roomType) => total + roomType.count, 0);
+    } else {
+      this.totalRooms = 0;
     }
   }
 
