@@ -9,6 +9,7 @@ import org.booking_hotel.daos.countries.CountryDao;
 import org.booking_hotel.daos.countries.dto.CountryDto;
 import org.booking_hotel.jooq.model.tables.records.CountryRecord;
 import org.booking_hotel.utils.BusinessException;
+import org.booking_hotel.utils.DublicateCountryException;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -27,7 +28,11 @@ public class CountryService {
         return countryDao.getById(id);
     }
 
-    public CountrySaveResponse saveCountry(CountrySaveRequest req) throws BusinessException {
+    public CountrySaveResponse saveCountry(CountrySaveRequest req) throws DublicateCountryException {
+        if (req.id() == null && countryDao.existsByNameIgnoreCase(req.name())) {
+            throw new RuntimeException("Country with name '" + req.name() + "' already exists");
+        }
+
         Consumer<CountryRecord> fn = record -> {
             record.setCode(req.code());
             record.setCurrency(req.currency());

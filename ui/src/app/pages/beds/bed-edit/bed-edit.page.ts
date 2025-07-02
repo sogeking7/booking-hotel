@@ -1,18 +1,18 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { BedTypeModel, BedTypeService } from '../../../../lib/booking-hotel-api';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NzSpinModule } from 'ng-zorro-antd/spin';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzTypographyComponent } from 'ng-zorro-antd/typography';
-import { firstValueFrom } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import {Component, inject, OnInit} from '@angular/core';
+import {BedTypeModel, BedTypeService} from '../../../../lib/booking-hotel-api';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
+import {NzNotificationService} from 'ng-zorro-antd/notification';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {NzFormModule} from 'ng-zorro-antd/form';
+import {NzInputModule} from 'ng-zorro-antd/input';
+import {NzButtonModule} from 'ng-zorro-antd/button';
+import {NzSelectModule} from 'ng-zorro-antd/select';
+import {NzSpinModule} from 'ng-zorro-antd/spin';
+import {NzIconModule} from 'ng-zorro-antd/icon';
+import {NzTypographyComponent} from 'ng-zorro-antd/typography';
+import {firstValueFrom} from 'rxjs';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-save-bed-page',

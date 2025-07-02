@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { NzContentComponent, NzHeaderComponent, NzLayoutComponent, NzSiderComponent } from 'ng-zorro-antd/layout';
-import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { NzMenuDirective, NzMenuItemComponent, NzSubMenuComponent } from 'ng-zorro-antd/menu';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import {Component} from '@angular/core';
+import {NzContentComponent, NzHeaderComponent, NzLayoutComponent, NzSiderComponent} from 'ng-zorro-antd/layout';
+import {NzIconDirective} from 'ng-zorro-antd/icon';
+import {NzMenuDirective, NzMenuItemComponent, NzSubMenuComponent} from 'ng-zorro-antd/menu';
+import {RouterLink, RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-layout',

@@ -1,18 +1,15 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { routes } from './app.routes';
-import { icons } from './icons-provider';
-import { provideNzIcons } from 'ng-zorro-antd/icon';
-import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
+import {ApplicationConfig, importProvidersFrom} from '@angular/core';
+import {provideRouter} from '@angular/router';
+import {routes} from './app.routes';
+import {icons} from './icons-provider';
+import {provideNzIcons} from 'ng-zorro-antd/icon';
+import {en_US, provideNzI18n} from 'ng-zorro-antd/i18n';
+import {registerLocaleData} from '@angular/common';
 import en from '@angular/common/locales/en';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {provideHttpClient, withFetch, withInterceptors} from '@angular/common/http';
-import { authInterceptor } from './interceptors/auth.interceptor';
-import { BASE_PATH } from '../lib/booking-hotel-api';
-import { ApiModule, Configuration } from '../lib/booking-hotel-api';
-
-import { importProvidersFrom } from '@angular/core';
+import {authInterceptor} from './interceptors/auth.interceptor';
+import {ApiModule, BASE_PATH, Configuration} from '../lib/booking-hotel-api';
 
 registerLocaleData(en);
 

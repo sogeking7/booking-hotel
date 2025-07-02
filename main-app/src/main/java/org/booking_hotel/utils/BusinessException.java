@@ -22,7 +22,7 @@ public class BusinessException extends Exception {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+        public void setDescription(String description) {
+            this.description = description;
+        }
 }

@@ -1,16 +1,16 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { CommonModule } from '@angular/common';
-import { NzSpinModule } from 'ng-zorro-antd/spin';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzTypographyModule } from 'ng-zorro-antd/typography';
-import { NzCardModule } from 'ng-zorro-antd/card';
-import { NzTableModule } from 'ng-zorro-antd/table';
-import { NzTagModule } from 'ng-zorro-antd/tag';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { HttpErrorResponse } from '@angular/common/http';
-import { HotelsService } from '../HotelsService';
+import {Component, inject, OnInit} from '@angular/core';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
+import {NzNotificationService} from 'ng-zorro-antd/notification';
+import {CommonModule} from '@angular/common';
+import {NzSpinModule} from 'ng-zorro-antd/spin';
+import {NzIconModule} from 'ng-zorro-antd/icon';
+import {NzTypographyModule} from 'ng-zorro-antd/typography';
+import {NzCardModule} from 'ng-zorro-antd/card';
+import {NzTableModule} from 'ng-zorro-antd/table';
+import {NzTagModule} from 'ng-zorro-antd/tag';
+import {NzButtonModule} from 'ng-zorro-antd/button';
+import {HttpErrorResponse} from '@angular/common/http';
+import {HotelsService} from '../HotelsService';
 import {HotelDetailModel} from '@lib/booking-hotel-api';
 
 @Component({

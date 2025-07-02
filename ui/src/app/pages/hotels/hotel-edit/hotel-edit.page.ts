@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {CityModel, CityService, HotelSaveRequest} from '../../../../lib/booking-hotel-api';
+import {CityModel, CityService, HotelModel, HotelSaveRequest} from '../../../../lib/booking-hotel-api';
 import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import {NzNotificationService} from 'ng-zorro-antd/notification';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -14,7 +14,6 @@ import {NzTypographyModule} from 'ng-zorro-antd/typography';
 import {firstValueFrom} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {HotelsService} from '../../hotels/HotelsService';
-import {HotelModel} from '../../../../lib/booking-hotel-api';
 
 @Component({
   selector: 'app-save-hotel-page',

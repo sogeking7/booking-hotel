@@ -1,7 +1,7 @@
-import { Routes } from '@angular/router';
-import { AppLayoutComponent } from './components/layout/app-layout.component';
-import { AuthGuard } from './guards/auth.guard';
-import { LoginComponent } from './pages/auth/login/login.component';
+import {Routes} from '@angular/router';
+import {AppLayoutComponent} from './components/layout/app-layout.component';
+import {AuthGuard} from './guards/auth.guard';
+import {LoginComponent} from './pages/auth/login/login.component';
 
 export const routes: Routes = [
   {
@@ -37,6 +37,10 @@ export const routes: Routes = [
       {
         path: 'facilities',
         loadChildren: () => import('./pages/facilities/facilities.routes').then(m => m.FACILITIES_ROUTES),
+      },
+      {
+        path: 'countries',
+        loadChildren: () => import('./pages/countries/countries.routes').then(m => m.COUNTRIES_ROUTES),
       },
       {
         path: 'orders',

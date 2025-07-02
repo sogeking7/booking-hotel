@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { AuthService, GetMeResponse, UserService } from '../../lib/booking-hotel-api';
-import { lastValueFrom } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {AuthService, GetMeResponse, UserService} from '../../lib/booking-hotel-api';
+import {lastValueFrom} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

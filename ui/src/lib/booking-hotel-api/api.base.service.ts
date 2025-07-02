@@ -1,6 +1,6 @@
-import { HttpHeaders, HttpParams, HttpParameterCodec } from '@angular/common/http';
-import { CustomHttpParameterCodec } from './encoder';
-import { Configuration } from './configuration';
+import {HttpHeaders, HttpParameterCodec, HttpParams} from '@angular/common/http';
+import {CustomHttpParameterCodec} from './encoder';
+import {Configuration} from './configuration';
 
 export class BaseService {
     protected basePath = '';

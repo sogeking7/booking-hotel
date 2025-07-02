@@ -9,25 +9,21 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent, HttpParameterCodec, HttpContext
-        }       from '@angular/common/http';
-import { CustomHttpParameterCodec }                          from '../encoder';
-import { Observable }                                        from 'rxjs';
+import {Inject, Injectable, Optional} from '@angular/core';
+import {HttpClient, HttpContext, HttpEvent, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 // @ts-ignore
-import { RoomTypeModel1 } from '../model/room-type-model1';
+import {RoomTypeModel1} from '../model/room-type-model1';
 // @ts-ignore
-import { RoomTypeSaveRequest } from '../model/room-type-save-request';
+import {RoomTypeSaveRequest} from '../model/room-type-save-request';
 // @ts-ignore
-import { RoomTypeSaveResponse } from '../model/room-type-save-response';
+import {RoomTypeSaveResponse} from '../model/room-type-save-response';
 
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
-import { BaseService } from '../api.base.service';
-
+import {BASE_PATH, COLLECTION_FORMATS} from '../variables';
+import {Configuration} from '../configuration';
+import {BaseService} from '../api.base.service';
 
 
 @Injectable({

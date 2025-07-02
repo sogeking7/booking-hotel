@@ -1,4 +1,4 @@
-import { UserRole } from './booking-hotel-api';
+import {UserRole} from './booking-hotel-api';
 
 export function getRoleTagColor(role: UserRole): string {
   switch (role) {

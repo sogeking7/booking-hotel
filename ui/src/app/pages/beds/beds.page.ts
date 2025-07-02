@@ -1,15 +1,15 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
-import { BedTypeModel, BedTypeService } from '../../../lib/booking-hotel-api';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { HttpErrorResponse } from '@angular/common/http';
-import { NgForOf } from '@angular/common';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { NzPopconfirmDirective } from 'ng-zorro-antd/popconfirm';
-import { NzTableModule } from 'ng-zorro-antd/table';
-import { RouterLink } from '@angular/router';
-import { NzTypographyComponent } from 'ng-zorro-antd/typography';
+import {Component, inject, OnInit} from '@angular/core';
+import {firstValueFrom} from 'rxjs';
+import {BedTypeModel, BedTypeService} from '../../../lib/booking-hotel-api';
+import {NzNotificationService} from 'ng-zorro-antd/notification';
+import {HttpErrorResponse} from '@angular/common/http';
+import {NgForOf} from '@angular/common';
+import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {NzIconDirective} from 'ng-zorro-antd/icon';
+import {NzPopconfirmDirective} from 'ng-zorro-antd/popconfirm';
+import {NzTableModule} from 'ng-zorro-antd/table';
+import {RouterLink} from '@angular/router';
+import {NzTypographyComponent} from 'ng-zorro-antd/typography';
 
 @Component({
   selector: 'app-beds-page',

@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
-import {catchError, firstValueFrom} from 'rxjs';
-import {RoomTypeService} from '../../../../lib/booking-hotel-api';
-import {RoomTypeSaveRequest} from '../../../../lib/booking-hotel-api';
-import {RoomTypeModel} from '../../../../lib/booking-hotel-api';
+import {firstValueFrom} from 'rxjs';
+import {RoomTypeModel, RoomTypeSaveRequest, RoomTypeService} from '../../../../lib/booking-hotel-api';
 
 export interface Room {
   id: number;

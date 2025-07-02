@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {firstValueFrom} from 'rxjs';
-import {HotelModel, HotelDetailModel, HotelSaveRequest, HotelSaveResponse, HotelService} from '@lib/booking-hotel-api';
+import {HotelDetailModel, HotelModel, HotelSaveRequest, HotelSaveResponse, HotelService} from '@lib/booking-hotel-api';
 
 @Injectable({
   providedIn: 'root',

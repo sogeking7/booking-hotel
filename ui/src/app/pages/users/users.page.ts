@@ -1,36 +1,42 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { NgForOf } from '@angular/common';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { firstValueFrom, Subscription } from 'rxjs';
+
 import { UserModel, UserService } from '../../../lib/booking-hotel-api';
+import { getRoleTagColor } from '../../../lib/common';
+
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
 import { NzTagModule } from 'ng-zorro-antd/tag';
-import { NgForOf } from '@angular/common';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { getRoleTagColor } from '../../../lib/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { NzTypographyComponent } from 'ng-zorro-antd/typography';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { NzPopconfirmDirective } from 'ng-zorro-antd/popconfirm';
-import { firstValueFrom, Subscription } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-users-page',
   templateUrl: './users.page.html',
-  imports: [NzTableModule, NgForOf, NzButtonComponent, NzTagModule, RouterLink, NzIconDirective, NzTypographyComponent, NzPopconfirmDirective],
   styleUrls: ['./users.page.css'],
+  imports: [
+    NzTableModule,
+    NgForOf,
+    NzButtonComponent,
+    NzTagModule,
+    RouterLink,
+  ],
+  standalone: true,
 })
 export class UsersPage implements OnInit, OnDestroy {
   private queryParamsSub!: Subscription;
 
   users: UserModel[] = [];
+  page = 1;
+  size = 10;
+  total = 0;
 
   isLoading = {
     users: false,
     delete: false,
   };
-  page = 1;
-  size = 10;
-  total = 0;
 
   private usersService = inject(UserService);
   private route = inject(ActivatedRoute);
@@ -46,9 +52,7 @@ export class UsersPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.queryParamsSub) {
-      this.queryParamsSub.unsubscribe();
-    }
+    this.queryParamsSub?.unsubscribe();
   }
 
   private async loadUsers() {
@@ -67,7 +71,6 @@ export class UsersPage implements OnInit, OnDestroy {
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {

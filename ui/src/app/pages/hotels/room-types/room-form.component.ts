@@ -1,18 +1,17 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
-import { HotelRoomsService, Room } from './HotelRoomsService';
-import { BedTypeService } from '../../../../lib/booking-hotel-api/api/bed-type.service';
-import { BedTypeModel } from '../../../../lib/booking-hotel-api/model/bed-type-model';
-import { firstValueFrom } from 'rxjs';
-import { FacilityModel} from '../../../../lib/booking-hotel-api/model/facility-model';
-
+import {Component, inject, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {NzFormModule} from 'ng-zorro-antd/form';
+import {NzInputModule} from 'ng-zorro-antd/input';
+import {NzButtonModule} from 'ng-zorro-antd/button';
+import {NzSelectModule} from 'ng-zorro-antd/select';
+import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
+import {HotelRoomsService, Room} from './HotelRoomsService';
+import {BedTypeService} from '../../../../lib/booking-hotel-api/api/bed-type.service';
+import {BedTypeModel} from '../../../../lib/booking-hotel-api/model/bed-type-model';
+import {firstValueFrom} from 'rxjs';
+import {FacilityModel} from '../../../../lib/booking-hotel-api/model/facility-model';
 
 
 export interface RoomTypeModel {

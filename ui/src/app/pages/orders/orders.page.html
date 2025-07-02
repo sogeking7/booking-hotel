@@ -6,7 +6,7 @@
       <div nz-col [nzSpan]="12">
         <nz-form-item>
           <nz-form-label [nzSpan]="24" nzRequired>Hotel</nz-form-label>
-          <nz-form-control [nzSpan]="24" nzErrorTip="Please select a hotel">
+          <nz-form-control [nzSpan]="24" nzErrorTip="orderForm.get('hotelId')?.errors?.serverError || 'Please select a hotel'">
             <nz-select
               formControlName="hotelId"
               nzPlaceHolder="Select a hotel"

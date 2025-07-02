@@ -1,0 +1,11 @@
+.form-actions {
+  margin-top: 24px;
+  text-align: right;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}

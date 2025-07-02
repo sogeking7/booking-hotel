@@ -1,12 +1,11 @@
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, ReactiveFormsModule, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {NzFormModule} from 'ng-zorro-antd/form';
 import {NzInputModule} from 'ng-zorro-antd/input';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {HotelsService} from '../HotelsService';
-import {first} from 'rxjs/operators'; // Adjust the import path as necessary
 
 @Component({
   selector: 'app-hotel-form',

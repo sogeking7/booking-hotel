@@ -1,11 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { NzTableModule } from 'ng-zorro-antd/table';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { HotelRoomsService, Room } from './HotelRoomsService'; // сервис для загрузки комнат
+import {Component, inject, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {NzTableModule} from 'ng-zorro-antd/table';
+import {NzButtonModule} from 'ng-zorro-antd/button';
+import {NzPopconfirmModule} from 'ng-zorro-antd/popconfirm';
+import {NzMessageService} from 'ng-zorro-antd/message';
+import {HotelRoomsService, Room} from './HotelRoomsService'; // сервис для загрузки комнат
 
 @Component({
   selector: 'app-rooms',

@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { first } from 'rxjs/operators';
-import { AuthenticationService } from '../../../services/auth.service';
-import { NzAlertComponent } from 'ng-zorro-antd/alert';
-import { NzCardComponent } from 'ng-zorro-antd/card';
-import { NzFormControlComponent, NzFormDirective, NzFormItemComponent } from 'ng-zorro-antd/form';
-import { NzInputDirective, NzInputGroupComponent } from 'ng-zorro-antd/input';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
-import { NgIf } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {first} from 'rxjs/operators';
+import {AuthenticationService} from '../../../services/auth.service';
+import {NzAlertComponent} from 'ng-zorro-antd/alert';
+import {NzCardComponent} from 'ng-zorro-antd/card';
+import {NzFormControlComponent, NzFormDirective, NzFormItemComponent} from 'ng-zorro-antd/form';
+import {NzInputDirective, NzInputGroupComponent} from 'ng-zorro-antd/input';
+import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {NzCheckboxModule} from 'ng-zorro-antd/checkbox';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-login',

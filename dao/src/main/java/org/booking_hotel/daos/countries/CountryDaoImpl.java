@@ -8,6 +8,8 @@ import org.booking_hotel.daos.countries.dto.CountryDto;
 import org.booking_hotel.jooq.model.tables.Countries;
 import org.booking_hotel.jooq.model.tables.records.CountryRecord;
 import org.jooq.DSLContext;
+import static org.jooq.impl.DSL.lower;
+import static org.booking_hotel.jooq.model.Tables.COUNTRIES;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -70,4 +72,16 @@ public class CountryDaoImpl implements CountryDao {
                 .where(c.REMOVED.isFalse(), c.ID.eq(id))
                 .execute();
     }
+
+    @Override
+    public Boolean existsByNameIgnoreCase(String name) {
+        Integer count = dsl.selectCount()
+                .from(COUNTRIES)
+                .where(lower(COUNTRIES.NAME).eq(name.toLowerCase()), COUNTRIES.REMOVED.isFalse())
+                .fetchOne(0, int.class);
+
+        return count != null && count > 0;
+    }
+
+
 }

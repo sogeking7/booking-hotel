@@ -1,4 +1,4 @@
-import {Component, inject, NgModule, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {HotelsService} from './HotelsService';
 import {HotelModel} from '@lib/booking-hotel-api';
 

@@ -1,0 +1,45 @@
+<h2 nz-typography>
+  {{ country ? 'Edit Country' : 'Create Country' }}
+</h2>
+
+@if (isLoading.country) {
+  <div class="loading-container">
+    <nz-spin nzTip="Loading country data..."></nz-spin>
+  </div>
+}
+
+@if (!isLoading.country && editForm) {
+  <div>
+    <form nz-form [formGroup]="editForm" (ngSubmit)="saveCountry()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>Name</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Please input name!">
+          <input nz-input formControlName="name" placeholder="Name"/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>Code</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Please input code!">
+          <input nz-input formControlName="code" placeholder="Code"/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>Currency</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Please input currency!">
+          <input nz-input formControlName="currency" placeholder="Currency"/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div class="form-actions">
+        <button nz-button nzType="default" (click)="cancel()" style="margin-right: 8px">Cancel</button>
+        <button nz-button nzType="primary" [disabled]="!editForm.valid || isLoading.save" type="submit"
+                [nzLoading]="isLoading.save"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+}
