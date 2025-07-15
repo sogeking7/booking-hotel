@@ -39,7 +39,7 @@ public class FileService {
         return new FileSaveResponse(
                 createdFile.id(),
                 createdFile.name(),
-                createdFile.urlPath(),
+                createdFile.name(),
                 createdFile.type(),
                 createdFile.size()
         );

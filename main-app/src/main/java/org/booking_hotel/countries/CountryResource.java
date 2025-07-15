@@ -20,6 +20,12 @@ public class CountryResource {
     CountryService countryService;
 
     @GET
+    @Path("/hello")
+    public String hello() {
+        return "hello" ;
+    }
+
+    @GET
     @Path("/{id}")
     public CountryModel getCountryById(@PathParam("id") Long id) {
         CountryDto country = countryService.getCountryById(id);

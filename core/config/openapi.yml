@@ -11,7 +11,7 @@ tags:
 - name: Facility
   description: Operations related to Facility items
 - name: File
-  description: Operations related to File items
+  description: "Все операции, связанные с файлами"
 - name: Hotel
   description: Operations related to Hotel items
 - name: Media
@@ -324,26 +324,6 @@ components:
           $ref: "#/components/schemas/OffsetDateTime"
         removed:
           type: boolean
-    FileSaveRequest:
-      type: object
-      required:
-      - name
-      - urlPath
-      - type
-      - size
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        urlPath:
-          type: string
-        type:
-          type: string
-        size:
-          type: integer
-          format: int64
     FileSaveResponse:
       type: object
       required:
@@ -365,6 +345,16 @@ components:
         size:
           type: integer
           format: int64
+    FileUploadForm:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+          description: The file to upload
+        fileName:
+          type: string
+          description: Name of the file
     GetMeResponse:
       type: object
       required:
@@ -1332,33 +1322,8 @@ paths:
       - SecurityScheme:
         - admin
   /api/core/files:
-    post:
-      operationId: saveFile
-      tags:
-      - File
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/FileSaveRequest"
-        required: true
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/FileSaveResponse"
-        "401":
-          description: Not Authorized
-        "403":
-          description: Not Allowed
-        "400":
-          description: Bad Request
-      summary: Save File
-      security:
-      - SecurityScheme: []
     get:
+      summary: Get metadata for all files
       operationId: getAllFiles
       tags:
       - File
@@ -1371,9 +1336,64 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/FileModel"
-      summary: Get All Files
+  /api/core/files/download/{filename}:
+    get:
+      summary: Download a file by its name
+      operationId: downloadFile
+      tags:
+      - File
+      parameters:
+      - name: filename
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+  /api/core/files/upload:
+    post:
+      summary: Upload a file
+      operationId: uploadFile
+      tags:
+      - File
+      requestBody:
+        description: Multipart form for file upload
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/FileUploadForm"
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to upload
+                fileName:
+                  type: string
+                  description: Name of the file
+            encoding:
+              fileName:
+                contentType: text/plain
+              file:
+                contentType: application/octet-stream
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FileSaveResponse"
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - SecurityScheme: []
   /api/core/files/{id}:
     get:
+      summary: Get file metadata by ID
       operationId: getFileById
       tags:
       - File
@@ -1391,8 +1411,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/FileModel"
-      summary: Get File By Id
     delete:
+      summary: Delete a file by ID
       operationId: deleteFileById
       tags:
       - File
@@ -1410,7 +1430,6 @@ paths:
           description: Not Authorized
         "403":
           description: Not Allowed
-      summary: Delete File By Id
       security:
       - SecurityScheme: []
   /api/core/hotels:

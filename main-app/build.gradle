@@ -9,6 +9,7 @@ dependencies {
     implementation 'io.quarkus:quarkus-smallrye-openapi'
     implementation 'io.quarkus:quarkus-resteasy'
     implementation 'io.quarkus:quarkus-resteasy-jackson'
+    implementation 'io.quarkus:quarkus-resteasy-multipart'
     implementation 'io.quarkus:quarkus-jdbc-postgresql'
     testImplementation 'io.quarkus:quarkus-junit5'
     implementation 'org.mindrot:jbcrypt:0.4'
@@ -19,6 +20,8 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.0'
     implementation 'io.quarkus:quarkus-security'
     implementation 'io.quarkus:quarkus-vertx'
+
+
 
     implementation project(':dao')
 }

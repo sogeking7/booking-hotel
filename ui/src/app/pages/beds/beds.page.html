@@ -26,8 +26,23 @@
   <tr *ngFor="let bed of bedTypeTable.data">
     <td>{{ bed.id }}</td>
     <td>{{ bed.name }}</td>
-    <td>{{ bed.iconRef }}</td>
     <td>
+      <img
+        *ngIf="bed.iconRef"
+        [src]="'http://localhost:8080/' + bed.iconRef"
+        alt="icon"
+        width="32"
+        height="32"
+        style="cursor: pointer"
+        (click)="showPreview('http://localhost:8080/' + bed.iconRef)"
+      />
+    </td>
+
+    <td>
+      <!-- ДОБАВЛЕНО: Кнопка для просмотра деталей -->
+      <button nz-button nzType="link" (click)="showDetails(bed)">
+        <i nz-icon nzType="eye" nzTheme="outline"></i>
+      </button>
       <button nz-button nzType="link" [routerLink]="[bed.id, 'edit']">
         <i nz-icon nzType="edit" nzTheme="outline"></i>
       </button>

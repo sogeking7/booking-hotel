@@ -22,18 +22,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withFetch(),
       withInterceptors([authInterceptor])),
-
-
-
     {
       provide: BASE_PATH,
       useValue: '',
-    },
-    importProvidersFrom(
-      ApiModule.forRoot(() => new Configuration({
-        basePath: 'http://localhost:8080',
-        withCredentials: true,
-      }))
-    )
+    }
   ]
 };
